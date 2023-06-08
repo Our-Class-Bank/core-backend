@@ -1,0 +1,9 @@
+version: "3"
+services:
+  our-class-bank-core-api:
+    image: our-class-bank-core-api
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      TZ: "Asia/Seoul"
