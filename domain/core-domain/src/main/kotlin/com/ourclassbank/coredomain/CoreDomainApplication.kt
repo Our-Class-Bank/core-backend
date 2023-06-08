@@ -1,11 +1,11 @@
-package com.example.ourclassbankbackend
+package com.ourclassbank.coredomain
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class OurClassBankBackendApplication
+class CoreDomainApplication
 
 fun main(args: Array<String>) {
-    runApplication<OurClassBankBackendApplication>(*args)
+    runApplication<CoreDomainApplication>(*args)
 }
