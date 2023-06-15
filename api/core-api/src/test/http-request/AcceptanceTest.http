@@ -1,0 +1,26 @@
+### 권한 검증이 필요하지 않은 api
+GET {{host}}/api/v1/test/auth/null
+
+> {%
+    client.test("정상 응답", function () {
+        client.assert(response.status === 200);
+    });
+%}
+
+### ROLE=USER 권한이 필요한 api
+GET {{host}}/api/v1/test/auth/user
+
+> {%
+    client.test("권한 없음", function () {
+        client.assert(response.status === 403);
+    });
+%}
+
+### ROLE=banker 권한이 필요한 api
+GET {{host}}/api/v1/test/auth/banker
+
+> {%
+    client.test("권한 없음", function () {
+        client.assert(response.status === 403);
+    });
+%}
