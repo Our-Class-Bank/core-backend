@@ -1,5 +1,6 @@
 package com.ourclassbank.coreapi.controller.auth
 
+import com.ourclassbank.coreapi.config.security.AuthService
 import com.ourclassbank.coredomain.model.RoleType
 import com.ourclassbank.coredomain.service.UserService
 import io.swagger.v3.oas.annotations.Operation
@@ -12,6 +13,7 @@ import java.util.*
 @Tag(name = "회원")
 @RestController
 class UserController(
+    private val authService: AuthService,
     private val userService: UserService
 ) {
     @Operation(summary = "가입")
@@ -22,8 +24,8 @@ class UserController(
 
     @Operation(summary = "로그인")
     @PostMapping("/api/v1/user/signin")
-    fun signin(@RequestBody request: UserSigninRequest) {
-        require(userService.findByLoginId(request.loginId).password == request.password) { "비밀번호가 일치하지 않습니다." }
+    fun signin(@RequestBody request: UserSigninRequest): UserSigninResponse {
+        return UserSigninResponse(authService.login(request.loginId, request.password))
     }
 }
 
@@ -37,4 +39,8 @@ data class UserSignupRequest(
 data class UserSigninRequest(
     val loginId: String,
     val password: String,
+)
+
+data class UserSigninResponse(
+    val accessToken: String,
 )
