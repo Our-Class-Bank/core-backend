@@ -8,6 +8,12 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
+
 ---
 spring.config.activate.on-profile: local
 
