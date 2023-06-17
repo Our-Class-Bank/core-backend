@@ -8,6 +8,11 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+# todo 서버 환경 변수로 이관 합니다.
+jwt:
+  secret: ${JWT_SECRET:b3VyLWNsYXNzLWJhbmstYmFja2VuZF9vdXItY2xhc3MtYmFuay1iYWNrZW5k}
+  valid-time: ${JWT_VALID_TIME:1800000}
+
 logging:
   level:
     org:

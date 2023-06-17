@@ -3,8 +3,8 @@ package com.ourclassbank.coreapi.config.security.jwt
 import com.ourclassbank.coredomain.model.User
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import jakarta.annotation.PostConstruct
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -12,17 +12,15 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class JwtTokenProvider(private val userDetailsService: UserDetailsService) {
-    private var secretKey = "thisistestusersecretkeyprojectnameismologaaaaaaaaaaaaaaaa"
+class JwtTokenProvider(
+    @Value("\${jwt.secret}")
+    private val secretKey: String,
 
-    // 30 minutes
-    private val tokenValidTime = 30 * 60 * 1000L
+    @Value("\${jwt.valid-time}")
+    private val validTime: Long,
 
-    @PostConstruct
-    protected fun init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.toByteArray())
-    }
-
+    private val userDetailsService: UserDetailsService
+) {
     fun createToken(user: User): String {
         val now = Date()
         val claims = Jwts.claims().setSubject(user.loginId).apply {
@@ -33,7 +31,7 @@ class JwtTokenProvider(private val userDetailsService: UserDetailsService) {
             .setHeaderParam("typ", "JWT")
             .setClaims(claims)
             .setIssuedAt(now)
-            .setExpiration(Date(now.time + tokenValidTime))
+            .setExpiration(Date(now.time + validTime))
             .signWith(SignatureAlgorithm.HS256, secretKey)
             .compact()
     }
