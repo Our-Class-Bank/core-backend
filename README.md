@@ -2,6 +2,8 @@
 
 ### environment
 
+- spring boot 3.1.0, kotlin 1.8.21 with java 17
+
 ### how to run
 
 1. git clone 후 shell 실행
