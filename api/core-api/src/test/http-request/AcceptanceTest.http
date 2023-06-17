@@ -1,0 +1,69 @@
+### 1-1. ROLE_USER 회원 가입
+# @no-cookie-jar
+< {%
+    request.variables.set("loginId", "choi123")
+    request.variables.set("password", "1234")
+    request.variables.set("name", "C병현")
+    request.variables.set("role", "ROLE_USER")
+%}
+POST {{host}}/api/v1/user/signup
+Content-Type: application/json
+
+{
+    "loginId": "{{loginId}}",
+    "password": "{{password}}",
+    "name": "{{name}}",
+    "roles": ["{{role}}"]
+}
+
+> {%
+    client.test("1-1. ROLE_USER 회원 가입 - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+
+    client.global.set("loginId", "choi123")
+    client.global.set("password", "1234")
+    client.global.set("name", "C병현")
+    client.global.set("role", "ROLE_USER")
+%}
+
+
+### 1-2. ROLE_USER 회원 로그인
+POST {{host}}/api/v1/user/signin
+Content-Type: application/json
+
+{
+  "loginId": "{{loginId}}",
+  "password": "{{password}}"
+}
+
+> {%
+    client.test("1-2. ROLE_USER 회원 로그인 - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+
+    client.global.set("userRoleToken", response.body["accessToken"])
+%}
+
+
+### 1-3. ROLE=USER 권한이 필요한 api 호출
+# @no-cookie-jar
+GET {{host}}/api/v1/test/auth/user
+Authorization: Bearer {{userRoleToken}}
+
+> {%
+    client.test("1-3. ROLE=USER 권한이 필요한 api 호출 - 200", function () {
+        client.assert(response.status === 200, response.status + ", userRoleToken=" + client.global.get("userRoleToken"));
+    });
+%}
+
+
+### 1-4. ROLE=banker 권한이 필요한 api 호출
+GET {{host}}/api/v1/test/auth/banker
+Authorization: Bearer {{userRoleToken}}
+
+> {%
+    client.test("1-4. ROLE=banker 권한이 필요한 api 호출 - 403", function () {
+        client.assert(response.status === 403);
+    });
+%}

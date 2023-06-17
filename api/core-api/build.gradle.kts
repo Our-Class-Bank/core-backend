@@ -4,16 +4,23 @@ plugins {
 
 dependencies {
     val openapi3Version: String by project
+    val jjwtVersion: String by project
 
     implementation(project(":domain:core-domain"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     // openapi3
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$openapi3Version")
     implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:$openapi3Version")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // jjwt
+    implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
 }
 
 tasks.getByName("bootJar") {
