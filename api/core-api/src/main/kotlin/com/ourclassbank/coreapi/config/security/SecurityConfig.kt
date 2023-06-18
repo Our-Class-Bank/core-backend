@@ -35,7 +35,7 @@ class SecurityConfig(
                 request
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                     .requestMatchers("/actuator/**").permitAll()
-                    .requestMatchers("/api/v1/user/**").permitAll()
+                    .requestMatchers("/api/v1/auth/**").permitAll()
                     .requestMatchers("/api/v1/test/auth/user").hasRole(RoleType.ROLE_USER.removePrefix())
                     .requestMatchers("/api/v1/test/auth/banker").hasRole(RoleType.ROLE_BANKER.removePrefix())
                     .requestMatchers("/api/v1/test/**").permitAll()

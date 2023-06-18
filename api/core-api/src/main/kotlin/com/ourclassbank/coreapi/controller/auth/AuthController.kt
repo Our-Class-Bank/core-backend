@@ -1,8 +1,7 @@
 package com.ourclassbank.coreapi.controller.auth
 
-import com.ourclassbank.coreapi.config.security.AuthService
+import com.ourclassbank.coreapi.config.security.AuthUsecase
 import com.ourclassbank.coredomain.model.RoleType
-import com.ourclassbank.coredomain.service.UserService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PostMapping
@@ -10,22 +9,21 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
-@Tag(name = "회원")
+@Tag(name = "인증/인가")
 @RestController
-class UserController(
-    private val authService: AuthService,
-    private val userService: UserService
+class AuthController(
+    private val authUsecase: AuthUsecase,
 ) {
-    @Operation(summary = "가입")
-    @PostMapping("/api/v1/user/signup")
+    @Operation(summary = "회원 가입")
+    @PostMapping("/api/v1/auth/signup")
     fun signup(@RequestBody request: UserSignupRequest) {
-        return userService.signup(request.loginId, request.password, request.name, request.roles)
+        return authUsecase.signup(request.loginId, request.password, request.name, request.roles)
     }
 
-    @Operation(summary = "로그인")
-    @PostMapping("/api/v1/user/signin")
+    @Operation(summary = "회원 로그인")
+    @PostMapping("/api/v1/auth/signin")
     fun signin(@RequestBody request: UserSigninRequest): UserSigninResponse {
-        return UserSigninResponse(authService.login(request.loginId, request.password))
+        return UserSigninResponse(authUsecase.signin(request.loginId, request.password))
     }
 }
 
