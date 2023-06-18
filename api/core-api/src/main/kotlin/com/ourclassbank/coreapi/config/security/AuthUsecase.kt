@@ -1,15 +1,21 @@
 package com.ourclassbank.coreapi.config.security
 
 import com.ourclassbank.coreapi.config.security.jwt.JwtTokenProvider
+import com.ourclassbank.coredomain.model.RoleType
+import com.ourclassbank.coredomain.model.User
 import com.ourclassbank.coredomain.service.UserService
 import org.springframework.stereotype.Service
 
 @Service
-class AuthService(
+class AuthUsecase(
     private val userService: UserService,
     private val jwtTokenProvider: JwtTokenProvider
 ) {
-    fun login(loginId: String, password: String): String {
+    fun signup(loginId: String, password: String, name: String, roles: List<RoleType>) {
+        userService.save(User(loginId, password, name, roles))
+    }
+
+    fun signin(loginId: String, password: String): String {
         val user = userService.findByLoginId(loginId)
         if (user.password != password) {
             throw RuntimeException("비밀번호가 일치하지 않습니다.")

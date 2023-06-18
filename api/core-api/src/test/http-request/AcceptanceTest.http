@@ -6,7 +6,7 @@
     request.variables.set("name", "C병현")
     request.variables.set("role", "ROLE_USER")
 %}
-POST {{host}}/api/v1/user/signup
+POST {{host}}/api/v1/auth/signup
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 
 ### 1-2. ROLE_USER 회원 로그인
-POST {{host}}/api/v1/user/signin
+POST {{host}}/api/v1/auth/signin
 Content-Type: application/json
 
 {
