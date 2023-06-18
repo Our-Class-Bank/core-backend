@@ -1,6 +1,6 @@
 package com.ourclassbank.coreapi.config.security
 
-import com.ourclassbank.coredomain.model.RoleType
+import com.ourclassbank.modeldomain.user.RoleType
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails

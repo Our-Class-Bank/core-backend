@@ -1,6 +1,6 @@
 package com.ourclassbank.coreapi.config.security.jwt
 
-import com.ourclassbank.coredomain.model.User
+import com.ourclassbank.modeldomain.user.User
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import jakarta.servlet.http.HttpServletRequest

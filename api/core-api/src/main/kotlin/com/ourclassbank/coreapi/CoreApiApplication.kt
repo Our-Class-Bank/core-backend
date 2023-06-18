@@ -7,6 +7,7 @@ import org.springframework.boot.runApplication
     scanBasePackages = [
         "com.ourclassbank.coreapi",
         "com.ourclassbank.coredomain",
+        "com.ourclassbank.coredb",
     ]
 )
 class CoreApiApplication

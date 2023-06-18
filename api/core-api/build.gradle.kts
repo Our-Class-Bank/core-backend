@@ -7,6 +7,7 @@ dependencies {
     val jjwtVersion: String by project
 
     implementation(project(":domain:core-domain"))
+    implementation(project(":domain:model-domain"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
