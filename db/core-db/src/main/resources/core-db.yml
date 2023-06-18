@@ -5,10 +5,9 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
-        format_sql: true
-        show_sql: true
         default_batch_fetch_size: 100
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+
 
 ---
 spring.config.activate.on-profile: local
@@ -23,11 +22,12 @@ spring:
     username: root
     password: root
 
-logging:
-  level:
-    org:
-      hibernate:
-        type: trace
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      multiline: true
+      logging: slf4j
 
 ---
 spring.config.activate.on-profile: dev
