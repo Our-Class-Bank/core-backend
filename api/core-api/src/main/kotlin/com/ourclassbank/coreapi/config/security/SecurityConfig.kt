@@ -19,7 +19,7 @@ class SecurityConfig(
     private val jwtTokenProvider: JwtTokenProvider
 ) {
     @Bean
-    fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
+    fun passwordEncoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
     }
 
