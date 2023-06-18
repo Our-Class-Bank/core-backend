@@ -19,11 +19,12 @@ class AuthUsecase(
     }
 
     fun signin(loginId: String, password: String): String {
-        val user = userService.findByLoginId(loginId)
-        if (!passwordEncoder.matches(password, user.password)) {
-            throw RuntimeException("비밀번호가 일치하지 않습니다.")
-        }
+        return userService.findByLoginId(loginId).let {
+            if (!passwordEncoder.matches(password, it.password)) {
+                throw RuntimeException("비밀번호가 일치하지 않습니다.")
+            }
 
-        return jwtTokenProvider.createToken(user)
+            jwtTokenProvider.createToken(it)
+        }
     }
 }
