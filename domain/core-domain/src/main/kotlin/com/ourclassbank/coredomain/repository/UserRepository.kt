@@ -17,4 +17,8 @@ class UserRepository(
     fun findByLoginId(loginId: String): User {
         return jpaDao.findByLoginId(loginId)?.toModel() ?: throw RuntimeException("존재하지 않는 사용자입니다.")
     }
+
+    fun existsByLoginId(loginId: String): Boolean {
+        return jpaDao.existsByLoginId(loginId)
+    }
 }

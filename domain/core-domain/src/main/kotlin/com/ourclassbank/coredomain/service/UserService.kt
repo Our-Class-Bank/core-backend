@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional
 class UserService(
     private val userRepository: UserRepository,
 ) {
-    fun save(user: User) {
+    fun create(user: User) {
+        if (userRepository.existsByLoginId(user.loginId)) throw RuntimeException("이미 존재하는 사용자입니다.")
+
         userRepository.save(user)
     }
 

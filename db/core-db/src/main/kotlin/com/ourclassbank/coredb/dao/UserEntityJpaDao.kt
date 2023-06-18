@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UserEntityJpaDao : JpaRepository<UserEntity, Long> {
     fun findByLoginId(loginId: String): UserEntity?
+    fun existsByLoginId(loginId: String): Boolean
 }
