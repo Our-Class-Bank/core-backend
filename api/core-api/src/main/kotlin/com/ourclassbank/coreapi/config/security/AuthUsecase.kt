@@ -15,7 +15,7 @@ class AuthUsecase(
     private val userService: UserService
 ) {
     fun signup(loginId: String, password: String, name: String, roles: List<RoleType>) {
-        userService.create(User(loginId, passwordEncoder.encode(password), name, roles))
+        userService.create(User(loginId, password, name, roles))
     }
 
     fun signin(loginId: String, password: String): String {
