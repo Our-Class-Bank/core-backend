@@ -4,6 +4,9 @@ springdoc:
     path: /swagger-ui.html
 
 spring:
+  config:
+    import:
+      - core-db.yml
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

@@ -8,7 +8,7 @@ spring:
         format_sql: true
         show_sql: true
         default_batch_fetch_size: 100
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
 ---
 spring.config.activate.on-profile: local
