@@ -1,6 +1,6 @@
 package com.ourclassbank.coredomain.repository
 
-import com.ourclassbank.coredomain.model.User
+import com.ourclassbank.modeldomain.user.User
 import org.springframework.stereotype.Repository
 
 @Repository

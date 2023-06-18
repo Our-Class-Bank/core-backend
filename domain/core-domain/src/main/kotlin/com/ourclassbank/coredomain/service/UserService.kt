@@ -1,7 +1,7 @@
 package com.ourclassbank.coredomain.service
 
-import com.ourclassbank.coredomain.model.User
 import com.ourclassbank.coredomain.repository.UserRepository
+import com.ourclassbank.modeldomain.user.User
 import org.springframework.stereotype.Service
 
 @Service

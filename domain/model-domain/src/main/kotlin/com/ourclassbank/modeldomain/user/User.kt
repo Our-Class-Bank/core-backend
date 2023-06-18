@@ -1,4 +1,4 @@
-package com.ourclassbank.coredomain.model
+package com.ourclassbank.modeldomain.user
 
 data class User(
     val loginId: String,

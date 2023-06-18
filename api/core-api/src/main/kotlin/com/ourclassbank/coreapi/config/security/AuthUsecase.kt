@@ -1,9 +1,9 @@
 package com.ourclassbank.coreapi.config.security
 
 import com.ourclassbank.coreapi.config.security.jwt.JwtTokenProvider
-import com.ourclassbank.coredomain.model.RoleType
-import com.ourclassbank.coredomain.model.User
 import com.ourclassbank.coredomain.service.UserService
+import com.ourclassbank.modeldomain.user.RoleType
+import com.ourclassbank.modeldomain.user.User
 import org.springframework.stereotype.Service
 
 @Service

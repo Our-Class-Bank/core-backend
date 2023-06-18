@@ -2,7 +2,7 @@ package com.ourclassbank.coreapi.config.security
 
 import com.ourclassbank.coreapi.config.security.jwt.JwtAuthenticationFilter
 import com.ourclassbank.coreapi.config.security.jwt.JwtTokenProvider
-import com.ourclassbank.coredomain.model.RoleType
+import com.ourclassbank.modeldomain.user.RoleType
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
