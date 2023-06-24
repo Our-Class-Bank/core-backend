@@ -1,6 +1,8 @@
 package com.ourclassbank.coredomain.usecase
 
 import com.ourclassbank.coredomain.service.UserService
+import com.ourclassbank.coredomain.support.exception.DomainException
+import com.ourclassbank.coredomain.support.exception.DomainExceptionType
 import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
 import com.ourclassbank.modeldomain.user.RoleType
 import com.ourclassbank.modeldomain.user.User
@@ -21,7 +23,7 @@ class AuthUsecase(
     fun signin(loginId: String, password: String): String {
         return userService.findByLoginId(loginId).let {
             if (!passwordEncoder.matches(password, it.password)) {
-                throw RuntimeException("비밀번호가 일치하지 않습니다.")
+                throw DomainException(DomainExceptionType.INVALID_USER_PASSWORD)
             }
 
             jwtTokenProvider.createToken(it)

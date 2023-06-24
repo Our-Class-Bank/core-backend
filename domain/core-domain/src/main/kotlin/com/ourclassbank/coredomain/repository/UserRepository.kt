@@ -1,6 +1,8 @@
 package com.ourclassbank.coredomain.repository
 
 import com.ourclassbank.coredb.dao.UserEntityJpaDao
+import com.ourclassbank.coredomain.support.exception.DomainException
+import com.ourclassbank.coredomain.support.exception.DomainExceptionType
 import com.ourclassbank.coredomain.support.factory.toEntity
 import com.ourclassbank.coredomain.support.factory.toModel
 import com.ourclassbank.modeldomain.user.User
@@ -18,7 +20,7 @@ class UserRepository(
     }
 
     fun findByLoginId(loginId: String): User {
-        return jpaDao.findByLoginId(loginId)?.toModel() ?: throw RuntimeException("존재하지 않는 사용자입니다.")
+        return jpaDao.findByLoginId(loginId)?.toModel() ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
     }
 
     fun existsByLoginId(loginId: String): Boolean {
