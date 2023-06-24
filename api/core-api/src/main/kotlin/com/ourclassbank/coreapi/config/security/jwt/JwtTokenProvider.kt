@@ -3,7 +3,6 @@ package com.ourclassbank.coreapi.config.security.jwt
 import com.ourclassbank.modeldomain.user.User
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import jakarta.servlet.http.HttpServletRequest
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -46,8 +45,8 @@ class JwtTokenProvider(
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).body.subject
     }
 
-    fun resolveToken(request: HttpServletRequest): String? {
-        return request.getHeader("Authorization")?.removePrefix("Bearer ")
+    fun resolveToken(authorizationString: String): String {
+        return authorizationString.removePrefix("Bearer ")
     }
 
     fun validate(token: String): Boolean {
