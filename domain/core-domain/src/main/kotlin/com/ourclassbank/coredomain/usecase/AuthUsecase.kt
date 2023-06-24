@@ -1,4 +1,4 @@
-package com.ourclassbank.coreapi.config.security
+package com.ourclassbank.coredomain.usecase
 
 import com.ourclassbank.coredomain.service.UserService
 import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider

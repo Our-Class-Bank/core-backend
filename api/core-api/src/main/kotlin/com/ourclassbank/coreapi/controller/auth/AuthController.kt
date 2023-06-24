@@ -1,6 +1,6 @@
 package com.ourclassbank.coreapi.controller.auth
 
-import com.ourclassbank.coreapi.config.security.AuthUsecase
+import com.ourclassbank.coredomain.usecase.AuthUsecase
 import com.ourclassbank.modeldomain.user.RoleType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
