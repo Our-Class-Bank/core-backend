@@ -1,4 +1,4 @@
-package com.ourclassbank.coreapi.config.security.jwt
+package com.ourclassbank.coredomain.support.jwt
 
 import com.ourclassbank.modeldomain.user.User
 import io.jsonwebtoken.Jwts

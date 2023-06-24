@@ -1,0 +1,13 @@
+# todo ?? ?? ??? ?? ???.
+jwt:
+  secret: ${JWT_SECRET:b3VyLWNsYXNzLWJhbmstYmFja2VuZF9vdXItY2xhc3MtYmFuay1iYWNrZW5k}
+  valid-time: ${JWT_VALID_TIME:1800000}
+
+---
+spring.config.activate.on-profile: local
+
+---
+spring.config.activate.on-profile: dev
+
+---
+spring.config.activate.on-profile: prod

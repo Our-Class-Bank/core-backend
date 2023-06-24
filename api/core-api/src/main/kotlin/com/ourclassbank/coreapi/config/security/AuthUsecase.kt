@@ -1,7 +1,7 @@
 package com.ourclassbank.coreapi.config.security
 
-import com.ourclassbank.coreapi.config.security.jwt.JwtTokenProvider
 import com.ourclassbank.coredomain.service.UserService
+import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
 import com.ourclassbank.modeldomain.user.RoleType
 import com.ourclassbank.modeldomain.user.User
 import org.springframework.security.crypto.password.PasswordEncoder

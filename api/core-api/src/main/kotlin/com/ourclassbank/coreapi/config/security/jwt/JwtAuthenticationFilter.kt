@@ -1,5 +1,6 @@
 package com.ourclassbank.coreapi.config.security.jwt
 
+import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletRequest
 import jakarta.servlet.ServletResponse
