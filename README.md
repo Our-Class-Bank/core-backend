@@ -2,7 +2,8 @@
 
 ### environment
 
-- spring boot 3.1.0, kotlin 1.8.21 with java 17
+- spring boot 3.1.0
+- kotlin 1.8.21 with java 17
 
 ### how to run
 
@@ -31,3 +32,8 @@ $ java -jar -Dspring.profiles.active=local api/core-api/build/libs/core-api-0.0.
 ```
 
 - local swagger [link](http://localhost:8080/swagger-ui/index.html#/)
+
+## worklog
+
+- [x] [milestone1 jwt 기반 회원 기능 개발](https://github.com/Our-Class-Bank/core-backend/wiki/milestone1---jwt-%EA%B8%B0%EB%B0%98-%ED%9A%8C%EC%9B%90-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EB%B0%9C)
+- [ ] [milestone2 회원 고도화 & 반 개념 추가](https://github.com/Our-Class-Bank/core-backend/wiki/milestone2---%ED%9A%8C%EC%9B%90-%EA%B3%A0%EB%8F%84%ED%99%94-&-%EB%B0%98-%EA%B0%9C%EB%85%90-%EC%B6%94%EA%B0%80)
