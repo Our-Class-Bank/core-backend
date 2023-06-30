@@ -26,4 +26,9 @@ class UserRepository(
     fun existsByLoginId(loginId: String): Boolean {
         return jpaDao.existsByLoginId(loginId)
     }
+
+    fun updatePassword(user: User) {
+        jpaDao.findByLoginId(user.loginId)?.updatePassword(passwordEncoder.encode(user.password))
+            ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
+    }
 }

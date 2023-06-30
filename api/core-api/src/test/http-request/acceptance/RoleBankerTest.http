@@ -23,14 +23,14 @@ Content-Type: application/json
 %}
 
 
-### ROLE_USER 권한이 필요한 api 호출
+### ROLE_STUDENT 권한이 필요한 api 호출
 # @no-cookie-jar
-GET {{host}}/api/v1/test/auth/user
+GET {{host}}/api/v1/test/auth/student
 Authorization: Bearer {{userRoleToken}}
 
 > {%
-    client.test("ROLE_USER 권한이 필요한 api 호출 - 403", function () {
-        client.assert(response.status === 403);
+    client.test("ROLE_STUDENT 권한이 필요한 api 호출 - 200", function () {
+        client.assert(response.status === 200, response.status + ", userRoleToken=" + client.global.get("userRoleToken"));
     });
 %}
 
@@ -42,5 +42,17 @@ Authorization: Bearer {{userRoleToken}}
 > {%
     client.test("ROLE_BANKER 권한이 필요한 api 호출 - 200", function () {
         client.assert(response.status === 200, response.status + ", userRoleToken=" + client.global.get("userRoleToken"));
+    });
+%}
+
+
+### ROLE_TEACHER 권한이 필요한 api 호출
+# @no-cookie-jar
+GET {{host}}/api/v1/test/auth/teacher
+Authorization: Bearer {{userRoleToken}}
+
+> {%
+    client.test("ROLE_TEACHER 권한이 필요한 api 호출 - 403", function () {
+        client.assert(response.status === 403);
     });
 %}

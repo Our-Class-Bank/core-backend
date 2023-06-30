@@ -15,15 +15,21 @@ class TestAuthController {
         return "no auth success"
     }
 
-    @Operation(summary = "ROLE_USER", description = "user 권한을 검증 합니다.")
-    @GetMapping("/api/v1/test/auth/user")
+    @Operation(summary = "ROLE_STUDENT", description = "student 권한을 검증 합니다.")
+    @GetMapping("/api/v1/test/auth/student")
     fun roleUser(): String {
-        return "user success"
+        return "student success"
     }
 
     @Operation(summary = "ROLE_BANKER", description = "banker 권한을 검증 합니다.")
     @GetMapping("/api/v1/test/auth/banker")
     fun roleBanker(): String {
         return "banker success"
+    }
+
+    @Operation(summary = "ROLE_TEACHER", description = "teacher 권한을 검증 합니다.")
+    @GetMapping("/api/v1/test/auth/teacher")
+    fun roleTeacher(): String {
+        return "teacher success"
     }
 }

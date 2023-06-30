@@ -17,7 +17,14 @@ class AuthUsecase(
     private val userService: UserService
 ) {
     fun signup(loginId: String, password: String, name: String, roles: List<RoleType>) {
-        userService.create(User(loginId, password, name, roles))
+        userService.create(
+            User(
+                loginId = loginId,
+                password = passwordEncoder.encode(password),
+                name = name,
+                roles = roles
+            )
+        )
     }
 
     fun signin(loginId: String, password: String): String {
@@ -28,5 +35,9 @@ class AuthUsecase(
 
             jwtTokenProvider.createToken(it)
         }
+    }
+
+    fun passwordReset(loginId: String, name: String) {
+        userService.passwordReset(loginId, name)
     }
 }

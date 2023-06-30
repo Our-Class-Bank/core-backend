@@ -25,19 +25,19 @@ private val 회원_전체 = listOf(
         loginId = "user001",
         password = "1234",
         name = "홍길동",
-        roles = listOf(RoleType.ROLE_USER),
+        roles = listOf(RoleType.ROLE_STUDENT),
     ),
     User(
         loginId = "user002",
         password = "1234",
         name = "김철수",
-        roles = listOf(RoleType.ROLE_USER),
+        roles = listOf(RoleType.ROLE_STUDENT),
     ),
     User(
         loginId = "banker001",
         password = "1234",
         name = "김은행",
-        roles = listOf(RoleType.ROLE_BANKER),
+        roles = listOf(RoleType.ROLE_STUDENT, RoleType.ROLE_BANKER),
     ),
     User(
         loginId = "teacher001",

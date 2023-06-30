@@ -25,6 +25,12 @@ class AuthController(
     fun signin(@RequestBody request: UserSigninRequest): UserSigninResponse {
         return UserSigninResponse(authUsecase.signin(request.loginId, request.password))
     }
+
+    @Operation(summary = "회원 비밀번호 초기화")
+    @PostMapping("/api/v1/auth/password-reset")
+    fun passwordReset(@RequestBody request: UserPasswordResetRequest) {
+        authUsecase.passwordReset(request.loginId, request.name)
+    }
 }
 
 data class UserSignupRequest(
@@ -41,4 +47,9 @@ data class UserSigninRequest(
 
 data class UserSigninResponse(
     val accessToken: String,
+)
+
+data class UserPasswordResetRequest(
+    val loginId: String,
+    val name: String,
 )

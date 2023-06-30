@@ -1,6 +1,5 @@
 package com.ourclassbank.coredb.entity
 
-import com.ourclassbank.modeldomain.user.RoleType
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 
@@ -11,11 +10,15 @@ class UserEntity(
     val loginId: String,
 
     @Comment("비밀번호")
-    val password: String,
+    var password: String,
     @Comment("이름")
     val name: String,
 
-    @Comment("권한")
-    @Enumerated(EnumType.STRING)
-    val role: RoleType,
-) : BaseEntity()
+    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    val roles: List<UserRoleEntity>,
+) : BaseEntity() {
+    fun updatePassword(password: String) {
+        this.password = password
+    }
+}
