@@ -17,6 +17,7 @@ fun User.toEntity(passwordEncoder: PasswordEncoder): UserEntity {
 
 fun UserEntity.toModel(): User {
     return User(
+        id = this.id,
         loginId = this.loginId,
         password = this.password,
         name = this.name,

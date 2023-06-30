@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional
 class UserService(
     private val userRepository: UserRepository,
 ) {
+    private val initPassword = "1234"
+
     fun create(user: User) {
         if (userRepository.existsByLoginId(user.loginId)) {
             throw DomainException(DomainExceptionType.EXISTS_USER)
@@ -23,5 +25,15 @@ class UserService(
     @Transactional(readOnly = true)
     fun findByLoginId(loginId: String): User {
         return userRepository.findByLoginId(loginId)
+    }
+
+    fun passwordReset(loginId: String, name: String) {
+        userRepository.findByLoginId(loginId).let {
+            if (it.name != name) {
+                throw DomainException(DomainExceptionType.INSUFFICIENT_USER_RESET_PASSWORD)
+            }
+
+            userRepository.updatePassword(it.copy(password = initPassword))
+        }
     }
 }

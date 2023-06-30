@@ -10,11 +10,15 @@ class UserEntity(
     val loginId: String,
 
     @Comment("비밀번호")
-    val password: String,
+    var password: String,
     @Comment("이름")
     val name: String,
 
     @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = "user_id")
     val roles: List<UserRoleEntity>,
-) : BaseEntity()
+) : BaseEntity() {
+    fun updatePassword(password: String) {
+        this.password = password
+    }
+}
