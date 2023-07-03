@@ -4,6 +4,14 @@ import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 
 @Entity(name = "user")
+@Table(
+    uniqueConstraints = [
+        UniqueConstraint(
+            name = "attendanceNumber_unique",
+            columnNames = ["schoolName", "grade", "classNumber", "attendanceNumber"]
+        )
+    ]
+)
 class UserEntity(
     @Comment("로그인ID")
     @Column(unique = true)
