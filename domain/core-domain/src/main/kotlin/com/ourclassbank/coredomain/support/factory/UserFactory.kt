@@ -50,7 +50,6 @@ fun UserClass.toEntity(): UserClassEntity {
 
 fun UserClassEntity.toModel(): UserClass {
     return UserClass(
-        id = this.id,
         schoolName = this.schoolName,
         grade = this.grade,
         classNumber = this.classNumber,
