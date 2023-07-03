@@ -5,7 +5,6 @@ import com.ourclassbank.coredomain.support.exception.DomainException
 import com.ourclassbank.coredomain.support.exception.DomainExceptionType
 import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
 import com.ourclassbank.modeldomain.user.RoleType
-import com.ourclassbank.modeldomain.user.User
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -17,14 +16,21 @@ class AuthUsecase(
     private val userService: UserService
 ) {
     fun signup(loginId: String, password: String, name: String, roles: List<RoleType>) {
-        userService.create(
-            User(
-                loginId = loginId,
-                password = passwordEncoder.encode(password),
-                name = name,
-                roles = roles
-            )
-        )
+        TODO()
+//        userService.create(
+//            User(
+//                loginId = loginId,
+//                password = passwordEncoder.encode(password),
+//                name = name,
+//                roles = roles,
+//                clazz = Clazz(
+//                    schoolName = "우리초등학교",
+//                    grade = 3,
+//                    classNumber = 1,
+//                    attendanceNumber = 3
+//                )
+//            )
+//        )
     }
 
     fun signin(loginId: String, password: String): String {

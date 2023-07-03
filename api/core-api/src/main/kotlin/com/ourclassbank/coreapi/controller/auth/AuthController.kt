@@ -14,7 +14,7 @@ import java.util.*
 class AuthController(
     private val authUsecase: AuthUsecase,
 ) {
-    @Operation(summary = "회원 가입")
+    @Operation(summary = "회원 가입", description = "능동적인 회원 가입은 지원되지 않습니다.", deprecated = true)
     @PostMapping("/api/v1/auth/signup")
     fun signup(@RequestBody request: UserSignupRequest) {
         return authUsecase.signup(request.loginId, request.password, request.name, request.roles)

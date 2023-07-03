@@ -17,6 +17,10 @@ class UserEntity(
     @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = "user_id")
     val roles: List<UserRoleEntity>,
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JoinColumn(name = "user_class_id")
+    val userClass: UserClassEntity,
 ) : BaseEntity() {
     fun updatePassword(password: String) {
         this.password = password
