@@ -37,6 +37,7 @@ class SecurityConfig(
                     .anyRequest().authenticated()
             }
             .csrf { it.disable() }
+            .cors { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .addFilterBefore(
                 JwtAuthenticationFilter(jwtTokenProvider),
