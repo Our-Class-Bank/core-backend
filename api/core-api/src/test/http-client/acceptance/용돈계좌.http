@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ###
 < {%
-    client.global.set("testName", "같은 반 조회")
+    client.global.set("testName", "같은 반 회원 조회")
 %}
 GET {{host}}/api/v1/user/same-class
 Authorization: Bearer {{bankerToken}}
@@ -37,6 +37,7 @@ Authorization: Bearer {{bankerToken}}
     });
 
     client.global.set("pocketmoneyAccountNo", response.body[0]["pocketmoneyAccountNo"])
+    client.global.set("studentLoginId", response.body[0]["loginId"])
 %}
 
 
@@ -121,5 +122,53 @@ Content-Type: application/json
 > {%
     client.test(client.global.get("testName") + " - 200", function () {
         client.assert(response.status === 200);
+    });
+%}
+
+###
+< {%
+    client.global.set("testName", "student 회원 로그인")
+
+    client.global.set("studentLoginId", client.global.get("studentLoginId"))
+    client.global.set("studentPassword", "1234")
+
+    request.variables.set("studentLoginId", client.global.get("studentLoginId"))
+    request.variables.set("studentPassword", client.global.get("studentPassword"))
+%}
+POST {{host}}/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "loginId": "{{studentLoginId}}",
+  "password": "{{studentPassword}}"
+}
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+
+    client.global.set("studentToken", response.body["accessToken"])
+%}
+
+###
+< {%
+    client.global.set("testName", "용돈계좌 단건 기록 조회 by student")
+
+    request.variables.set("fromAt", "2020-01-01T00:00:00.000")
+    request.variables.set("toAt", "2999-01-31T23:59:59.999")
+%}
+GET {{host}}/api/v1/account/pocketmoney/{{pocketmoneyAccountNo}}/history?fromAt={{fromAt}}&toAt={{toAt}}
+Content-Type: application/json
+Authorization: Bearer {{studentToken}}
+
+{
+  "loginId": "{{studentLoginId}}",
+  "password": "{{studentPassword}}"
+}
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200, response.status);
     });
 %}
