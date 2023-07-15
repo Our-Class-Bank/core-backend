@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
-@Tag(name = "인증/인가 테스트 API")
+@Tag(name = "test api - 인증/인가")
 @RestController
 class TestAuthController {
     @Operation(summary = "NULL", description = "권한이 필요하지 않습니다.")
