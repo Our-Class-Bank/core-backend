@@ -1,4 +1,4 @@
-package com.ourclassbank.coreapi.config.security
+package com.ourclassbank.coredomain.support.security
 
 import com.ourclassbank.modeldomain.user.RoleType
 import org.springframework.security.core.GrantedAuthority
