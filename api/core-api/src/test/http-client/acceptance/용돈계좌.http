@@ -1,0 +1,109 @@
+### banker 회원 로그인
+< {%
+    client.global.set("bankerLoginId", "banker001")
+    client.global.set("bankerPassword", "1234")
+
+    request.variables.set("bankerLoginId", client.global.get("bankerLoginId"))
+    request.variables.set("bankerPassword", client.global.get("bankerPassword"))
+%}
+POST {{host}}/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "loginId": "{{bankerLoginId}}",
+  "password": "{{bankerPassword}}"
+}
+
+> {%
+    client.test("banker 회원 로그인 - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+
+    client.global.set("bankerToken", response.body["accessToken"])
+%}
+
+### 같은 반 조회
+GET {{host}}/api/v1/user/same-class
+Authorization: Bearer {{bankerToken}}
+
+> {%
+    client.test("같은 반 조회 - 200", function () {
+        client.assert(response.status === 200);
+    });
+
+    client.global.set("pocketmoneyAccountNo", response.body[0]["pocketmoneyAccountNo"])
+    client.log("pocketmoneyAccountNo: " + client.global.get("pocketmoneyAccountNo"))
+%}
+
+
+### 입금 api - targetLoginId=user001, type=INCOME_SALARY, amount=9000, description=1월 월급
+POST {{host}}/api/v1/account/pocketmoney/deposit
+Authorization: Bearer {{bankerToken}}
+Content-Type: application/json
+
+{
+  "targetLoginId": "user001",
+  "type": "INCOME_SALARY",
+  "amount": 9000,
+  "description": "1월 월급"
+}
+
+> {%
+    client.test("입금 - targetLoginId=user001, type=INCOME_PRIZE_MONEY, amount=9000, description=1월 월급", function () {
+        client.assert(response.status === 200);
+    });
+%}
+
+### 입금 api - targetLoginId=user001, type=INCOME_SALARY, amount=3500, description=교내 미술대회 입상
+POST {{host}}/api/v1/account/pocketmoney/deposit
+Authorization: Bearer {{bankerToken}}
+Content-Type: application/json
+
+{
+  "targetLoginId": "user001",
+  "type": "INCOME_PRIZE_MONEY",
+  "amount": 3500,
+  "description": "교내 미술대회 입상"
+}
+
+> {%
+    client.test("입금 api - targetLoginId=user001, type=INCOME_SALARY, amount=3500, description=교내 미술대회 입상", function () {
+        client.assert(response.status === 200);
+    });
+%}
+
+### 출금 api - targetLoginId=user001, type=EXPENSE_FINE, amount=4000, description=지각
+POST {{host}}/api/v1/account/pocketmoney/deposit
+Authorization: Bearer {{bankerToken}}
+Content-Type: application/json
+
+{
+  "targetLoginId": "user001",
+  "type": "EXPENSE_FINE",
+  "amount": 4000,
+  "description": "지각"
+}
+
+> {%
+    client.test("출금 api - targetLoginId=user001, type=EXPENSE_FINE, amount=4000, description=지각", function () {
+        client.assert(response.status === 200);
+    });
+%}
+
+### 출금 api - targetLoginId=user001, type=EXPENSE_ETC, amount=2700, description=미화용품 구매
+POST {{host}}/api/v1/account/pocketmoney/deposit
+Authorization: Bearer {{bankerToken}}
+Content-Type: application/json
+
+{
+  "targetLoginId": "user001",
+  "type": "EXPENSE_ETC",
+  "amount": 2700,
+  "description": "미화용품 구매"
+}
+
+> {%
+    client.test("출금 api - targetLoginId=user001, type=EXPENSE_ETC, amount=2700, description=미화용품 구매", function () {
+        client.assert(response.status === 200);
+    });
+%}
