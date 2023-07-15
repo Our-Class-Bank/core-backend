@@ -13,13 +13,13 @@ class PocketmoneyAccountService(
     private val pocketmoneyAccountHistoryRepository: PocketmoneyAccountHistoryRepository
 ) {
     fun deposit(
-        targetLoginId: String,
+        accountNo: String,
         type: PocketmoneyAccountHistoryType,
         amount: Long,
         description: String,
     ) {
         pocketmoneyAccountHistoryRepository.save(
-            targetLoginId = targetLoginId,
+            accountNo = accountNo,
             type = type,
             amount = amount,
             description = description
@@ -27,13 +27,13 @@ class PocketmoneyAccountService(
     }
 
     fun withdraw(
-        targetLoginId: String,
+        accountNo: String,
         type: PocketmoneyAccountHistoryType,
         amount: Long,
         description: String,
     ) {
         pocketmoneyAccountHistoryRepository.save(
-            targetLoginId = targetLoginId,
+            accountNo = accountNo,
             type = type,
             amount = amount,
             description = description
@@ -41,8 +41,12 @@ class PocketmoneyAccountService(
     }
 
     @Transactional(readOnly = true)
-    fun findAllByLoginId(loginId: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<PocketmoneyAccountHistory> {
-        return pocketmoneyAccountHistoryRepository.findAllByLoginId(loginId, fromAt, toAt)
+    fun findAllByAccountNo(
+        accountNo: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<PocketmoneyAccountHistory> {
+        return pocketmoneyAccountHistoryRepository.findAllByAccountNo(accountNo, fromAt, toAt)
     }
 
     // todo 실행자에 대한 기능을 추가한 후 구현

@@ -19,7 +19,4 @@ class PocketmoneyAccountHistoryEntity(
     val description: String,
     @Comment("현재 잔액")
     val balance: Long,
-
-    @Comment("용돈계좌 소유자 loginId")
-    val loginId: String,
 ) : BaseEntity()
