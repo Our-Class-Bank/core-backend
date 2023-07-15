@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 @Repository
 interface PocketmoneyAccountHistoryEntityJpaDao : JpaRepository<PocketmoneyAccountHistoryEntity, Long> {
-    fun findAllByAccountNoAndCreatedAtBetween(
+    fun findAllByAccountNoAndCreatedAtBetweenOrderByCreatedAtDesc(
         accountNo: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime

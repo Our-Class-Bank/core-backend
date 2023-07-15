@@ -41,7 +41,7 @@ class PocketmoneyAccountService(
     }
 
     @Transactional(readOnly = true)
-    fun findAllByAccountNo(
+    fun findAllHistory(
         accountNo: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
