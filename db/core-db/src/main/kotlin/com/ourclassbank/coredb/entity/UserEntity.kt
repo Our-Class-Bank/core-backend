@@ -21,6 +21,8 @@ class UserEntity(
     var password: String,
     @Comment("이름")
     val name: String,
+    @Comment("용돈계좌번호")
+    val pocketMoneyAccountNo: String,
 
     @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = "user_id")

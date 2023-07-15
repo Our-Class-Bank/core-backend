@@ -7,6 +7,7 @@ import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHi
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
+import java.util.*
 
 @Repository
 class PocketmoneyAccountHistoryRepository(
@@ -19,6 +20,8 @@ class PocketmoneyAccountHistoryRepository(
         description: String
     ) {
         PocketmoneyAccountHistoryEntity(
+            // todo loginId 기반으로 생성하는 로직을 계좌번호 기반으로 수정
+            accountNo = UUID.randomUUID().toString(),
             type = type,
             amount = amount,
             description = description,

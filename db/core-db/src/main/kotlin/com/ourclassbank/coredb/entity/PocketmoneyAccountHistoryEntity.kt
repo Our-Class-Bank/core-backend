@@ -6,6 +6,9 @@ import org.hibernate.annotations.Comment
 
 @Entity(name = "pocketmoney_account_history")
 class PocketmoneyAccountHistoryEntity(
+    @Comment("용돈계좌번호")
+    val accountNo: String,
+
     @Enumerated(EnumType.STRING)
     @Comment("용돈계좌기록 구분")
     val type: PocketmoneyAccountHistoryType,
