@@ -23,15 +23,15 @@ class PocketmoneyAccountHistoryRepository(
             type = type,
             amount = amount,
             description = description,
-            balance = getBalance(accountNo),
+            balance = getBalance(accountNo) + type.toAmountWithSign(amount)
         ).also {
             pocketmoneyAccountHistoryEntityJpaDao.save(it)
         }
     }
 
-    // todo 마지막 history 의 balance 를 가져와서 반환하도록 수정
     private fun getBalance(accountNo: String): Long {
-        return 0L
+        return pocketmoneyAccountHistoryEntityJpaDao.findFirstByAccountNoOrderByIdDesc(accountNo)?.balance
+            ?: 0L
     }
 
     fun findAllByAccountNo(
