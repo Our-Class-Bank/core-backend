@@ -1,6 +1,7 @@
 package com.ourclassbank.coredomain.config.local
 
 import com.ourclassbank.coredomain.service.UserService
+import com.ourclassbank.coredomain.support.generator.PocketMoneyAccountNoGenerator
 import com.ourclassbank.modeldomain.user.RoleType
 import com.ourclassbank.modeldomain.user.User
 import com.ourclassbank.modeldomain.user.UserClass
@@ -26,6 +27,7 @@ private val 회원_전체 = listOf(
         loginId = "user001",
         password = "1234",
         name = "홍길동",
+        pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
         roles = listOf(RoleType.ROLE_STUDENT),
         userClass = UserClass(
             schoolName = "우리초등학교",
@@ -38,6 +40,7 @@ private val 회원_전체 = listOf(
         loginId = "user002",
         password = "1234",
         name = "김철수",
+        pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
         roles = listOf(RoleType.ROLE_STUDENT),
         userClass = UserClass(
             schoolName = "우리초등학교",
@@ -50,6 +53,7 @@ private val 회원_전체 = listOf(
         loginId = "banker001",
         password = "1234",
         name = "김은행",
+        pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
         roles = listOf(RoleType.ROLE_STUDENT, RoleType.ROLE_BANKER),
         userClass = UserClass(
             schoolName = "우리초등학교",
@@ -62,6 +66,7 @@ private val 회원_전체 = listOf(
         loginId = "teacher001",
         password = "1234",
         name = "김선생",
+        pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
         roles = listOf(RoleType.ROLE_TEACHER),
         userClass = UserClass(
             schoolName = "우리초등학교",

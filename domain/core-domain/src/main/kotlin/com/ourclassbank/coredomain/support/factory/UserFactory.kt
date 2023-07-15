@@ -13,6 +13,7 @@ fun User.toEntity(passwordEncoder: PasswordEncoder): UserEntity {
         loginId = this.loginId,
         password = passwordEncoder.encode(this.password),
         name = this.name,
+        pocketMoneyAccountNo = this.pocketmoneyAccountNo,
         roles = this.roles.map { it.toEntity() },
         userClass = this.userClass.toEntity()
     )
@@ -24,6 +25,7 @@ fun UserEntity.toModel(): User {
         loginId = this.loginId,
         password = this.password,
         name = this.name,
+        pocketmoneyAccountNo = this.pocketMoneyAccountNo,
         roles = this.roles.map { it.toModel() },
         userClass = this.userClass.toModel()
     )

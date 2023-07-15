@@ -6,6 +6,7 @@ import com.ourclassbank.coredomain.support.exception.DomainExceptionType
 import com.ourclassbank.coredomain.support.factory.toEntity
 import com.ourclassbank.coredomain.support.factory.toModel
 import com.ourclassbank.modeldomain.user.User
+import com.ourclassbank.modeldomain.user.UserClass
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Repository
 
@@ -21,6 +22,16 @@ class UserRepository(
 
     fun findByLoginId(loginId: String): User {
         return jpaDao.findByLoginId(loginId)?.toModel() ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
+    }
+
+    fun findAllByUserClass(userClass: UserClass): List<User> {
+        return userClass.run {
+            jpaDao.findAllByUserClass(
+                schoolName = this.schoolName,
+                grade = this.grade,
+                classNumber = this.classNumber
+            ).map { it.toModel() }
+        }
     }
 
     fun existsByLoginId(loginId: String): Boolean {

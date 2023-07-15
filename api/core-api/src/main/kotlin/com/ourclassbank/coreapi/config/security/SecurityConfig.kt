@@ -30,10 +30,25 @@ class SecurityConfig(
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                     .requestMatchers("/actuator/**").permitAll()
                     .requestMatchers("/api/v1/auth/**").permitAll()
+
+                    .requestMatchers("/api/v1/user/**").hasAnyRole(
+                        RoleType.ROLE_STUDENT.removePrefix(),
+                        RoleType.ROLE_BANKER.removePrefix(),
+                        RoleType.ROLE_TEACHER.removePrefix()
+                    )
+
+                    .requestMatchers("/api/v1/account/pocketmoney/**").hasAnyRole(
+                        RoleType.ROLE_STUDENT.removePrefix(),
+                        RoleType.ROLE_BANKER.removePrefix(),
+                        RoleType.ROLE_TEACHER.removePrefix()
+                    )
+                    .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(RoleType.ROLE_BANKER.removePrefix())
+
                     .requestMatchers("/api/v1/test/auth/student").hasRole(RoleType.ROLE_STUDENT.removePrefix())
                     .requestMatchers("/api/v1/test/auth/banker").hasRole(RoleType.ROLE_BANKER.removePrefix())
                     .requestMatchers("/api/v1/test/auth/teacher").hasRole(RoleType.ROLE_TEACHER.removePrefix())
                     .requestMatchers("/api/v1/test/**").permitAll()
+
                     .anyRequest().authenticated()
             }
             .csrf { it.disable() }

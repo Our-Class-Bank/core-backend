@@ -3,7 +3,9 @@ package com.ourclassbank.coredomain.service
 import com.ourclassbank.coredomain.repository.UserRepository
 import com.ourclassbank.coredomain.support.exception.DomainException
 import com.ourclassbank.coredomain.support.exception.DomainExceptionType
+import com.ourclassbank.coredomain.support.security.UserContext
 import com.ourclassbank.modeldomain.user.User
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -25,6 +27,15 @@ class UserService(
     @Transactional(readOnly = true)
     fun findByLoginId(loginId: String): User {
         return userRepository.findByLoginId(loginId)
+    }
+
+    @Transactional(readOnly = true)
+    fun findAllSameClass(): List<User> {
+        (SecurityContextHolder.getContext().authentication.principal as UserContext).loginId
+        val userContext = SecurityContextHolder.getContext().authentication.principal as UserContext
+        val userClass = userRepository.findByLoginId(userContext.loginId).userClass
+
+        return userRepository.findAllByUserClass(userClass)
     }
 
     fun passwordReset(loginId: String, name: String) {
