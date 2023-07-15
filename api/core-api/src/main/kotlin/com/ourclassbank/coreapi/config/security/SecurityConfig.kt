@@ -37,6 +37,8 @@ class SecurityConfig(
                         RoleType.ROLE_TEACHER.removePrefix()
                     )
 
+                    .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(RoleType.ROLE_BANKER.removePrefix())
+
                     .requestMatchers("/api/v1/test/auth/student").hasRole(RoleType.ROLE_STUDENT.removePrefix())
                     .requestMatchers("/api/v1/test/auth/banker").hasRole(RoleType.ROLE_BANKER.removePrefix())
                     .requestMatchers("/api/v1/test/auth/teacher").hasRole(RoleType.ROLE_TEACHER.removePrefix())
