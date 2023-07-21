@@ -127,6 +127,23 @@ Content-Type: application/json
 
 ###
 < {%
+    client.global.set("testName", "[은행원] 입출금 기록 조회 by banker")
+
+    request.variables.set("fromAt", "2020-01-01T00:00:00.000")
+    request.variables.set("toAt", "2999-01-31T23:59:59.999")
+%}
+GET {{host}}/banker/api/v1/account/pocketmoney/history?fromAt={{fromAt}}&toAt={{toAt}}
+Content-Type: application/json
+Authorization: Bearer {{bankerToken}}
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+%}
+
+###
+< {%
     client.global.set("testName", "student 회원 로그인")
 
     client.global.set("studentLoginId", client.global.get("studentLoginId"))

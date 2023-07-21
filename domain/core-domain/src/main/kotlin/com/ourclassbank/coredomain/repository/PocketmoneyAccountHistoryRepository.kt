@@ -43,7 +43,18 @@ class PocketmoneyAccountHistoryRepository(
             accountNo,
             fromAt,
             toAt
-        )
-            .map { it.toModel() }
+        ).map { it.toModel() }
+    }
+
+    fun findAllByCreatedBy(
+        createdBy: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<PocketmoneyAccountHistory> {
+        return pocketmoneyAccountHistoryEntityJpaDao.findAllByCreatedByAndCreatedAtBetweenOrderByCreatedAtDesc(
+            createdBy,
+            fromAt,
+            toAt
+        ).map { it.toModel() }
     }
 }

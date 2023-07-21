@@ -13,5 +13,11 @@ interface PocketmoneyAccountHistoryEntityJpaDao : JpaRepository<PocketmoneyAccou
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistoryEntity>
 
+    fun findAllByCreatedByAndCreatedAtBetweenOrderByCreatedAtDesc(
+        createdBy: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<PocketmoneyAccountHistoryEntity>
+
     fun findFirstByAccountNoOrderByIdDesc(accountNo: String): PocketmoneyAccountHistoryEntity?
 }

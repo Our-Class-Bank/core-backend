@@ -49,9 +49,12 @@ class PocketmoneyAccountService(
         return pocketmoneyAccountHistoryRepository.findAllByAccountNo(accountNo, fromAt, toAt)
     }
 
-    // todo 실행자에 대한 기능을 추가한 후 구현
     @Transactional(readOnly = true)
-    fun findAllByExecutorLoginId(executorLoginId: String, fromAt: LocalDateTime, toAt: LocalDateTime) {
-        TODO()
+    fun findAllHistoryByCreatedBy(
+        createdBy: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<PocketmoneyAccountHistory> {
+        return pocketmoneyAccountHistoryRepository.findAllByCreatedBy(createdBy, fromAt, toAt)
     }
 }
