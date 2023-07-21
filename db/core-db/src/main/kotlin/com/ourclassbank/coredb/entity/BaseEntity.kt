@@ -1,21 +1,24 @@
 package com.ourclassbank.coredb.entity
 
 import jakarta.persistence.*
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
+@EntityListeners(AuditingEntityListener::class)
 @MappedSuperclass
 abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 
-    @CreationTimestamp
+    @CreatedDate
     @Column(name = "created_at", updatable = false)
-    val createdAt: LocalDateTime? = null
+    var createdAt: LocalDateTime? = null
+        protected set
 
-    @UpdateTimestamp
+    @LastModifiedDate
     @Column(name = "updated_at")
     var updatedAt: LocalDateTime? = null
         protected set

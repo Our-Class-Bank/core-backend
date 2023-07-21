@@ -3,6 +3,7 @@ package com.ourclassbank.coredb.entity
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
+import org.springframework.data.annotation.CreatedBy
 
 @Entity(name = "pocketmoney_account_history")
 class PocketmoneyAccountHistoryEntity(
@@ -19,4 +20,9 @@ class PocketmoneyAccountHistoryEntity(
     val description: String,
     @Comment("현재 잔액")
     val balance: Long,
-) : BaseEntity()
+) : BaseEntity() {
+    @CreatedBy
+    @Column(name = "created_by", updatable = false)
+    var createdBy: String? = null
+        private set
+}
