@@ -45,7 +45,7 @@ Authorization: Bearer {{bankerToken}}
 < {%
     client.global.set("testName", "입금 api - accountNo=" + client.global.get("pocketmoneyAccountNo") + ", type=INCOME_SALARY, amount=9000, description=1월 월급")
 %}
-POST {{host}}/api/v1/account/pocketmoney/deposit
+POST {{host}}/banker/api/v1/account/pocketmoney/deposit
 Authorization: Bearer {{bankerToken}}
 Content-Type: application/json
 
@@ -66,7 +66,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "입금 api - accountNo=" + client.global.get("pocketmoneyAccountNo") + ", type=INCOME_SALARY, amount=3500, description=교내 미술대회 입상")
 %}
-POST {{host}}/api/v1/account/pocketmoney/deposit
+POST {{host}}/banker/api/v1/account/pocketmoney/deposit
 Authorization: Bearer {{bankerToken}}
 Content-Type: application/json
 
@@ -87,7 +87,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "출금 api - accountNo=" + client.global.get("pocketmoneyAccountNo") + ", type=EXPENSE_FINE, amount=4000, description=지각")
 %}
-POST {{host}}/api/v1/account/pocketmoney/deposit
+POST {{host}}/banker/api/v1/account/pocketmoney/deposit
 Authorization: Bearer {{bankerToken}}
 Content-Type: application/json
 
@@ -108,7 +108,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "출금 api - accountNo=" + client.global.get("pocketmoneyAccountNo") + ", type=EXPENSE_ETC, amount=2700, description=미화용품 구매")
 %}
-POST {{host}}/api/v1/account/pocketmoney/deposit
+POST {{host}}/banker/api/v1/account/pocketmoney/deposit
 Authorization: Bearer {{bankerToken}}
 Content-Type: application/json
 
