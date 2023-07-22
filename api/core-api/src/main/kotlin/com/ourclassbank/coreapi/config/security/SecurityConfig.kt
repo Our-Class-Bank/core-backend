@@ -37,13 +37,17 @@ class SecurityConfig(
                         RoleType.ROLE_TEACHER.removePrefix()
                     )
 
-                    .requestMatchers("/banker/**").hasRole(RoleType.ROLE_BANKER.removePrefix())
-                    .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(RoleType.ROLE_STUDENT.removePrefix())
+                    .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(RoleType.ROLE_BANKER.removePrefix())
+                    .requestMatchers("/api/v1/account/pocketmoney-history/by-banker").hasRole(RoleType.ROLE_BANKER.removePrefix())
+                    .requestMatchers("/api/v1/account/pocketmoney-history/**").hasRole(RoleType.ROLE_STUDENT.removePrefix())
 
                     .requestMatchers("/api/v1/test/auth/student").hasRole(RoleType.ROLE_STUDENT.removePrefix())
                     .requestMatchers("/api/v1/test/auth/banker").hasRole(RoleType.ROLE_BANKER.removePrefix())
                     .requestMatchers("/api/v1/test/auth/teacher").hasRole(RoleType.ROLE_TEACHER.removePrefix())
                     .requestMatchers("/api/v1/test/**").permitAll()
+                    .requestMatchers("/api/v1/enum/**").permitAll()
+
+                    .requestMatchers("/api/v1/**").hasRole(RoleType.ROLE_TEACHER.removePrefix())
 
                     .anyRequest().authenticated()
             }

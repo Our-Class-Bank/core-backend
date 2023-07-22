@@ -13,7 +13,7 @@ import java.util.*
 class UserController(
     private val userService: UserService
 ) {
-    @Operation(summary = "전체 조회 - 같은 반")
+    @Operation(summary = "전체 조회 - 같은 반", description = "- auth: banker")
     @GetMapping("/api/v1/user/same-class")
     fun findSameClass(): List<UserResponse> {
         return userService.findAllSameClass().map { UserResponse(it) }
