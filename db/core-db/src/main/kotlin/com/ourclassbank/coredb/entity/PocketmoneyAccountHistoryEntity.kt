@@ -1,11 +1,16 @@
 package com.ourclassbank.coredb.entity
 
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.Table
 import org.hibernate.annotations.Comment
 import org.springframework.data.annotation.CreatedBy
 
-@Entity(name = "pocketmoney_account_history")
+@Table(name = "pocketmoney_account_history")
+@Entity
 class PocketmoneyAccountHistoryEntity(
     @Comment("용돈계좌번호")
     val accountNo: String,

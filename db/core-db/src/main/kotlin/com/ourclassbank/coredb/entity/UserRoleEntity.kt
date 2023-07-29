@@ -1,10 +1,17 @@
 package com.ourclassbank.coredb.entity
 
 import com.ourclassbank.modeldomain.user.RoleType
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import org.hibernate.annotations.Comment
 
-@Entity(name = "user_role")
+@Table(name = "user_role")
+@Entity
 class UserRoleEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
