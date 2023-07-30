@@ -6,6 +6,7 @@ import com.ourclassbank.coredomain.support.factory.toModel
 import com.ourclassbank.modeldomain.user.creditscore.CreditScoreHistory
 import com.ourclassbank.modeldomain.user.creditscore.CreditScoreUpdateVo
 import org.springframework.stereotype.Repository
+import java.time.LocalDateTime
 
 @Repository
 class CreditScoreRepository(
@@ -24,11 +25,19 @@ class CreditScoreRepository(
     }
 
     private fun CreditScoreUpdateVo.getCurrentScore(): Int {
-        return historyJpaDao.findLastByUserLoginIdOrderByIdDesc(userLoginId)?.score ?: 0
+        return historyJpaDao.findFirstByUserLoginIdOrderByIdDesc(userLoginId)?.score ?: 0
     }
 
     fun findLastHistoryByUserLoginId(userLoginId: String): CreditScoreHistory {
-        return historyJpaDao.findLastByUserLoginIdOrderByIdDesc(userLoginId)?.toModel()
+        return historyJpaDao.findFirstByUserLoginIdOrderByIdDesc(userLoginId)?.toModel()
             ?: throw IllegalArgumentException("신용평가 이력이 존재하지 않는 회원")
+    }
+
+    fun findAllHistoryByUser(userLoginId: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditScoreHistory> {
+        return historyJpaDao.findAllByUserLoginIdAndCreatedAtBetweenOrderByCreatedAtDesc(
+            userLoginId,
+            fromAt,
+            toAt
+        ).map { it.toModel() }
     }
 }

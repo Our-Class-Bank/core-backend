@@ -4,6 +4,7 @@ import com.ourclassbank.modeldomain.user.creditscore.CreditScoreUpdateVo
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import org.springframework.boot.test.context.SpringBootTest
+import java.time.LocalDateTime
 
 @SpringBootTest
 class CreditScoreServiceTest(
@@ -12,6 +13,8 @@ class CreditScoreServiceTest(
 ) : DescribeSpec({
     describe("신용평가 모델이 기록되고 조회 됩니다.") {
         val userId1 = "user001"
+        val fromAt = LocalDateTime.now().minusHours(1)
+        val toAt = LocalDateTime.now().plusHours(1)
 
         context("회원id user001 의 신용평가 점수에 변동을 주면") {
             context("+2점") {
@@ -23,6 +26,12 @@ class CreditScoreServiceTest(
                     creditScoreReadService.findLastHistoryByUserLoginId(userId1).run {
                         changePoint shouldBe 2
                         score shouldBe 2
+                    }
+                }
+
+                it("historyCount == 1") {
+                    creditScoreReadService.findAllHistoryByUser(userId1, fromAt, toAt).run {
+                        size shouldBe 1
                     }
                 }
             }
@@ -38,6 +47,12 @@ class CreditScoreServiceTest(
                         score shouldBe 8
                     }
                 }
+
+                it("historyCount == 2") {
+                    creditScoreReadService.findAllHistoryByUser(userId1, fromAt, toAt).run {
+                        size shouldBe 2
+                    }
+                }
             }
 
             context("+4점") {
@@ -49,6 +64,12 @@ class CreditScoreServiceTest(
                     creditScoreReadService.findLastHistoryByUserLoginId(userId1).run {
                         changePoint shouldBe 4
                         score shouldBe 12
+                    }
+                }
+
+                it("historyCount == 3") {
+                    creditScoreReadService.findAllHistoryByUser(userId1, fromAt, toAt).run {
+                        size shouldBe 3
                     }
                 }
             }
@@ -64,6 +85,12 @@ class CreditScoreServiceTest(
                         score shouldBe 9
                     }
                 }
+
+                it("historyCount == 4") {
+                    creditScoreReadService.findAllHistoryByUser(userId1, fromAt, toAt).run {
+                        size shouldBe 4
+                    }
+                }
             }
 
             context("-5점") {
@@ -75,6 +102,12 @@ class CreditScoreServiceTest(
                     creditScoreReadService.findLastHistoryByUserLoginId(userId1).run {
                         changePoint shouldBe -5
                         score shouldBe 4
+                    }
+                }
+
+                it("historyCount == 5") {
+                    creditScoreReadService.findAllHistoryByUser(userId1, fromAt, toAt).run {
+                        size shouldBe 5
                     }
                 }
             }
