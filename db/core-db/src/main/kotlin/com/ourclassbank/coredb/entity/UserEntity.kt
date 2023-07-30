@@ -1,17 +1,26 @@
 package com.ourclassbank.coredb.entity
 
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Embedded
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToMany
+import jakarta.persistence.Table
+import jakarta.persistence.UniqueConstraint
 import org.hibernate.annotations.Comment
 
-@Entity(name = "user")
 @Table(
+    name = "user",
     uniqueConstraints = [
         UniqueConstraint(
-            name = "attendanceNumber_unique",
+            name = "unique_attendance_number",
             columnNames = ["schoolName", "grade", "classNumber", "attendanceNumber"]
         )
     ]
 )
+@Entity
 class UserEntity(
     @Comment("로그인ID")
     @Column(unique = true)

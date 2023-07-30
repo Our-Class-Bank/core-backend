@@ -24,6 +24,7 @@ class UserRepository(
         return jpaDao.findByLoginId(loginId)?.toModel() ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
     }
 
+    // todo jpql -> querydsl 로 변경
     fun findAllByUserClass(userClass: UserClass): List<User> {
         return userClass.run {
             jpaDao.findAllByUserClass(
