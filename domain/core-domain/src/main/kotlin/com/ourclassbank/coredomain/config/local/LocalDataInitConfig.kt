@@ -63,6 +63,19 @@ private val 회원_전체 = listOf(
         )
     ),
     User(
+        loginId = "credit001",
+        password = "1234",
+        name = "김신용평가원",
+        pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
+        roles = listOf(RoleType.ROLE_STUDENT, RoleType.ROLE_CREDIT_EVALUATOR),
+        userClass = UserClass(
+            schoolName = "우리초등학교",
+            grade = 3,
+            classNumber = 1,
+            attendanceNumber = 4
+        )
+    ),
+    User(
         loginId = "teacher001",
         password = "1234",
         name = "김선생",
