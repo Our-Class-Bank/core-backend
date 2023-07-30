@@ -1,22 +1,22 @@
 package com.ourclassbank.coreapi.controller.common
 
-import com.ourclassbank.modeldomain.user.creditscore.CreditScoreHistory
+import com.ourclassbank.modeldomain.user.creditevaluation.CreditEvaluationHistory
 import java.time.LocalDateTime
 
-data class CreditScoreHistoryResponse(
+data class CreditEvaluationHistoryResponse(
     val id: Long,
-    val userLoginId: String,
+    val username: String,
     val changePoint: Int,
     val description: String,
     val score: Int,
     val createdAt: LocalDateTime
 ) {
     companion object {
-        fun from(creditScoreHistory: CreditScoreHistory): CreditScoreHistoryResponse {
-            return creditScoreHistory.run {
-                CreditScoreHistoryResponse(
+        fun from(creditEvaluationHistory: CreditEvaluationHistory): CreditEvaluationHistoryResponse {
+            return creditEvaluationHistory.run {
+                CreditEvaluationHistoryResponse(
                     id = id,
-                    userLoginId = userLoginId,
+                    username = username,
                     changePoint = changePoint,
                     description = description,
                     score = score,

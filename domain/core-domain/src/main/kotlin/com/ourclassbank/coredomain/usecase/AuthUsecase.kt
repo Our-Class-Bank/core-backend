@@ -15,11 +15,11 @@ class AuthUsecase(
 
     private val userService: UserService
 ) {
-    fun signup(loginId: String, password: String, name: String, roles: List<RoleType>) {
+    fun signup(username: String, password: String, name: String, roles: List<RoleType>) {
         TODO()
 //        userService.create(
 //            User(
-//                loginId = loginId,
+//                username = username,
 //                password = passwordEncoder.encode(password),
 //                name = name,
 //                roles = roles,
@@ -33,8 +33,8 @@ class AuthUsecase(
 //        )
     }
 
-    fun signin(loginId: String, password: String): String {
-        return userService.findByLoginId(loginId).let {
+    fun signin(username: String, password: String): String {
+        return userService.findByUsername(username).let {
             if (!passwordEncoder.matches(password, it.password)) {
                 throw DomainException(DomainExceptionType.INVALID_USER_PASSWORD)
             }
@@ -43,7 +43,7 @@ class AuthUsecase(
         }
     }
 
-    fun passwordReset(loginId: String, name: String) {
-        userService.passwordReset(loginId, name)
+    fun passwordReset(username: String, name: String) {
+        userService.passwordReset(username, name)
     }
 }

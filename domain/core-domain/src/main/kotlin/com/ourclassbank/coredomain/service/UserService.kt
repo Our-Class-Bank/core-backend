@@ -17,7 +17,7 @@ class UserService(
     private val initPassword = "1234"
 
     fun create(user: User) {
-        if (userRepository.existsByLoginId(user.loginId)) {
+        if (userRepository.existsByUsername(user.username)) {
             throw DomainException(DomainExceptionType.EXISTS_USER)
         }
 
@@ -25,21 +25,21 @@ class UserService(
     }
 
     @Transactional(readOnly = true)
-    fun findByLoginId(loginId: String): User {
-        return userRepository.findByLoginId(loginId)
+    fun findByUsername(username: String): User {
+        return userRepository.findByUser(username)
     }
 
     @Transactional(readOnly = true)
     fun findAllSameClass(): List<User> {
-        (SecurityContextHolder.getContext().authentication.principal as UserContext).loginId
+        (SecurityContextHolder.getContext().authentication.principal as UserContext).uUsername
         val userContext = SecurityContextHolder.getContext().authentication.principal as UserContext
-        val userClass = userRepository.findByLoginId(userContext.loginId).userClass
+        val userClass = userRepository.findByUser(userContext.uUsername).userClass
 
         return userRepository.findAllByUserClass(userClass)
     }
 
-    fun passwordReset(loginId: String, name: String) {
-        userRepository.findByLoginId(loginId).let {
+    fun passwordReset(username: String, name: String) {
+        userRepository.findByUser(username).let {
             if (it.name != name) {
                 throw DomainException(DomainExceptionType.INSUFFICIENT_USER_RESET_PASSWORD)
             }

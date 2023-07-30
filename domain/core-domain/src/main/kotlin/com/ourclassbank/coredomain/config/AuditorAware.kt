@@ -10,7 +10,7 @@ import java.util.*
 class AuditorAware : AuditorAware<String> {
     override fun getCurrentAuditor(): Optional<String> {
         SecurityContextHolder.getContext().authentication?.let {
-            return Optional.of((it.principal as UserContext).loginId)
+            return Optional.of((it.principal as UserContext).uUsername)
         } ?: return Optional.empty()
     }
 }

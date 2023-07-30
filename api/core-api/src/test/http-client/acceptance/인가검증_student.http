@@ -1,16 +1,16 @@
 ### 회원 로그인
 < {%
-    client.global.set("loginId", "user001")
+    client.global.set("username", "user001")
     client.global.set("password", "1234")
 
-    request.variables.set("loginId", client.global.get("loginId"))
+    request.variables.set("username", client.global.get("username"))
     request.variables.set("password", client.global.get("password"))
 %}
 POST {{host}}/api/v1/auth/signin
 Content-Type: application/json
 
 {
-  "loginId": "{{loginId}}",
+  "username": "{{username}}",
   "password": "{{password}}"
 }
 

@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
 interface UserEntityJpaDao : JpaRepository<UserEntity, Long> {
-    fun findByLoginId(loginId: String): UserEntity?
-    fun existsByLoginId(loginId: String): Boolean
+    fun findByUsername(username: String): UserEntity?
+    fun existsByUsername(username: String): Boolean
 
     @Query(
         """

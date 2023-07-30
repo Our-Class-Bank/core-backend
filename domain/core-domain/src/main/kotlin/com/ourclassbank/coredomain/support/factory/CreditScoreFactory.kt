@@ -1,12 +1,12 @@
 package com.ourclassbank.coredomain.support.factory
 
-import com.ourclassbank.coredb.entity.CreditScoreHistoryEntity
-import com.ourclassbank.modeldomain.user.creditscore.CreditScoreHistory
+import com.ourclassbank.coredb.entity.CreditEvaluationHistoryEntity
+import com.ourclassbank.modeldomain.user.creditevaluation.CreditEvaluationHistory
 
-fun CreditScoreHistoryEntity.toModel(): CreditScoreHistory {
-    return CreditScoreHistory(
+fun CreditEvaluationHistoryEntity.toModel(): CreditEvaluationHistory {
+    return CreditEvaluationHistory(
         id = id!!,
-        userLoginId = userLoginId,
+        username = username,
         changePoint = changePoint,
         description = description,
         score = score,

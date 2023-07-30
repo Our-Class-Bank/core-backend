@@ -24,7 +24,7 @@ import org.hibernate.annotations.Comment
 class UserEntity(
     @Comment("로그인ID")
     @Column(unique = true)
-    val loginId: String,
+    val username: String,
 
     @Comment("비밀번호")
     var password: String,

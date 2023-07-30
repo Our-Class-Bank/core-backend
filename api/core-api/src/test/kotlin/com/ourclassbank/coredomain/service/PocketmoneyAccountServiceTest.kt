@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 class PocketmoneyAccountServiceTest(
     private val sut: PocketmoneyAccountService,
 ) : DescribeSpec({
-    describe("용돈계좌 기능 - 입금, 출금, 기록조회 by loginId=abc123") {
+    describe("용돈계좌 기능 - 입금, 출금, 기록조회 by username=abc123") {
         context("기록조회") {
             it("balance=0L") {
 
