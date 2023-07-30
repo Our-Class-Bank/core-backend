@@ -8,7 +8,7 @@ import org.springframework.data.annotation.CreatedBy
 
 @Table(name = "credit_score_history")
 @Entity
-class CreditScoreHistoryEntity(
+class CreditEvaluationHistoryEntity(
     val userLoginId: String,
 
     @Comment("점수 변동")

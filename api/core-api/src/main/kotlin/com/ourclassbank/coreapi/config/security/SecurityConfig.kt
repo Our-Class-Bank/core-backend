@@ -45,7 +45,7 @@ class SecurityConfig(
                     )
 
                     // 신용평가
-                    .requestMatchers("/api/v1/credit-score/**").hasRole(ROLE_CREDIT_EVALUATOR.toSecurityRole())
+                    .requestMatchers("/api/v1/credit-evaluation/**").hasRole(ROLE_CREDIT_EVALUATOR.toSecurityRole())
 
                     // 용돈 계좌
                     .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(ROLE_BANKER.toSecurityRole())

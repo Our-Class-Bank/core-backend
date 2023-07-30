@@ -1,20 +1,20 @@
 package com.ourclassbank.coredomain.repository
 
-import com.ourclassbank.coredb.dao.CreditScoreHistoryEntityJpaDao
-import com.ourclassbank.coredb.entity.CreditScoreHistoryEntity
+import com.ourclassbank.coredb.dao.CreditEvaluationHistoryEntityJpaDao
+import com.ourclassbank.coredb.entity.CreditEvaluationHistoryEntity
 import com.ourclassbank.coredomain.support.factory.toModel
-import com.ourclassbank.modeldomain.user.creditscore.CreditScoreHistory
-import com.ourclassbank.modeldomain.user.creditscore.CreditScoreUpdateVo
+import com.ourclassbank.modeldomain.user.creditevaluation.CreditEvaluateVo
+import com.ourclassbank.modeldomain.user.creditevaluation.CreditEvaluationHistory
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
 @Repository
-class CreditScoreRepository(
-    private val historyJpaDao: CreditScoreHistoryEntityJpaDao,
+class CreditEvaluationRepository(
+    private val historyJpaDao: CreditEvaluationHistoryEntityJpaDao,
 ) {
-    fun update(updateVo: CreditScoreUpdateVo): CreditScoreHistory {
+    fun evaluate(updateVo: CreditEvaluateVo): CreditEvaluationHistory {
         return updateVo.run {
-            val entity = CreditScoreHistoryEntity(
+            val entity = CreditEvaluationHistoryEntity(
                 userLoginId = userLoginId,
                 changePoint = changePoint,
                 description = description,
@@ -24,16 +24,16 @@ class CreditScoreRepository(
         }.toModel()
     }
 
-    private fun CreditScoreUpdateVo.getCurrentScore(): Int {
+    private fun CreditEvaluateVo.getCurrentScore(): Int {
         return historyJpaDao.findFirstByUserLoginIdOrderByIdDesc(userLoginId)?.score ?: 0
     }
 
-    fun findLastHistoryByUserLoginId(userLoginId: String): CreditScoreHistory {
+    fun findLastHistoryByUserLoginId(userLoginId: String): CreditEvaluationHistory {
         return historyJpaDao.findFirstByUserLoginIdOrderByIdDesc(userLoginId)?.toModel()
             ?: throw IllegalArgumentException("신용평가 이력이 존재하지 않는 회원")
     }
 
-    fun findAllHistoryByUser(userLoginId: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditScoreHistory> {
+    fun findAllHistoryByUser(userLoginId: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
         return historyJpaDao.findAllByUserLoginIdAndCreatedAtBetweenOrderByCreatedAtDesc(
             userLoginId,
             fromAt,

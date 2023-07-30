@@ -28,7 +28,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "개인 회원 평가 api - userLoginId == user002, +3 점")
 %}
-POST {{host}}/api/v1/credit-score/user002
+POST {{host}}/api/v1/credit-evaluation/user002
 Authorization: Bearer {{creditEvaluatorToken}}
 Content-Type: application/json
 
@@ -47,7 +47,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "개인 회원 평가 api - userLoginId == user002, +5 점")
 %}
-POST {{host}}/api/v1/credit-score/user002
+POST {{host}}/api/v1/credit-evaluation/user002
 Authorization: Bearer {{creditEvaluatorToken}}
 Content-Type: application/json
 
@@ -66,7 +66,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "개인 회원 평가 api - userLoginId == user002, -2 점")
 %}
-POST {{host}}/api/v1/credit-score/user002
+POST {{host}}/api/v1/credit-evaluation/user002
 Authorization: Bearer {{creditEvaluatorToken}}
 Content-Type: application/json
 
@@ -85,7 +85,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "이력 조회 api - userLoginId == user002")
 %}
-GET {{host}}/api/v1/credit-score?userLoginId=user002&fromAt=2023-07-30T23:45:10&toAt=2023-07-30T23:59:10
+GET {{host}}/api/v1/credit-evaluation/history?userLoginId=user002&fromAt=2023-07-30T23:45:10&toAt=2023-07-30T23:59:10
 Authorization: Bearer {{creditEvaluatorToken}}
 
 > {%
