@@ -11,8 +11,8 @@ class CustomUserDetailService(
     private val userRepository: UserRepository
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
-        return with(userRepository.findByLoginId(username)) {
-            UserContext(loginId, password, roles)
+        return with(userRepository.findByUser(username)) {
+            UserContext(this.username, password, roles)
         }
     }
 }

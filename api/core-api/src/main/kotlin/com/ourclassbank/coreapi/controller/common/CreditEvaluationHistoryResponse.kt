@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 data class CreditEvaluationHistoryResponse(
     val id: Long,
-    val userLoginId: String,
+    val username: String,
     val changePoint: Int,
     val description: String,
     val score: Int,
@@ -16,7 +16,7 @@ data class CreditEvaluationHistoryResponse(
             return creditEvaluationHistory.run {
                 CreditEvaluationHistoryResponse(
                     id = id,
-                    userLoginId = userLoginId,
+                    username = username,
                     changePoint = changePoint,
                     description = description,
                     score = score,

@@ -22,7 +22,7 @@ class JwtTokenProvider(
 ) {
     fun createToken(user: User): String {
         val now = Date()
-        val claims = Jwts.claims().setSubject(user.loginId).apply {
+        val claims = Jwts.claims().setSubject(user.username).apply {
             this["roles"] = user.roles
         }
 
@@ -36,12 +36,12 @@ class JwtTokenProvider(
     }
 
     fun getAuthentication(token: String): Authentication {
-        return userDetailsService.loadUserByUsername(getLoginId(token)).let {
+        return userDetailsService.loadUserByUsername(getUsername(token)).let {
             UsernamePasswordAuthenticationToken(it, "", it.authorities)
         }
     }
 
-    fun getLoginId(token: String): String {
+    fun getUsername(token: String): String {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).body.subject
     }
 

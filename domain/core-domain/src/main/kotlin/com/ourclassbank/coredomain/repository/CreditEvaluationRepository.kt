@@ -15,7 +15,7 @@ class CreditEvaluationRepository(
     fun evaluate(updateVo: CreditEvaluateVo): CreditEvaluationHistory {
         return updateVo.run {
             val entity = CreditEvaluationHistoryEntity(
-                userLoginId = userLoginId,
+                username = username,
                 changePoint = changePoint,
                 description = description,
                 score = getCurrentScore() + changePoint,
@@ -25,17 +25,17 @@ class CreditEvaluationRepository(
     }
 
     private fun CreditEvaluateVo.getCurrentScore(): Int {
-        return historyJpaDao.findFirstByUserLoginIdOrderByIdDesc(userLoginId)?.score ?: 0
+        return historyJpaDao.findFirstByUsernameOrderByIdDesc(username)?.score ?: 0
     }
 
-    fun findLastHistoryByUserLoginId(userLoginId: String): CreditEvaluationHistory {
-        return historyJpaDao.findFirstByUserLoginIdOrderByIdDesc(userLoginId)?.toModel()
+    fun findLastHistoryByUser(username: String): CreditEvaluationHistory {
+        return historyJpaDao.findFirstByUsernameOrderByIdDesc(username)?.toModel()
             ?: throw IllegalArgumentException("신용평가 이력이 존재하지 않는 회원")
     }
 
-    fun findAllHistoryByUser(userLoginId: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
-        return historyJpaDao.findAllByUserLoginIdAndCreatedAtBetweenOrderByCreatedAtDesc(
-            userLoginId,
+    fun findAllHistoryByUser(username: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
+        return historyJpaDao.findAllByUsernameAndCreatedAtBetweenOrderByCreatedAtDesc(
+            username,
             fromAt,
             toAt
         ).map { it.toModel() }

@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDateTime
 
 interface CreditEvaluationHistoryEntityJpaDao : JpaRepository<CreditEvaluationHistoryEntity, Long> {
-    fun findFirstByUserLoginIdOrderByIdDesc(userLoginId: String): CreditEvaluationHistoryEntity?
-    fun findAllByUserLoginIdAndCreatedAtBetweenOrderByCreatedAtDesc(
-        userLoginId: String,
+    fun findFirstByUsernameOrderByIdDesc(username: String): CreditEvaluationHistoryEntity?
+    fun findAllByUsernameAndCreatedAtBetweenOrderByCreatedAtDesc(
+        username: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<CreditEvaluationHistoryEntity>

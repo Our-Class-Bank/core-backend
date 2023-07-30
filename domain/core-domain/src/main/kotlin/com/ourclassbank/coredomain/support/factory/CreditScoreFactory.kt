@@ -6,7 +6,7 @@ import com.ourclassbank.modeldomain.user.creditevaluation.CreditEvaluationHistor
 fun CreditEvaluationHistoryEntity.toModel(): CreditEvaluationHistory {
     return CreditEvaluationHistory(
         id = id!!,
-        userLoginId = userLoginId,
+        username = username,
         changePoint = changePoint,
         description = description,
         score = score,

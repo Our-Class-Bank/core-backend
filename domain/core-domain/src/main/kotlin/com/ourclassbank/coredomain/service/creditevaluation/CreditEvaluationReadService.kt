@@ -14,11 +14,11 @@ class CreditEvaluationReadService(
     /**
      * 신용평가 최종 이력을 조회합니다.
      */
-    fun findLastHistoryByUserLoginId(userLoginId: String): CreditEvaluationHistory {
-        return repository.findLastHistoryByUserLoginId(userLoginId)
+    fun findLastHistoryByUser(username: String): CreditEvaluationHistory {
+        return repository.findLastHistoryByUser(username)
     }
 
-    fun findAllHistoryByUser(userLoginId: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
-        return repository.findAllHistoryByUser(userLoginId, fromAt, toAt)
+    fun findAllHistoryByUser(username: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
+        return repository.findAllHistoryByUser(username, fromAt, toAt)
     }
 }

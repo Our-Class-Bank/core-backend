@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 
 data class CreditEvaluationHistory(
     val id: Long,
-    val userLoginId: String,
+    val username: String,
     val changePoint: Int,
     val description: String,
     val score: Int,

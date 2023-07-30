@@ -6,9 +6,9 @@ data class CreditEvaluateRequest(
     val changePoint: Int,
     val description: String
 ) {
-    fun toVo(userLoginId: String): CreditEvaluateVo {
+    fun toVo(username: String): CreditEvaluateVo {
         return CreditEvaluateVo(
-            userLoginId = userLoginId,
+            username = username,
             changePoint = changePoint,
             description = description,
         )

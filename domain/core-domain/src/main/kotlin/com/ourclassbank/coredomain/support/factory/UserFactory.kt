@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 
 fun User.toEntity(passwordEncoder: PasswordEncoder): UserEntity {
     return UserEntity(
-        loginId = this.loginId,
+        username = this.username,
         password = passwordEncoder.encode(this.password),
         name = this.name,
         pocketMoneyAccountNo = this.pocketmoneyAccountNo,
@@ -22,7 +22,7 @@ fun User.toEntity(passwordEncoder: PasswordEncoder): UserEntity {
 fun UserEntity.toModel(): User {
     return User(
         id = this.id,
-        loginId = this.loginId,
+        username = this.username,
         password = this.password,
         name = this.name,
         pocketmoneyAccountNo = this.pocketMoneyAccountNo,

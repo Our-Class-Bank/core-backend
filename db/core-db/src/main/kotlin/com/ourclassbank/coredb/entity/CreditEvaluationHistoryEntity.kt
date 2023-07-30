@@ -9,7 +9,7 @@ import org.springframework.data.annotation.CreatedBy
 @Table(name = "credit_score_history")
 @Entity
 class CreditEvaluationHistoryEntity(
-    val userLoginId: String,
+    val username: String,
 
     @Comment("점수 변동")
     val changePoint: Int,

@@ -23,7 +23,7 @@ class CreditEvaluationServiceTest(
                 }
 
                 it("changePoint == 2, score == 2") {
-                    creditEvaluationReadService.findLastHistoryByUserLoginId(userId1).run {
+                    creditEvaluationReadService.findLastHistoryByUser(userId1).run {
                         changePoint shouldBe 2
                         score shouldBe 2
                     }
@@ -42,7 +42,7 @@ class CreditEvaluationServiceTest(
                 }
 
                 it("changePoint == 6, score == 8") {
-                    creditEvaluationReadService.findLastHistoryByUserLoginId(userId1).run {
+                    creditEvaluationReadService.findLastHistoryByUser(userId1).run {
                         changePoint shouldBe 6
                         score shouldBe 8
                     }
@@ -61,7 +61,7 @@ class CreditEvaluationServiceTest(
                 }
 
                 it("changePoint == 4, score == 12") {
-                    creditEvaluationReadService.findLastHistoryByUserLoginId(userId1).run {
+                    creditEvaluationReadService.findLastHistoryByUser(userId1).run {
                         changePoint shouldBe 4
                         score shouldBe 12
                     }
@@ -80,7 +80,7 @@ class CreditEvaluationServiceTest(
                 }
 
                 it("changePoint == -3, score == 9") {
-                    creditEvaluationReadService.findLastHistoryByUserLoginId(userId1).run {
+                    creditEvaluationReadService.findLastHistoryByUser(userId1).run {
                         changePoint shouldBe -3
                         score shouldBe 9
                     }
@@ -99,7 +99,7 @@ class CreditEvaluationServiceTest(
                 }
 
                 it("changePoint == -5, score == 4") {
-                    creditEvaluationReadService.findLastHistoryByUserLoginId(userId1).run {
+                    creditEvaluationReadService.findLastHistoryByUser(userId1).run {
                         changePoint shouldBe -5
                         score shouldBe 4
                     }

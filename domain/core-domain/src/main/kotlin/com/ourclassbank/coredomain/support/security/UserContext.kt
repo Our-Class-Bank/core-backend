@@ -5,9 +5,11 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-
+/**
+ * username, password 는 UserDetails 의 예약어이기에 u 를 붙여서 생성 했습니다.
+ */
 data class UserContext(
-    val loginId: String,
+    val uUsername: String,
     private val uPassword: String,
     val roles: List<RoleType>,
 ) : UserDetails {
@@ -16,7 +18,7 @@ data class UserContext(
     }
 
     override fun getPassword() = uPassword
-    override fun getUsername() = loginId
+    override fun getUsername() = uUsername
     override fun isAccountNonExpired() = true
     override fun isAccountNonLocked() = true
     override fun isCredentialsNonExpired() = true

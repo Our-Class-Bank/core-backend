@@ -23,9 +23,9 @@ class CreditEvaluationController(
     private val creditEvaluationReadService: CreditEvaluationReadService
 ) {
     @Operation(summary = "개인 회원 평가", description = "- auth: CREDIT_SCORE_MANAGER")
-    @PostMapping("/api/v1/credit-evaluation/{userLoginId}")
-    fun evaluate(@PathVariable userLoginId: String, @RequestBody request: CreditEvaluateRequest): CreditEvaluateResponse {
-        return creditEvaluationService.evaluate(request.toVo(userLoginId)).run {
+    @PostMapping("/api/v1/credit-evaluation/{username}")
+    fun evaluate(@PathVariable username: String, @RequestBody request: CreditEvaluateRequest): CreditEvaluateResponse {
+        return creditEvaluationService.evaluate(request.toVo(username)).run {
             CreditEvaluateResponse.from(this)
         }
     }
@@ -33,11 +33,11 @@ class CreditEvaluationController(
     @Operation(summary = "이력 조회", description = "- auth: CREDIT_SCORE_MANAGER")
     @GetMapping("/api/v1/credit-evaluation/history")
     fun findAll(
-        @RequestParam userLoginId: String,
+        @RequestParam username: String,
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) fromAt: LocalDateTime,
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) toAt: LocalDateTime
     ): List<CreditEvaluationHistoryResponse> {
-        return creditEvaluationReadService.findAllHistoryByUser(userLoginId, fromAt, toAt).run {
+        return creditEvaluationReadService.findAllHistoryByUser(username, fromAt, toAt).run {
             this.map { CreditEvaluationHistoryResponse.from(it) }
         }
     }

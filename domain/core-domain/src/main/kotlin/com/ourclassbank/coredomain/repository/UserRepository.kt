@@ -20,8 +20,8 @@ class UserRepository(
         jpaDao.save(user.toEntity(passwordEncoder))
     }
 
-    fun findByLoginId(loginId: String): User {
-        return jpaDao.findByLoginId(loginId)?.toModel() ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
+    fun findByUser(username: String): User {
+        return jpaDao.findByUsername(username)?.toModel() ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
     }
 
     // todo jpql -> querydsl 로 변경
@@ -35,12 +35,12 @@ class UserRepository(
         }
     }
 
-    fun existsByLoginId(loginId: String): Boolean {
-        return jpaDao.existsByLoginId(loginId)
+    fun existsByUsername(username: String): Boolean {
+        return jpaDao.existsByUsername(username)
     }
 
     fun updatePassword(user: User) {
-        jpaDao.findByLoginId(user.loginId)?.updatePassword(passwordEncoder.encode(user.password))
+        jpaDao.findByUsername(user.username)?.updatePassword(passwordEncoder.encode(user.password))
             ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
     }
 }

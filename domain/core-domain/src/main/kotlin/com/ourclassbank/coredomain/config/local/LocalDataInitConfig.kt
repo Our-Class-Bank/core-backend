@@ -24,7 +24,7 @@ class LocalDataInitConfig(
 
 private val 회원_전체 = listOf(
     User(
-        loginId = "user001",
+        username = "user001",
         password = "1234",
         name = "홍길동",
         pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
@@ -37,7 +37,7 @@ private val 회원_전체 = listOf(
         )
     ),
     User(
-        loginId = "user002",
+        username = "user002",
         password = "1234",
         name = "김철수",
         pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
@@ -50,7 +50,7 @@ private val 회원_전체 = listOf(
         )
     ),
     User(
-        loginId = "banker001",
+        username = "banker001",
         password = "1234",
         name = "김은행",
         pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
@@ -63,7 +63,7 @@ private val 회원_전체 = listOf(
         )
     ),
     User(
-        loginId = "credit001",
+        username = "credit001",
         password = "1234",
         name = "김신용평가원",
         pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
@@ -76,7 +76,7 @@ private val 회원_전체 = listOf(
         )
     ),
     User(
-        loginId = "teacher001",
+        username = "teacher001",
         password = "1234",
         name = "김선생",
         pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),

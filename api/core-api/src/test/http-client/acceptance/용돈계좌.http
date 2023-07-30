@@ -2,17 +2,17 @@
 < {%
     client.global.set("testName", "banker 회원 로그인 api")
 
-    client.global.set("bankerLoginId", "banker001")
+    client.global.set("bankerUsername", "banker001")
     client.global.set("bankerPassword", "1234")
 
-    request.variables.set("bankerLoginId", client.global.get("bankerLoginId"))
+    request.variables.set("bankerUsername", client.global.get("bankerUsername"))
     request.variables.set("bankerPassword", client.global.get("bankerPassword"))
 %}
 POST {{host}}/api/v1/auth/signin
 Content-Type: application/json
 
 {
-  "loginId": "{{bankerLoginId}}",
+  "username": "{{bankerUsername}}",
   "password": "{{bankerPassword}}"
 }
 
@@ -37,7 +37,7 @@ Authorization: Bearer {{bankerToken}}
     });
 
     client.global.set("pocketmoneyAccountNo", response.body[0]["pocketmoneyAccountNo"])
-    client.global.set("studentLoginId", response.body[0]["loginId"])
+    client.global.set("studentUsername", response.body[0]["username"])
 %}
 
 
@@ -146,17 +146,17 @@ Authorization: Bearer {{bankerToken}}
 < {%
     client.global.set("testName", "student 회원 로그인 api")
 
-    client.global.set("studentLoginId", client.global.get("studentLoginId"))
+    client.global.set("studentUsername", client.global.get("studentUsername"))
     client.global.set("studentPassword", "1234")
 
-    request.variables.set("studentLoginId", client.global.get("studentLoginId"))
+    request.variables.set("studentUsername", client.global.get("studentUsername"))
     request.variables.set("studentPassword", client.global.get("studentPassword"))
 %}
 POST {{host}}/api/v1/auth/signin
 Content-Type: application/json
 
 {
-  "loginId": "{{studentLoginId}}",
+  "username": "{{studentUsername}}",
   "password": "{{studentPassword}}"
 }
 
@@ -180,7 +180,7 @@ Content-Type: application/json
 Authorization: Bearer {{studentToken}}
 
 {
-  "loginId": "{{studentLoginId}}",
+  "username": "{{studentUsername}}",
   "password": "{{studentPassword}}"
 }
 

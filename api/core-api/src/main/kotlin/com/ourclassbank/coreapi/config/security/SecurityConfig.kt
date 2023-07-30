@@ -72,7 +72,6 @@ class SecurityConfig(
                 UsernamePasswordAuthenticationFilter::class.java
             )
 
-
         return http.build()
     }
 
