@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
 
-@Tag(name = "신용평가")
+@Tag(name = "신용평가", description = "auth: CREDIT_SCORE_MANAGER")
 @RestController
 class CreditEvaluationController(
     private val creditEvaluationService: CreditEvaluationService,
     private val creditEvaluationReadService: CreditEvaluationReadService
 ) {
-    @Operation(summary = "개인 회원 평가", description = "- auth: CREDIT_SCORE_MANAGER")
+    @Operation(summary = "개인 회원 평가")
     @PostMapping("/api/v1/credit-evaluation/{username}")
     fun evaluate(@PathVariable username: String, @RequestBody request: CreditEvaluateRequest): CreditEvaluateResponse {
         return creditEvaluationService.evaluate(request.toVo(username)).run {
@@ -30,7 +30,7 @@ class CreditEvaluationController(
         }
     }
 
-    @Operation(summary = "이력 조회", description = "- auth: CREDIT_SCORE_MANAGER")
+    @Operation(summary = "이력 조회")
     @GetMapping("/api/v1/credit-evaluation/history")
     fun findAll(
         @RequestParam username: String,

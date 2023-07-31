@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
 
-@Tag(name = "내 정보")
+@Tag(name = "내 정보", description = "auth: STUDENT")
 @RestController
 class MyController(
     private val creditEvaluationReadService: CreditEvaluationReadService
 ) {
-    @Operation(summary = "내 신용평가 이력 조회", description = "- auth: STUDENT")
+    @Operation(summary = "내 신용평가 이력 조회")
     @GetMapping("/api/v1/my/credit-evaluation/history")
     fun findAllCreditEvaluation(
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) fromAt: LocalDateTime,
