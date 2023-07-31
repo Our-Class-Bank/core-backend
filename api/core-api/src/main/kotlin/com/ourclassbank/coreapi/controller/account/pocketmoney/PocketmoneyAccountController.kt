@@ -1,9 +1,10 @@
-package com.ourclassbank.coreapi.controller.pocketmoneyaccount
+package com.ourclassbank.coreapi.controller.account.pocketmoney
 
+import com.ourclassbank.coreapi.controller.account.pocketmoney.request.PocketmoneyAccountDepositRequest
+import com.ourclassbank.coreapi.controller.account.pocketmoney.request.PocketmoneyAccountWithdrawRequest
 import com.ourclassbank.coreapi.controller.common.PocketMoneyAccountHistoryResponse
 import com.ourclassbank.coredomain.service.PocketmoneyAccountService
 import com.ourclassbank.coredomain.support.security.UserContext
-import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.core.context.SecurityContextHolder
@@ -15,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
 
-@Tag(name = "용돈계좌")
+@Tag(name = "용돈계좌", description = "auth: BANKER")
 @RestController
 class PocketmoneyAccountController(
     private val pocketmoneyAccountService: PocketmoneyAccountService
 ) {
-    @Operation(summary = "입금", description = "- auth: banker")
+    @Operation(summary = "입금")
     @PostMapping("/api/v1/account/pocketmoney/deposit")
     fun deposit(@RequestBody request: PocketmoneyAccountDepositRequest) {
         pocketmoneyAccountService.deposit(
@@ -31,7 +32,7 @@ class PocketmoneyAccountController(
         )
     }
 
-    @Operation(summary = "출금", description = "- auth: banker")
+    @Operation(summary = "출금")
     @PostMapping("/api/v1/account/pocketmoney/withdraw")
     fun withdraw(@RequestBody request: PocketmoneyAccountWithdrawRequest) {
         pocketmoneyAccountService.withdraw(
@@ -42,8 +43,8 @@ class PocketmoneyAccountController(
         )
     }
 
-    @Operation(summary = "BANKER 가 수행한 입출금 기록 조회", description = "- auth: banker\n- order by createdAt desc")
-    @GetMapping("/api/v1/account/pocketmoney-history/by-banker")
+    @Operation(summary = "입출금 기록 조회 execute by banker", description = "- order by createdAt desc")
+    @GetMapping("/api/v1/account/pocketmoney/history/by-banker")
     fun findAllHistoryByBanker(
         @RequestParam fromAt: LocalDateTime,
         @RequestParam toAt: LocalDateTime
@@ -56,8 +57,8 @@ class PocketmoneyAccountController(
         ).map { PocketMoneyAccountHistoryResponse(it) }
     }
 
-    @Operation(summary = "입출금 기록 조회", description = "- order by createdAt desc")
-    @GetMapping("/api/v1/account/pocketmoney-history/{accountNo}")
+    @Operation(summary = "입출금 기록 조회 - auth: STUDENT", description = "- order by createdAt desc")
+    @GetMapping("/api/v1/account/pocketmoney/history/{accountNo}")
     fun findAllHistory(
         @PathVariable accountNo: String,
         @RequestParam fromAt: LocalDateTime,
@@ -71,16 +72,4 @@ class PocketmoneyAccountController(
     }
 }
 
-data class PocketmoneyAccountDepositRequest(
-    val accountNo: String,
-    val type: PocketmoneyAccountHistoryType,
-    val amount: Long,
-    val description: String
-)
 
-data class PocketmoneyAccountWithdrawRequest(
-    val accountNo: String,
-    val type: PocketmoneyAccountHistoryType,
-    val amount: Long,
-    val description: String
-)
