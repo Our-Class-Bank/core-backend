@@ -7,12 +7,12 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "회원")
+@Tag(name = "회원", description = "auth: STUDENT")
 @RestController
 class UserController(
     private val userService: UserService
 ) {
-    @Operation(summary = "전체 조회 - 같은 반", description = "- auth: banker")
+    @Operation(summary = "전체 조회 - 같은 반")
     @GetMapping("/api/v1/user/same-class")
     fun findSameClass(): List<UserResponse> {
         return userService.findAllSameClass().map { UserResponse(it) }

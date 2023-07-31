@@ -132,7 +132,7 @@ Content-Type: application/json
     request.variables.set("fromAt", "2020-01-01T00:00:00.000")
     request.variables.set("toAt", "2999-01-31T23:59:59.999")
 %}
-GET {{host}}/api/v1/account/pocketmoney-history/by-banker?fromAt={{fromAt}}&toAt={{toAt}}
+GET {{host}}/api/v1/account/pocketmoney/history/by-banker?fromAt={{fromAt}}&toAt={{toAt}}
 Content-Type: application/json
 Authorization: Bearer {{bankerToken}}
 
@@ -175,7 +175,7 @@ Content-Type: application/json
     request.variables.set("fromAt", "2020-01-01T00:00:00.000")
     request.variables.set("toAt", "2999-01-31T23:59:59.999")
 %}
-GET {{host}}/api/v1/account/pocketmoney-history/{{pocketmoneyAccountNo}}?fromAt={{fromAt}}&toAt={{toAt}}
+GET {{host}}/api/v1/account/pocketmoney/history/{{pocketmoneyAccountNo}}?fromAt={{fromAt}}&toAt={{toAt}}
 Content-Type: application/json
 Authorization: Bearer {{studentToken}}
 
