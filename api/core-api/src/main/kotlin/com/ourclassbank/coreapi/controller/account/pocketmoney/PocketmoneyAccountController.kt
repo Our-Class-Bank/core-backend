@@ -1,9 +1,10 @@
 package com.ourclassbank.coreapi.controller.account.pocketmoney
 
+import com.ourclassbank.coreapi.controller.account.pocketmoney.request.PocketmoneyAccountDepositRequest
+import com.ourclassbank.coreapi.controller.account.pocketmoney.request.PocketmoneyAccountWithdrawRequest
 import com.ourclassbank.coreapi.controller.common.PocketMoneyAccountHistoryResponse
 import com.ourclassbank.coredomain.service.PocketmoneyAccountService
 import com.ourclassbank.coredomain.support.security.UserContext
-import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.core.context.SecurityContextHolder
@@ -71,16 +72,4 @@ class PocketmoneyAccountController(
     }
 }
 
-data class PocketmoneyAccountDepositRequest(
-    val accountNo: String,
-    val type: PocketmoneyAccountHistoryType,
-    val amount: Long,
-    val description: String
-)
 
-data class PocketmoneyAccountWithdrawRequest(
-    val accountNo: String,
-    val type: PocketmoneyAccountHistoryType,
-    val amount: Long,
-    val description: String
-)
