@@ -6,5 +6,8 @@ enum class DomainExceptionType(val message: String) {
     EXISTS_USER("이미 존재하는 회원"),
     NOT_FOUND_USER("존재하지 않는 회원"),
     INSUFFICIENT_USER_RESET_PASSWORD("회원 비밀번호 초기화 조건 불충족"),
+
+    // 신용평가
+    INVALID_CREDIT_EVALUATION_SCORE("잘못된 신용평가 점수"),
     ;
 }

@@ -1,6 +1,7 @@
 package com.ourclassbank.coredomain.service.creditevaluation
 
 import com.ourclassbank.coredomain.support.exception.DomainException
+import com.ourclassbank.coredomain.support.exception.DomainExceptionType.INVALID_CREDIT_EVALUATION_SCORE
 import com.ourclassbank.modeldomain.user.creditevaluation.CreditEvaluateVo
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
@@ -115,27 +116,27 @@ class CreditEvaluationServiceTest(
             }
         }
 
-        context("신용평가의 점수는 0 에서 100 사이 입니다.") {
-            context("신용 평가의 결과가 0보다 작으면 ") {
+        context("신용평가점수 범위는 0 to 100 입니다.") {
+            context("신용 평가의 결과가 0 보다 작으면 ") {
                 val exception = shouldThrow<DomainException> {
                     CreditEvaluateVo("ex001", -1, "-1 점").run {
                         creditEvaluationService.evaluate(this)
                     }
                 }
 
-                it("예외가 발생합니다.") {
-                    exception.message shouldBe "신용평가 점수는 0 에서 100 사이 입니다."
+                it("DomainException == INVALID_CREDIT_EVALUATION_SCORE") {
+                    exception.exceptionType shouldBe INVALID_CREDIT_EVALUATION_SCORE
                 }
             }
 
-            context("신용 평가의 결과가 100보다 작으면") {
+            context("신용 평가의 결과가 100 보다 작으면") {
                 val exception = shouldThrow<DomainException> {
                     CreditEvaluateVo("ex002", 101, "101 점").run {
                         creditEvaluationService.evaluate(this)
                     }
                 }
-                it("예외가 발생합니다.") {
-                    exception.message shouldBe "신용평가 점수는 0 에서 100 사이 입니다."
+                it("DomainException == INVALID_CREDIT_EVALUATION_SCORE") {
+                    exception.exceptionType shouldBe INVALID_CREDIT_EVALUATION_SCORE
                 }
             }
         }
