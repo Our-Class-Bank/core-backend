@@ -15,7 +15,7 @@ import org.hibernate.annotations.Comment
     name = "user",
     uniqueConstraints = [
         UniqueConstraint(
-            name = "unique_attendance_number",
+            name = "UK_attendance_number",
             columnNames = ["schoolName", "grade", "classNumber", "attendanceNumber"]
         )
     ]
