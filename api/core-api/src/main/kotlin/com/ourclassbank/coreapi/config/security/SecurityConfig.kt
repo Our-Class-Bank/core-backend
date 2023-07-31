@@ -38,6 +38,9 @@ class SecurityConfig(
                     // 인증, 인가
                     .requestMatchers("/api/v1/auth/**").permitAll()
 
+                    // 내 정보
+                    .requestMatchers("/api/v1/my/**").hasAnyRole(ROLE_STUDENT.toSecurityRole())
+
                     // 회원 공통 기능
                     .requestMatchers("/api/v1/user/**").hasAnyRole(
                         ROLE_STUDENT.toSecurityRole(),
