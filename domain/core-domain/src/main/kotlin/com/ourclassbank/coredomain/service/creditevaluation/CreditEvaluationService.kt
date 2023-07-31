@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional
 class CreditEvaluationService(
     private val creditEvaluationRepository: CreditEvaluationRepository
 ) {
-    fun evaluate(updateVo: CreditEvaluateVo): CreditEvaluationHistory {
-        return updateVo.run {
-            creditEvaluationRepository.evaluate(updateVo)
+    fun evaluate(evaluateVo: CreditEvaluateVo): CreditEvaluationHistory {
+        return evaluateVo.run {
+            creditEvaluationRepository.evaluate(evaluateVo)
         }
     }
 }
