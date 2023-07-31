@@ -26,6 +26,20 @@ Content-Type: application/json
 
 ###
 < {%
+    client.global.set("testName", "내 계좌 목록 api")
+%}
+GET {{host}}/api/v1/my/account
+Authorization: Bearer {{bankerToken}}
+Content-Type: application/json
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+%}
+
+###
+< {%
     client.global.set("testName", "같은 반 회원 조회 api")
 %}
 GET {{host}}/api/v1/user/same-class
