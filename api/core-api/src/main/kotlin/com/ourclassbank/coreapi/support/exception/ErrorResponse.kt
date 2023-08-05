@@ -3,6 +3,7 @@ package com.ourclassbank.coreapi.support.exception
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.ourclassbank.coredomain.support.exception.DomainException
 import jakarta.validation.UnexpectedTypeException
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
 import java.time.LocalDateTime
@@ -13,6 +14,7 @@ data class ErrorResponse(
     val code: String,
     val message: String,
 ) {
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     val timestamp: LocalDateTime = LocalDateTime.now()
     val traceId: String = UUID.randomUUID().toString()
 
