@@ -1,6 +1,6 @@
 package com.ourclassbank.coredomain.config.local
 
-import com.ourclassbank.coredomain.service.UserService
+import com.ourclassbank.coredomain.service.user.UserService
 import com.ourclassbank.coredomain.support.generator.PocketMoneyAccountNoGenerator
 import com.ourclassbank.modeldomain.user.RoleType
 import com.ourclassbank.modeldomain.user.User

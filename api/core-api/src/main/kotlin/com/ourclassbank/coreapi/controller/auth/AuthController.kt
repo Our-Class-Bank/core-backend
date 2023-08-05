@@ -1,7 +1,10 @@
 package com.ourclassbank.coreapi.controller.auth
 
+import com.ourclassbank.coreapi.controller.auth.request.UserSigninRequest
+import com.ourclassbank.coreapi.controller.auth.request.UserSignupRequest
+import com.ourclassbank.coreapi.controller.auth.response.UserPasswordChangeRequest
+import com.ourclassbank.coreapi.controller.auth.response.UserSigninResponse
 import com.ourclassbank.coredomain.usecase.AuthUsecase
-import com.ourclassbank.modeldomain.user.RoleType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PostMapping
@@ -25,30 +28,11 @@ class AuthController(
         return UserSigninResponse(authUsecase.signin(request.username, request.password))
     }
 
-    @Operation(summary = "회원 비밀번호 초기화")
-    @PostMapping("/api/v1/auth/password-reset")
-    fun passwordReset(@RequestBody request: UserPasswordResetRequest) {
-        authUsecase.passwordReset(request.username, request.name)
+    @Operation(summary = "회원 비밀번호 변경")
+    @PostMapping("/api/v1/auth/password/change")
+    fun passwordReset(@RequestBody request: UserPasswordChangeRequest) {
+        request.run {
+            authUsecase.passwordChange(username, name, newPassword)
+        }
     }
 }
-
-data class UserSignupRequest(
-    val username: String,
-    val password: String,
-    val name: String,
-    val roles: List<RoleType>,
-)
-
-data class UserSigninRequest(
-    val username: String,
-    val password: String,
-)
-
-data class UserSigninResponse(
-    val accessToken: String,
-)
-
-data class UserPasswordResetRequest(
-    val username: String,
-    val name: String,
-)
