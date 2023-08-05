@@ -18,34 +18,32 @@ class ApiControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DomainException::class)
     fun handleDomainException(e: DomainException): ErrorResponse {
-        return ErrorResponse(e).also { log.info(e) }
+        return ErrorResponse(e).also { log.info(e, it.traceId) }
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleMethodArgumentNotValidException(e: MethodArgumentNotValidException): ErrorResponse {
-        return ErrorResponse(e).also { log.info(e) }
+        return ErrorResponse(e).also { log.info(e, it.traceId) }
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UnexpectedTypeException::class)
     fun handleUnexpectedTypeException(e: UnexpectedTypeException): ErrorResponse {
-        return ErrorResponse(e).also { log.info(e) }
+        return ErrorResponse(e).also { log.info(e, it.traceId) }
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ErrorResponse {
-        return ErrorResponse(e).also { log.info(e) }
+        return ErrorResponse(e).also { log.error(e, it.traceId) }
     }
-}
 
-private fun Logger.info(e: Exception) {
-    info("${e::class.simpleName} : {}", e.message)
-    info(e.stackTraceToString())
-}
+    private fun Logger.info(e: Exception, traceId: String) {
+        info("${e::class.simpleName}: traceId=${traceId}\n" + e.stackTraceToString())
+    }
 
-private fun Logger.error(e: Exception) {
-    error("${e::class.simpleName} : {}", e.message)
-    error(e.stackTraceToString())
+    private fun Logger.error(e: Exception, traceId: String) {
+        error("${e::class.simpleName}: traceId=${traceId}\n" + e.stackTraceToString())
+    }
 }
