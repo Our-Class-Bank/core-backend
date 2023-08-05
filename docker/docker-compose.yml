@@ -1,10 +1,12 @@
 version: "3"
 services:
   our-class-bank:
-    container_name: our-class-bank-mysql
-    image: mysql:8.0.33
-    environment:
-      MYSQL_DATABASE: our-class-bank
-      MYSQL_ROOT_PASSWORD: root
+    image: our-class-bank-server
+    restart: always
     ports:
-      - "3306:3306"
+      - "8080:8080"
+    environment:
+      TZ: "Asia/Seoul"
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}

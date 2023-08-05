@@ -8,7 +8,6 @@ spring:
         default_batch_fetch_size: 100
         dialect: org.hibernate.dialect.MySQLDialect
 
-
 ---
 spring.config.activate.on-profile: local
 
@@ -34,3 +33,20 @@ spring.config.activate.on-profile: dev
 
 ---
 spring.config.activate.on-profile: prod
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      multiline: true
+      logging: slf4j
