@@ -7,13 +7,20 @@ import com.ourclassbank.modeldomain.user.RoleType.ROLE_BANKER
 import com.ourclassbank.modeldomain.user.RoleType.ROLE_CREDIT_EVALUATOR
 import com.ourclassbank.modeldomain.user.RoleType.ROLE_STUDENT
 import com.ourclassbank.modeldomain.user.RoleType.ROLE_TEACHER
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.MediaType
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
@@ -75,6 +82,8 @@ class SecurityConfig(
                 JwtAuthenticationFilter(jwtTokenProvider),
                 UsernamePasswordAuthenticationFilter::class.java
             )
+            .exceptionHandling { it.authenticationEntryPoint(CustomAuthenticationEntryPoint()) }
+            .exceptionHandling { it.accessDeniedHandler(CustomAccessDeniedHandler()) }
 
         return http.build()
     }
@@ -84,5 +93,29 @@ class SecurityConfig(
      */
     private fun RoleType.toSecurityRole(): String {
         return this.name.removePrefix("ROLE_")
+    }
+
+    class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {
+        override fun commence(
+            request: HttpServletRequest,
+            response: HttpServletResponse,
+            authenticationException: AuthenticationException
+        ) {
+            response.contentType = MediaType.APPLICATION_JSON_VALUE
+            response.status = HttpServletResponse.SC_UNAUTHORIZED
+            response.outputStream.println(("{ \"error\": \"" + authenticationException.message) + "\" }")
+        }
+    }
+
+    class CustomAccessDeniedHandler : AccessDeniedHandler {
+        override fun handle(
+            request: HttpServletRequest,
+            response: HttpServletResponse,
+            accessDeniedException: AccessDeniedException
+        ) {
+            response.contentType = MediaType.APPLICATION_JSON_VALUE
+            response.status = HttpServletResponse.SC_FORBIDDEN
+            response.outputStream.println(("{ \"error\": \"" + accessDeniedException.message) + "\" }")
+        }
     }
 }
