@@ -1,7 +1,10 @@
 package com.ourclassbank.coreapi.controller.auth
 
+import com.ourclassbank.coreapi.controller.auth.request.UserSigninRequest
+import com.ourclassbank.coreapi.controller.auth.request.UserSignupRequest
+import com.ourclassbank.coreapi.controller.auth.response.UserPasswordResetRequest
+import com.ourclassbank.coreapi.controller.auth.response.UserSigninResponse
 import com.ourclassbank.coredomain.usecase.AuthUsecase
-import com.ourclassbank.modeldomain.user.RoleType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PostMapping
@@ -31,24 +34,3 @@ class AuthController(
         authUsecase.passwordReset(request.username, request.name)
     }
 }
-
-data class UserSignupRequest(
-    val username: String,
-    val password: String,
-    val name: String,
-    val roles: List<RoleType>,
-)
-
-data class UserSigninRequest(
-    val username: String,
-    val password: String,
-)
-
-data class UserSigninResponse(
-    val accessToken: String,
-)
-
-data class UserPasswordResetRequest(
-    val username: String,
-    val name: String,
-)
