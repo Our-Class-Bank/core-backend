@@ -15,9 +15,10 @@ class OpenAPIConfig {
                 Info()
                     .title("our-class-bank core-api")
                     .description(
-                        "- ISO 8601 DateTime sample=2020-05-05T10:10:10"
+                        "**uptime: ${LocalDateTime.now()}**\n" +
+                                "- ISO 8601 DateTime sample=2020-05-05T10:10:10"
                     )
-                    .version(LocalDateTime.now().toString())
+                    .version("v0.5.0")
             )
     }
 }
