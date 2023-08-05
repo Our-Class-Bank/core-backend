@@ -1,0 +1,10 @@
+version: "3"
+services:
+  our-class-bank:
+    container_name: our-class-bank-mysql
+    image: mysql:8.0.33
+    environment:
+      MYSQL_DATABASE: our-class-bank
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
