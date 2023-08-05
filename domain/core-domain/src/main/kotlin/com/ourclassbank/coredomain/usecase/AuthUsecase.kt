@@ -1,6 +1,7 @@
 package com.ourclassbank.coredomain.usecase
 
-import com.ourclassbank.coredomain.service.UserService
+import com.ourclassbank.coredomain.service.user.UserReadService
+import com.ourclassbank.coredomain.service.user.UserService
 import com.ourclassbank.coredomain.support.exception.DomainException
 import com.ourclassbank.coredomain.support.exception.DomainExceptionType
 import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
@@ -13,7 +14,8 @@ class AuthUsecase(
     private val passwordEncoder: PasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider,
 
-    private val userService: UserService
+    private val userService: UserService,
+    private val userReadService: UserReadService
 ) {
     fun signup(username: String, password: String, name: String, roles: List<RoleType>) {
         TODO()
@@ -34,7 +36,7 @@ class AuthUsecase(
     }
 
     fun signin(username: String, password: String): String {
-        return userService.findByUsername(username).let {
+        return userReadService.findByUsername(username).let {
             if (!passwordEncoder.matches(password, it.password)) {
                 throw DomainException(DomainExceptionType.INVALID_USER_PASSWORD)
             }

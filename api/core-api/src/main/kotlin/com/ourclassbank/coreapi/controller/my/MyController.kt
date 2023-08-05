@@ -2,8 +2,8 @@ package com.ourclassbank.coreapi.controller.my
 
 import com.ourclassbank.coreapi.controller.common.AccountResponse
 import com.ourclassbank.coreapi.controller.common.CreditEvaluationHistoryResponse
-import com.ourclassbank.coredomain.service.UserService
 import com.ourclassbank.coredomain.service.creditevaluation.CreditEvaluationReadService
+import com.ourclassbank.coredomain.service.user.UserReadService
 import com.ourclassbank.coredomain.support.security.UserContext
 import com.ourclassbank.modeldomain.common.AccountType
 import io.swagger.v3.oas.annotations.Operation
@@ -19,7 +19,7 @@ import java.time.LocalDateTime
 @RestController
 class MyController(
     private val creditEvaluationReadService: CreditEvaluationReadService,
-    private val userService: UserService
+    private val userReadService: UserReadService
 ) {
     @Operation(summary = "내 신용평가 이력")
     @GetMapping("/api/v1/my/credit-evaluation/history")
@@ -38,7 +38,7 @@ class MyController(
     fun findAllMyAccount(): List<AccountResponse> {
         val userContext = SecurityContextHolder.getContext().authentication.principal as UserContext
 
-        val pocketmoneyAccount = userService.findByUsername(userContext.uUsername).run {
+        val pocketmoneyAccount = userReadService.findByUsername(userContext.uUsername).run {
             AccountResponse(AccountType.POCKETMONEY, this.pocketmoneyAccountNo)
         }
 
