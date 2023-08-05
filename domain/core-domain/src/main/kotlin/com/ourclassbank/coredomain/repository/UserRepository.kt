@@ -39,8 +39,10 @@ class UserRepository(
         return jpaDao.existsByUsername(username)
     }
 
-    fun updatePassword(user: User) {
-        jpaDao.findByUsername(user.username)?.updatePassword(passwordEncoder.encode(user.password))
-            ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
+    fun updatePassword(username: String, newPassword: String) {
+        passwordEncoder.encode(newPassword).run {
+            jpaDao.findByUsername(username)?.updatePassword(this)
+                ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
+        }
     }
 }

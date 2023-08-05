@@ -28,7 +28,15 @@ class UserService(
                 throw DomainException(DomainExceptionType.INSUFFICIENT_USER_RESET_PASSWORD)
             }
 
-            userRepository.updatePassword(it.copy(password = initPassword))
+            userRepository.updatePassword(username, initPassword)
         }
+    }
+
+    fun passwordChange(username: String, newPassword: String) {
+        userRepository.updatePassword(username, newPassword)
+    }
+
+    fun passwordChangeAble(username: String, name: String): Boolean {
+        return userRepository.findByUser(username).name == name
     }
 }
