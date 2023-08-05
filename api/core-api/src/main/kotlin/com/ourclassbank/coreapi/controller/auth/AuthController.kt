@@ -2,7 +2,7 @@ package com.ourclassbank.coreapi.controller.auth
 
 import com.ourclassbank.coreapi.controller.auth.request.UserSigninRequest
 import com.ourclassbank.coreapi.controller.auth.request.UserSignupRequest
-import com.ourclassbank.coreapi.controller.auth.response.UserPasswordResetRequest
+import com.ourclassbank.coreapi.controller.auth.response.UserPasswordChangeRequest
 import com.ourclassbank.coreapi.controller.auth.response.UserSigninResponse
 import com.ourclassbank.coredomain.usecase.AuthUsecase
 import io.swagger.v3.oas.annotations.Operation
@@ -28,9 +28,11 @@ class AuthController(
         return UserSigninResponse(authUsecase.signin(request.username, request.password))
     }
 
-    @Operation(summary = "회원 비밀번호 초기화")
-    @PostMapping("/api/v1/auth/password-reset")
-    fun passwordReset(@RequestBody request: UserPasswordResetRequest) {
-        authUsecase.passwordReset(request.username, request.name)
+    @Operation(summary = "회원 비밀번호 변경")
+    @PostMapping("/api/v1/auth/password/change")
+    fun passwordReset(@RequestBody request: UserPasswordChangeRequest) {
+        request.run {
+            authUsecase.passwordChange(username, name, newPassword)
+        }
     }
 }

@@ -3,7 +3,8 @@ package com.ourclassbank.coredomain.usecase
 import com.ourclassbank.coredomain.service.user.UserReadService
 import com.ourclassbank.coredomain.service.user.UserService
 import com.ourclassbank.coredomain.support.exception.DomainException
-import com.ourclassbank.coredomain.support.exception.DomainExceptionType
+import com.ourclassbank.coredomain.support.exception.DomainExceptionType.INSUFFICIENT_USER_PASSWORD_CHANGE
+import com.ourclassbank.coredomain.support.exception.DomainExceptionType.INVALID_USER_PASSWORD
 import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
 import com.ourclassbank.modeldomain.user.RoleType
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -38,7 +39,7 @@ class AuthUsecase(
     fun signin(username: String, password: String): String {
         return userReadService.findByUsername(username).let {
             if (!passwordEncoder.matches(password, it.password)) {
-                throw DomainException(DomainExceptionType.INVALID_USER_PASSWORD)
+                throw DomainException(INVALID_USER_PASSWORD)
             }
 
             jwtTokenProvider.createToken(it)
@@ -47,5 +48,13 @@ class AuthUsecase(
 
     fun passwordReset(username: String, name: String) {
         userService.passwordReset(username, name)
+    }
+
+    fun passwordChange(username: String, name: String, newPassword: String) {
+        if (!userService.passwordChangeAble(username, name)) {
+            throw DomainException(INSUFFICIENT_USER_PASSWORD_CHANGE)
+        }
+
+        userService.passwordChange(username, newPassword)
     }
 }
