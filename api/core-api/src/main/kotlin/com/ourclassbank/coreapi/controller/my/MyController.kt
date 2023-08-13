@@ -48,8 +48,10 @@ class MyController(
             .map { CreditEvaluationHistoryResponse.from(it) }
     }
 
-    @Operation(summary = "내 계좌 입출금 이력 조회", description = "- order by createdAt desc\n" +
-            "- 현재 존재하는 계좌는 용돈계좌뿐 입니다.")
+    @Operation(
+        summary = "내 계좌 입출금 이력 조회", description = "- order by createdAt desc\n" +
+                "- 현재 존재하는 계좌는 용돈계좌뿐 입니다."
+    )
     @GetMapping("/api/v1/my/account/history/{accountNo}")
     fun findAllMyPocketmoneyAccountHistory(
         @PathVariable accountNo: String,
