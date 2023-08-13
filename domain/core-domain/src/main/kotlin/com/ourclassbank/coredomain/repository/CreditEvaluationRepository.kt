@@ -54,4 +54,16 @@ class CreditEvaluationRepository(
             toAt
         ).map { it.toModel() }
     }
+
+    fun findAllByCreatedBy(
+        createdBy: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistory> {
+        return historyJpaDao.findAllByCreatedByAndCreatedAtBetweenOrderByCreatedAtDesc(
+            createdBy,
+            fromAt,
+            toAt
+        ).map { it.toModel() }
+    }
 }

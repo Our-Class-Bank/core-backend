@@ -21,4 +21,12 @@ class CreditEvaluationReadService(
     fun findAllHistoryByUser(username: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
         return repository.findAllHistoryByUser(username, fromAt, toAt)
     }
+
+    fun findAllHistoryByCreatedBy(
+        createdBy: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistory> {
+        return repository.findAllByCreatedBy(createdBy, fromAt, toAt)
+    }
 }
