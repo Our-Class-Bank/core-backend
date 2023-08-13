@@ -21,27 +21,29 @@ class MyController(
     private val creditEvaluationReadService: CreditEvaluationReadService,
     private val userReadService: UserReadService
 ) {
+    @Operation(summary = "내 계좌 목록", description = "현재 존재하는 계좌는 용돈계좌뿐 입니다.")
+    @GetMapping("/api/v1/my/account")
+    fun findAllMyAccount(): List<AccountResponse> {
+        val userContext = getUserContext()
+        val pocketmoneyAccount = userReadService.findByUsername(userContext.uUsername).run {
+            AccountResponse(AccountType.POCKETMONEY, pocketmoneyAccountNo)
+        }
+
+        return listOf(pocketmoneyAccount)
+    }
+
     @Operation(summary = "내 신용평가 이력")
     @GetMapping("/api/v1/my/credit-evaluation/history")
     fun findAllMyCreditEvaluation(
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) fromAt: LocalDateTime,
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) toAt: LocalDateTime
     ): List<CreditEvaluationHistoryResponse> {
-        val userContext = SecurityContextHolder.getContext().authentication.principal as UserContext
-        return creditEvaluationReadService.findAllHistoryByUser(userContext.uUsername, fromAt, toAt).run {
-            this.map { CreditEvaluationHistoryResponse.from(it) }
-        }
+        val userContext = getUserContext()
+        return creditEvaluationReadService.findAllHistoryByUser(userContext.uUsername, fromAt, toAt)
+            .map { CreditEvaluationHistoryResponse.from(it) }
     }
 
-    @Operation(summary = "내 계좌 목록", description = "현재 존재하는 계좌는 용돈계좌뿐 입니다.")
-    @GetMapping("/api/v1/my/account")
-    fun findAllMyAccount(): List<AccountResponse> {
-        val userContext = SecurityContextHolder.getContext().authentication.principal as UserContext
-
-        val pocketmoneyAccount = userReadService.findByUsername(userContext.uUsername).run {
-            AccountResponse(AccountType.POCKETMONEY, this.pocketmoneyAccountNo)
-        }
-
-        return listOf(pocketmoneyAccount)
+    private fun getUserContext(): UserContext {
+        return SecurityContextHolder.getContext().authentication.principal as UserContext
     }
 }
