@@ -6,8 +6,15 @@ import java.time.LocalDateTime
 
 interface CreditEvaluationHistoryEntityJpaDao : JpaRepository<CreditEvaluationHistoryEntity, Long> {
     fun findFirstByUsernameOrderByIdDesc(username: String): CreditEvaluationHistoryEntity?
+
     fun findAllByUsernameAndCreatedAtBetweenOrderByCreatedAtDesc(
         username: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistoryEntity>
+
+    fun findAllByCreatedByAndCreatedAtBetweenOrderByCreatedAtDesc(
+        createdBy: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<CreditEvaluationHistoryEntity>

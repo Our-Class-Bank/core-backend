@@ -42,8 +42,8 @@ class PocketmoneyAccountController(
         )
     }
 
-    @Operation(summary = "입출금 기록 조회", description = "- order by createdAt desc")
-    @GetMapping("/api/v1/account/pocketmoney/history")
+    @Operation(summary = "입출금 이력 조회 execute by BANKER", description = "- order by createdAt desc")
+    @GetMapping("/api/v1/account/pocketmoney/history/by-banker")
     fun findAllHistoryByBanker(
         @RequestParam fromAt: LocalDateTime,
         @RequestParam toAt: LocalDateTime
@@ -56,5 +56,3 @@ class PocketmoneyAccountController(
         ).map { PocketMoneyAccountHistoryResponse(it) }
     }
 }
-
-

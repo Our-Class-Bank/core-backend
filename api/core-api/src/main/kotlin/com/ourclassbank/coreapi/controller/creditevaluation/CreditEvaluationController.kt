@@ -5,9 +5,11 @@ import com.ourclassbank.coreapi.controller.creditevaluation.request.CreditEvalua
 import com.ourclassbank.coreapi.controller.creditevaluation.response.CreditEvaluateResponse
 import com.ourclassbank.coredomain.service.creditevaluation.CreditEvaluationReadService
 import com.ourclassbank.coredomain.service.creditevaluation.CreditEvaluationService
+import com.ourclassbank.coredomain.support.security.UserContext
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.format.annotation.DateTimeFormat
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
 
-@Tag(name = "신용평가", description = "auth: CREDIT_SCORE_MANAGER")
+@Tag(name = "신용평가", description = "auth: CREDIT_EVALUATOR")
 @RestController
 class CreditEvaluationController(
     private val creditEvaluationService: CreditEvaluationService,
@@ -40,5 +42,23 @@ class CreditEvaluationController(
         return creditEvaluationReadService.findAllHistoryByUser(username, fromAt, toAt).run {
             this.map { CreditEvaluationHistoryResponse.from(it) }
         }
+    }
+
+    @Operation(summary = "이력 조회 execute by CREDIT_EVALUATOR", description = "- order by createdAt desc")
+    @GetMapping("/api/v1/account/pocketmoney/history/by-credit-evaluator")
+    fun findAllHistoryByCreditEvaluator(
+        @RequestParam fromAt: LocalDateTime,
+        @RequestParam toAt: LocalDateTime
+    ): List<CreditEvaluationHistoryResponse> {
+        val userContext = getUserContext()
+        return creditEvaluationReadService.findAllHistoryByCreatedBy(
+            createdBy = userContext.uUsername,
+            fromAt = fromAt,
+            toAt = toAt
+        ).map { CreditEvaluationHistoryResponse.from(it) }
+    }
+
+    private fun getUserContext(): UserContext {
+        return SecurityContextHolder.getContext().authentication.principal as UserContext
     }
 }
