@@ -48,8 +48,8 @@ class SecurityConfig(
                     // 내 정보
                     .requestMatchers("/api/v1/my/**").hasAnyRole(ROLE_STUDENT.toSecurityRole())
 
-                    // 회원 공통 기능
-                    .requestMatchers("/api/v1/user/**").hasAnyRole(
+                    // 같은 반
+                    .requestMatchers("/api/v1/same-class/**").hasAnyRole(
                         ROLE_STUDENT.toSecurityRole(),
                         ROLE_TEACHER.toSecurityRole()
                     )

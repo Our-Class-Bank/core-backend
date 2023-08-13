@@ -29,4 +29,8 @@ class CreditEvaluationReadService(
     ): List<CreditEvaluationHistory> {
         return repository.findAllByCreatedBy(createdBy, fromAt, toAt)
     }
+
+    fun readCurrentScore(username: String): Int {
+        return repository.readCurrentScore(username)
+    }
 }

@@ -66,4 +66,8 @@ class CreditEvaluationRepository(
             toAt
         ).map { it.toModel() }
     }
+
+    fun readCurrentScore(username: String): Int {
+        return historyJpaDao.findFirstByUsernameOrderByIdDesc(username)?.score ?: 0
+    }
 }
