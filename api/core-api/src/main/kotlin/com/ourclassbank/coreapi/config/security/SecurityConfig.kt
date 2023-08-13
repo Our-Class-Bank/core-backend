@@ -58,8 +58,6 @@ class SecurityConfig(
                     .requestMatchers("/api/v1/credit-evaluation/**").hasRole(ROLE_CREDIT_EVALUATOR.toSecurityRole())
 
                     // 용돈 계좌
-                    .requestMatchers("/api/v1/account/pocketmoney/history/by-banker").hasRole(ROLE_BANKER.toSecurityRole())
-                    .requestMatchers("/api/v1/account/pocketmoney/history/**").hasRole(ROLE_STUDENT.toSecurityRole())
                     .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(ROLE_BANKER.toSecurityRole())
 
 
