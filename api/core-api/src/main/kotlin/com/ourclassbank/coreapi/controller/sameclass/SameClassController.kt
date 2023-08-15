@@ -3,8 +3,8 @@ package com.ourclassbank.coreapi.controller.sameclass
 import com.ourclassbank.coreapi.controller.common.UserResponse
 import com.ourclassbank.coreapi.controller.sameclass.response.SameClassCreditEvaluationResponse
 import com.ourclassbank.coredomain.service.creditevaluation.CreditEvaluationReadService
-import com.ourclassbank.coredomain.service.user.UserReadService
 import com.ourclassbank.coredomain.support.security.UserContext
+import com.ourclassbank.coredomain.usecase.UserQueryUsecase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.core.context.SecurityContextHolder
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "같은 반", description = "auth: STUDENT")
 @RestController
 class SameClassController(
-    private val userReadService: UserReadService,
+    private val userQueryUsecase: UserQueryUsecase,
     private val creditEvaluationReadService: CreditEvaluationReadService
 ) {
     @Operation(summary = "회원 전체 조회")
     @GetMapping("/api/v1/same-class/user")
     fun findAllUser(): List<UserResponse> {
         val userContext = getUserContext()
-        return userReadService.findAllSameClass(userContext.uUsername)
+        return userQueryUsecase.findAllSameClass(userContext.uUsername)
             .map { UserResponse(it) }
     }
 
@@ -29,7 +29,7 @@ class SameClassController(
     @GetMapping("/api/v1/same-class/credit-evaluation")
     fun findAllCreditEvaluation(): List<SameClassCreditEvaluationResponse> {
         val userContext = getUserContext()
-        val findAllSameClass = userReadService.findAllSameClass(userContext.uUsername)
+        val findAllSameClass = userQueryUsecase.findAllSameClass(userContext.uUsername)
 
         return findAllSameClass.map {
             SameClassCreditEvaluationResponse(

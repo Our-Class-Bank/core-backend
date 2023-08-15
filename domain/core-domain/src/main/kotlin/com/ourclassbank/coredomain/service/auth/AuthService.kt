@@ -1,12 +1,12 @@
 package com.ourclassbank.coredomain.service.auth
 
-import com.ourclassbank.coredomain.service.user.UserReadService
-import com.ourclassbank.coredomain.service.user.UserService
 import com.ourclassbank.coredomain.support.exception.DomainException
 import com.ourclassbank.coredomain.support.exception.DomainExceptionType.INSUFFICIENT_USER_PASSWORD_CHANGE
 import com.ourclassbank.coredomain.support.exception.DomainExceptionType.INVALID_USER_PASSWORD
 import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
 import com.ourclassbank.coredomain.usecase.AuthUsecase
+import com.ourclassbank.coredomain.usecase.UserCommandUsecase
+import com.ourclassbank.coredomain.usecase.UserQueryUsecase
 import com.ourclassbank.modeldomain.user.RoleType
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -16,8 +16,8 @@ class AuthService(
     private val passwordEncoder: PasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider,
 
-    private val userService: UserService,
-    private val userReadService: UserReadService
+    private val userCommandUsecase: UserCommandUsecase,
+    private val userQueryUsecase: UserQueryUsecase
 ) : AuthUsecase {
     override fun signup(username: String, password: String, name: String, roles: List<RoleType>) {
         TODO()
@@ -38,7 +38,7 @@ class AuthService(
     }
 
     override fun signin(username: String, password: String): String {
-        return userReadService.findByUsername(username).let {
+        return userQueryUsecase.findByUsername(username).let {
             if (!passwordEncoder.matches(password, it.password)) {
                 throw DomainException(INVALID_USER_PASSWORD)
             }
@@ -48,14 +48,14 @@ class AuthService(
     }
 
     override fun passwordReset(username: String, name: String) {
-        userService.passwordReset(username, name)
+        userCommandUsecase.passwordReset(username, name)
     }
 
     override fun passwordChange(username: String, name: String, newPassword: String) {
-        if (!userService.passwordChangeAble(username, name)) {
+        if (!userCommandUsecase.passwordChangeAble(username, name)) {
             throw DomainException(INSUFFICIENT_USER_PASSWORD_CHANGE)
         }
 
-        userService.passwordChange(username, newPassword)
+        userCommandUsecase.passwordChange(username, newPassword)
     }
 }
