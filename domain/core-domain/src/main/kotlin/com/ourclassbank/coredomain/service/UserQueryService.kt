@@ -1,4 +1,4 @@
-package com.ourclassbank.coredomain.service.user
+package com.ourclassbank.coredomain.service
 
 import com.ourclassbank.coredomain.repository.UserRepository
 import com.ourclassbank.coredomain.usecase.UserQueryUsecase

@@ -1,4 +1,4 @@
-package com.ourclassbank.coredomain.service.pocketmoney
+package com.ourclassbank.coredomain.service
 
 import com.ourclassbank.coredomain.repository.PocketmoneyAccountHistoryRepository
 import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase

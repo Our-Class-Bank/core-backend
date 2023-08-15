@@ -1,4 +1,4 @@
-package com.ourclassbank.coredomain.service.creditevaluation
+package com.ourclassbank.coredomain.service
 
 import com.ourclassbank.coredomain.repository.CreditEvaluationRepository
 import com.ourclassbank.coredomain.usecase.CreditEvaluationCommandUsecase

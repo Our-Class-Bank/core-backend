@@ -1,4 +1,4 @@
-package com.ourclassbank.coredomain.service.auth
+package com.ourclassbank.coredomain.service
 
 import com.ourclassbank.coredomain.support.exception.DomainException
 import com.ourclassbank.coredomain.support.exception.DomainExceptionType.INSUFFICIENT_USER_PASSWORD_CHANGE
