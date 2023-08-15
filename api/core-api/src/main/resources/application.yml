@@ -14,9 +14,7 @@ spring:
 
 logging:
   level:
-    org:
-      springframework:
-        security: debug
+    root: info
 
 ---
 spring.config.activate.on-profile: local
