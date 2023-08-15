@@ -1,6 +1,6 @@
 package com.ourclassbank.coredomain.config.local
 
-import com.ourclassbank.coredomain.service.user.UserService
+import com.ourclassbank.coredomain.service.UserCommandService
 import com.ourclassbank.coredomain.support.generator.PocketMoneyAccountNoGenerator
 import com.ourclassbank.modeldomain.user.RoleType
 import com.ourclassbank.modeldomain.user.User
@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Profile
 @Profile("local")
 @Configuration
 class LocalDataInitConfig(
-    private val userService: UserService
+    private val userCommandService: UserCommandService
 ) {
     @PostConstruct
     fun localDataInit() {
         회원_전체.forEach {
-            userService.create(it)
+            userCommandService.create(it)
         }
     }
 }

@@ -1,24 +1,25 @@
 package com.ourclassbank.coredomain.service
 
 import com.ourclassbank.coredomain.repository.PocketmoneyAccountHistoryRepository
+import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistory
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
-@Transactional
 @Service
 class PocketmoneyAccountService(
-    private val pocketmoneyAccountHistoryRepository: PocketmoneyAccountHistoryRepository
-) {
-    fun deposit(
+    private val repository: PocketmoneyAccountHistoryRepository
+) : PocketmoneyAccountUsecase {
+    @Transactional
+    override fun deposit(
         accountNo: String,
         type: PocketmoneyAccountHistoryType,
         amount: Long,
         description: String,
     ) {
-        pocketmoneyAccountHistoryRepository.save(
+        repository.save(
             accountNo = accountNo,
             type = type,
             amount = amount,
@@ -26,13 +27,14 @@ class PocketmoneyAccountService(
         )
     }
 
-    fun withdraw(
+    @Transactional
+    override fun withdraw(
         accountNo: String,
         type: PocketmoneyAccountHistoryType,
         amount: Long,
         description: String,
     ) {
-        pocketmoneyAccountHistoryRepository.save(
+        repository.save(
             accountNo = accountNo,
             type = type,
             amount = amount,
@@ -41,20 +43,20 @@ class PocketmoneyAccountService(
     }
 
     @Transactional(readOnly = true)
-    fun findAllHistoryByAccountNo(
+    override fun findAllHistoryByAccountNo(
         accountNo: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistory> {
-        return pocketmoneyAccountHistoryRepository.findAllByAccountNo(accountNo, fromAt, toAt)
+        return repository.findAllByAccountNo(accountNo, fromAt, toAt)
     }
 
     @Transactional(readOnly = true)
-    fun findAllHistoryByCreatedBy(
+    override fun findAllHistoryByCreatedBy(
         createdBy: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistory> {
-        return pocketmoneyAccountHistoryRepository.findAllByCreatedBy(createdBy, fromAt, toAt)
+        return repository.findAllByCreatedBy(createdBy, fromAt, toAt)
     }
 }
