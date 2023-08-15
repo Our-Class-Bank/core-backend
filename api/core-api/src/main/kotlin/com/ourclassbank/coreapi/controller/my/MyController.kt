@@ -3,10 +3,10 @@ package com.ourclassbank.coreapi.controller.my
 import com.ourclassbank.coreapi.controller.common.AccountResponse
 import com.ourclassbank.coreapi.controller.common.CreditEvaluationHistoryResponse
 import com.ourclassbank.coreapi.controller.common.PocketMoneyAccountHistoryResponse
-import com.ourclassbank.coredomain.service.PocketmoneyAccountService
 import com.ourclassbank.coredomain.service.creditevaluation.CreditEvaluationReadService
 import com.ourclassbank.coredomain.service.user.UserReadService
 import com.ourclassbank.coredomain.support.security.UserContext
+import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
 import com.ourclassbank.modeldomain.common.AccountType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -24,7 +24,7 @@ class MyController(
     private val userReadService: UserReadService,
 
     private val creditEvaluationReadService: CreditEvaluationReadService,
-    private val pocketmoneyAccountService: PocketmoneyAccountService
+    private val pocketmoneyAccountUsecase: PocketmoneyAccountUsecase
 ) {
     @Operation(summary = "내 계좌 목록 조회", description = "현재 존재하는 계좌는 용돈계좌뿐 입니다.")
     @GetMapping("/api/v1/my/account")
@@ -63,7 +63,7 @@ class MyController(
             require(pocketmoneyAccountNo == accountNo) { "다른 사람의 계좌번호 입니다." }
         }
 
-        return pocketmoneyAccountService.findAllHistoryByAccountNo(
+        return pocketmoneyAccountUsecase.findAllHistoryByAccountNo(
             accountNo = accountNo,
             fromAt = fromAt,
             toAt = toAt

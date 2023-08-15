@@ -3,8 +3,8 @@ package com.ourclassbank.coreapi.controller.account.pocketmoney
 import com.ourclassbank.coreapi.controller.account.pocketmoney.request.PocketmoneyAccountDepositRequest
 import com.ourclassbank.coreapi.controller.account.pocketmoney.request.PocketmoneyAccountWithdrawRequest
 import com.ourclassbank.coreapi.controller.common.PocketMoneyAccountHistoryResponse
-import com.ourclassbank.coredomain.service.PocketmoneyAccountService
 import com.ourclassbank.coredomain.support.security.UserContext
+import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.core.context.SecurityContextHolder
@@ -18,12 +18,12 @@ import java.time.LocalDateTime
 @Tag(name = "용돈계좌", description = "auth: BANKER")
 @RestController
 class PocketmoneyAccountController(
-    private val pocketmoneyAccountService: PocketmoneyAccountService
+    private val pocketmoneyAccountUsecase: PocketmoneyAccountUsecase
 ) {
     @Operation(summary = "입금")
     @PostMapping("/api/v1/account/pocketmoney/deposit")
     fun deposit(@RequestBody request: PocketmoneyAccountDepositRequest) {
-        pocketmoneyAccountService.deposit(
+        pocketmoneyAccountUsecase.deposit(
             request.accountNo,
             request.type,
             request.amount,
@@ -34,7 +34,7 @@ class PocketmoneyAccountController(
     @Operation(summary = "출금")
     @PostMapping("/api/v1/account/pocketmoney/withdraw")
     fun withdraw(@RequestBody request: PocketmoneyAccountWithdrawRequest) {
-        pocketmoneyAccountService.withdraw(
+        pocketmoneyAccountUsecase.withdraw(
             request.accountNo,
             request.type,
             request.amount,
@@ -49,7 +49,7 @@ class PocketmoneyAccountController(
         @RequestParam toAt: LocalDateTime
     ): List<PocketMoneyAccountHistoryResponse> {
         val userContext = SecurityContextHolder.getContext().authentication.principal as UserContext
-        return pocketmoneyAccountService.findAllHistoryByCreatedBy(
+        return pocketmoneyAccountUsecase.findAllHistoryByCreatedBy(
             createdBy = userContext.uUsername,
             fromAt = fromAt,
             toAt = toAt
