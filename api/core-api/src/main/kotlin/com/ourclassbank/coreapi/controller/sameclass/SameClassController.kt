@@ -2,8 +2,8 @@ package com.ourclassbank.coreapi.controller.sameclass
 
 import com.ourclassbank.coreapi.controller.common.UserResponse
 import com.ourclassbank.coreapi.controller.sameclass.response.SameClassCreditEvaluationResponse
-import com.ourclassbank.coredomain.service.creditevaluation.CreditEvaluationReadService
 import com.ourclassbank.coredomain.support.security.UserContext
+import com.ourclassbank.coredomain.usecase.CreditEvaluationQueryUsecase
 import com.ourclassbank.coredomain.usecase.UserQueryUsecase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class SameClassController(
     private val userQueryUsecase: UserQueryUsecase,
-    private val creditEvaluationReadService: CreditEvaluationReadService
+    private val creditEvaluationQueryUsecase: CreditEvaluationQueryUsecase
 ) {
     @Operation(summary = "회원 전체 조회")
     @GetMapping("/api/v1/same-class/user")
@@ -35,7 +35,7 @@ class SameClassController(
             SameClassCreditEvaluationResponse(
                 attendanceNumber = it.userClass.attendanceNumber,
                 studentName = it.name,
-                score = creditEvaluationReadService.readCurrentScore(it.username)
+                score = creditEvaluationQueryUsecase.readCurrentScore(it.username)
             )
         }
     }

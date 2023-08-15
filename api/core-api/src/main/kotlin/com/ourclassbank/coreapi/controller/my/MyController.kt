@@ -3,8 +3,8 @@ package com.ourclassbank.coreapi.controller.my
 import com.ourclassbank.coreapi.controller.common.AccountResponse
 import com.ourclassbank.coreapi.controller.common.CreditEvaluationHistoryResponse
 import com.ourclassbank.coreapi.controller.common.PocketMoneyAccountHistoryResponse
-import com.ourclassbank.coredomain.service.creditevaluation.CreditEvaluationReadService
 import com.ourclassbank.coredomain.support.security.UserContext
+import com.ourclassbank.coredomain.usecase.CreditEvaluationQueryUsecase
 import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
 import com.ourclassbank.coredomain.usecase.UserQueryUsecase
 import com.ourclassbank.modeldomain.common.AccountType
@@ -22,7 +22,7 @@ import java.time.LocalDateTime
 @RestController
 class MyController(
     private val userQueryUsecase: UserQueryUsecase,
-    private val creditEvaluationReadService: CreditEvaluationReadService,
+    private val creditEvaluationQueryUsecase: CreditEvaluationQueryUsecase,
     private val pocketmoneyAccountUsecase: PocketmoneyAccountUsecase
 ) {
     @Operation(summary = "내 계좌 목록 조회", description = "현재 존재하는 계좌는 용돈계좌뿐 입니다.")
@@ -43,7 +43,7 @@ class MyController(
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) toAt: LocalDateTime
     ): List<CreditEvaluationHistoryResponse> {
         val userContext = getUserContext()
-        return creditEvaluationReadService.findAllHistoryByUser(userContext.uUsername, fromAt, toAt)
+        return creditEvaluationQueryUsecase.findAllHistoryByUser(userContext.uUsername, fromAt, toAt)
             .map { CreditEvaluationHistoryResponse.from(it) }
     }
 
