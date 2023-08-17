@@ -6,10 +6,12 @@ data class UserResponse(
     val username: String,
     val name: String,
     val pocketmoneyAccountNo: String,
+    val userClass: UserClassResponse
 ) {
     constructor(user: User) : this(
-        user.username,
-        user.name,
-        user.pocketmoneyAccountNo
+        username = user.username,
+        name = user.name,
+        pocketmoneyAccountNo = user.pocketmoneyAccountNo,
+        userClass = UserClassResponse(user.userClass)
     )
 }
