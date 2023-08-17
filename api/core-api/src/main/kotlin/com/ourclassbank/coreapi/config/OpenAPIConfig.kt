@@ -18,7 +18,7 @@ class OpenAPIConfig {
                         "**uptime: ${LocalDateTime.now()}**\n" +
                                 "- ISO 8601 DateTime sample=2020-05-05T10:10:10"
                     )
-                    .version("v0.5.2")
+                    .version("v0.5.3")
             )
     }
 }
