@@ -1,6 +1,5 @@
 package com.ourclassbank.coreapi.controller.my
 
-import com.ourclassbank.coreapi.controller.common.AccountResponse
 import com.ourclassbank.coreapi.controller.common.CreditEvaluationHistoryResponse
 import com.ourclassbank.coreapi.controller.common.PocketMoneyAccountHistoryResponse
 import com.ourclassbank.coreapi.controller.common.UserResponse
@@ -9,7 +8,6 @@ import com.ourclassbank.coredomain.support.security.UserContext
 import com.ourclassbank.coredomain.usecase.CreditEvaluationQueryUsecase
 import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
 import com.ourclassbank.coredomain.usecase.UserQueryUsecase
-import com.ourclassbank.modeldomain.common.AccountType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.format.annotation.DateTimeFormat
@@ -27,17 +25,6 @@ class MyController(
     private val creditEvaluationQueryUsecase: CreditEvaluationQueryUsecase,
     private val pocketmoneyAccountUsecase: PocketmoneyAccountUsecase
 ) {
-    @Operation(summary = "내 계좌 목록 조회", description = "현재 존재하는 계좌는 용돈계좌뿐 입니다.")
-    @GetMapping("/api/v1/my/account")
-    fun findAllMyAccount(): List<AccountResponse> {
-        val userContext = getUserContext()
-        val pocketmoneyAccount = userQueryUsecase.findByUsername(userContext.uUsername).run {
-            AccountResponse(AccountType.POCKETMONEY, pocketmoneyAccountNo)
-        }
-
-        return listOf(pocketmoneyAccount)
-    }
-
     @Operation(summary = "내 정보 조회", description = "현재 존재하는 계좌는 용돈계좌뿐 입니다.")
     @GetMapping("/api/v1/my")
     fun readMyInfo(): MyInfoResponse {
