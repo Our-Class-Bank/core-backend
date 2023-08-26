@@ -4,5 +4,5 @@ import com.ourclassbank.modeldomain.user.RoleType
 import com.ourclassbank.modeldomain.user.UserClass
 
 interface AdminUsecase {
-    fun signup(username: String, password: String, name: String, pocketmoneyAccountNo: String, roles: List<RoleType>, userClass: UserClass)
+    fun signup(username: String, password: String, name: String, roles: List<RoleType>, userClass: UserClass)
 }

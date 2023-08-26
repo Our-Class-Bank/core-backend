@@ -6,7 +6,6 @@ data class UserSignupRequest(
     val username: String,
     val password: String,
     val name: String,
-    val pocketmoneyAccountNo: String,
     val roles: List<RoleType>,
     val userClass: UserClassRequest
 ) {

@@ -1,5 +1,6 @@
 package com.ourclassbank.coredomain.service
 
+import com.ourclassbank.coredomain.support.generator.PocketMoneyAccountNoGenerator
 import com.ourclassbank.coredomain.usecase.AdminUsecase
 import com.ourclassbank.coredomain.usecase.UserCommandUsecase
 import com.ourclassbank.modeldomain.user.RoleType
@@ -18,7 +19,6 @@ class AdminService(
         username: String,
         password: String,
         name: String,
-        pocketmoneyAccountNo: String,
         roles: List<RoleType>,
         userClass: UserClass
     ) {
@@ -27,7 +27,7 @@ class AdminService(
                 username = username,
                 password = passwordEncoder.encode(password),
                 name = name,
-                pocketmoneyAccountNo = pocketmoneyAccountNo,
+                pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
                 roles = roles,
                 userClass = userClass
             )

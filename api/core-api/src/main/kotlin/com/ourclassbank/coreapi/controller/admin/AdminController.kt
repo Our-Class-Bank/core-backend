@@ -22,7 +22,6 @@ class AdminController(
                 username = username,
                 password = password,
                 name = name,
-                pocketmoneyAccountNo = pocketmoneyAccountNo,
                 roles = roles,
                 userClass = UserClass(
                     schoolName = userClass.schoolName,
