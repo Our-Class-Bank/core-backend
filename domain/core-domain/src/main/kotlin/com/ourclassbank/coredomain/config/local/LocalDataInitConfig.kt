@@ -88,4 +88,17 @@ private val 회원_전체 = listOf(
             attendanceNumber = 0
         )
     ),
+    User(
+        username = "admin001",
+        password = "a1234",
+        name = "김어드민",
+        pocketmoneyAccountNo = PocketMoneyAccountNoGenerator.take(),
+        roles = listOf(RoleType.ROLE_ADMIN),
+        userClass = UserClass(
+            schoolName = "어드민",
+            grade = 0,
+            classNumber = 0,
+            attendanceNumber = 0
+        )
+    ),
 )
