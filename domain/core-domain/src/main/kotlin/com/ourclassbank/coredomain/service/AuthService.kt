@@ -7,7 +7,6 @@ import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
 import com.ourclassbank.coredomain.usecase.AuthUsecase
 import com.ourclassbank.coredomain.usecase.UserCommandUsecase
 import com.ourclassbank.coredomain.usecase.UserQueryUsecase
-import com.ourclassbank.modeldomain.user.RoleType
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -19,24 +18,6 @@ class AuthService(
     private val userCommandUsecase: UserCommandUsecase,
     private val userQueryUsecase: UserQueryUsecase
 ) : AuthUsecase {
-    override fun signup(username: String, password: String, name: String, roles: List<RoleType>) {
-        TODO()
-//        userService.create(
-//            User(
-//                username = username,
-//                password = passwordEncoder.encode(password),
-//                name = name,
-//                roles = roles,
-//                clazz = Clazz(
-//                    schoolName = "우리초등학교",
-//                    grade = 3,
-//                    classNumber = 1,
-//                    attendanceNumber = 3
-//                )
-//            )
-//        )
-    }
-
     override fun signin(username: String, password: String): String {
         return userQueryUsecase.findByUsername(username).let {
             if (!passwordEncoder.matches(password, it.password)) {

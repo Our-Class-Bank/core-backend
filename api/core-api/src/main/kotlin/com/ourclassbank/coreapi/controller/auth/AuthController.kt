@@ -1,7 +1,6 @@
 package com.ourclassbank.coreapi.controller.auth
 
 import com.ourclassbank.coreapi.controller.auth.request.UserSigninRequest
-import com.ourclassbank.coreapi.controller.auth.request.UserSignupRequest
 import com.ourclassbank.coreapi.controller.auth.response.UserPasswordChangeRequest
 import com.ourclassbank.coreapi.controller.auth.response.UserSigninResponse
 import com.ourclassbank.coredomain.usecase.AuthUsecase
@@ -16,12 +15,6 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController(
     private val authUsecase: AuthUsecase,
 ) {
-    @Operation(summary = "회원 가입", description = "능동적인 회원 가입은 지원되지 않습니다.", deprecated = true)
-    @PostMapping("/api/v1/auth/signup")
-    fun signup(@RequestBody request: UserSignupRequest) {
-        return authUsecase.signup(request.username, request.password, request.name, request.roles)
-    }
-
     @Operation(summary = "회원 로그인")
     @PostMapping("/api/v1/auth/signin")
     fun signin(@RequestBody request: UserSigninRequest): UserSigninResponse {

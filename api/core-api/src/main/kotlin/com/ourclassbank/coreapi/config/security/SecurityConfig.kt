@@ -28,8 +28,9 @@ class SecurityConfig(
 ) {
     private val student = RoleType.ROLE_STUDENT.name.removePrefix("ROLE_")
     private val banker = RoleType.ROLE_BANKER.name.removePrefix("ROLE_")
-    private val teacher = RoleType.ROLE_TEACHER.name.removePrefix("ROLE_")
     private val creditEvaluator = RoleType.ROLE_CREDIT_EVALUATOR.name.removePrefix("ROLE_")
+    private val teacher = RoleType.ROLE_TEACHER.name.removePrefix("ROLE_")
+    private val admin = RoleType.ROLE_ADMIN.name.removePrefix("ROLE_")
 
     @Bean
     fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager {
@@ -44,6 +45,12 @@ class SecurityConfig(
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
 
+                // admin 은 모든 api 에 접근할 수 있습니다.
+                .requestMatchers("/**").hasRole(admin)
+
+                // teacher 는 api 하위 path 에 접근할 수 있습니다.
+                .requestMatchers("/api/**").hasRole(teacher)
+
                 // 인증, 인가
                 .requestMatchers("/api/v1/auth/**").permitAll()
 
@@ -51,16 +58,13 @@ class SecurityConfig(
                 .requestMatchers("/api/v1/my/**").hasAnyRole(student)
 
                 // 같은 반
-                .requestMatchers("/api/v1/same-class/**").hasAnyRole(student, teacher)
+                .requestMatchers("/api/v1/same-class/**").hasAnyRole(student)
 
                 // 신용평가
                 .requestMatchers("/api/v1/credit-evaluation/**").hasRole(creditEvaluator)
 
                 // 용돈 계좌
                 .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(banker)
-
-                // 선생님에게는 전체 권한
-                .requestMatchers("/api/v1/**").hasRole(teacher)
 
                 // test api
                 .requestMatchers("/test/api/v1/auth/student").hasRole(student)
