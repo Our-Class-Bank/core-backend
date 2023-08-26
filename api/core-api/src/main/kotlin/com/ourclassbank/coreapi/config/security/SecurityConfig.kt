@@ -45,12 +45,6 @@ class SecurityConfig(
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
 
-                // admin 은 모든 api 에 접근할 수 있습니다.
-                .requestMatchers("/**").hasRole(admin)
-
-                // teacher 는 api 하위 path 에 접근할 수 있습니다.
-                .requestMatchers("/api/**").hasRole(teacher)
-
                 // 인증, 인가
                 .requestMatchers("/api/v1/auth/**").permitAll()
 
@@ -74,6 +68,12 @@ class SecurityConfig(
 
                 // util api
                 .requestMatchers("/util/**").permitAll()
+
+                // teacher 는 api 하위 path 에 접근할 수 있습니다.
+                .requestMatchers("/api/**").hasRole(teacher)
+
+                // admin 은 모든 api 에 접근할 수 있습니다.
+                .requestMatchers("/**").hasRole(admin)
 
                 .anyRequest().authenticated()
         }
