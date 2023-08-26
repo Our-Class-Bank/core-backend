@@ -7,4 +7,12 @@ data class UserSignupRequest(
     val password: String,
     val name: String,
     val roles: List<RoleType>,
-)
+    val userClass: UserClassRequest
+) {
+    data class UserClassRequest(
+        val schoolName: String,
+        val grade: Int,
+        val classNumber: Int,
+        val attendanceNumber: Int,
+    )
+}
