@@ -1,0 +1,50 @@
+###
+< {%
+    client.global.set("testName", "ADMIN 회원 로그인 api")
+
+    client.global.set("adminUsername", "admin001")
+    client.global.set("adminPassword", "a1234")
+
+    request.variables.set("adminUsername", client.global.get("adminUsername"))
+    request.variables.set("adminPassword", client.global.get("adminPassword"))
+%}
+POST {{host}}/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "username": "{{adminUsername}}",
+  "password": "{{adminPassword}}"
+}
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+
+    client.global.set("adminToken", response.body["accessToken"])
+%}
+
+###
+< {%
+    client.global.set("testName", "회원가입 api by admin")
+%}
+POST {{host}}/admin/api/v1/user
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "username": "yyy2023",
+  "password": "1234",
+  "name": "xxx",
+  "roles": [
+    "ROLE_TEACHER"
+  ],
+  "userClass": {
+    "schoolName": "xx초등학교",
+    "grade": 5,
+    "classNumber": 2,
+    "attendanceNumber": 0
+  }
+}
+
+
