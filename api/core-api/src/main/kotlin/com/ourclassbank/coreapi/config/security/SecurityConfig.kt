@@ -60,16 +60,17 @@ class SecurityConfig(
                     // 용돈 계좌
                     .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(ROLE_BANKER.toSecurityRole())
 
-
-                    // 테스트
-                    .requestMatchers("/api/v1/test/auth/student").hasRole(ROLE_STUDENT.toSecurityRole())
-                    .requestMatchers("/api/v1/test/auth/banker").hasRole(ROLE_BANKER.toSecurityRole())
-                    .requestMatchers("/api/v1/test/auth/teacher").hasRole(ROLE_TEACHER.toSecurityRole())
-                    .requestMatchers("/api/v1/test/**").permitAll()
-                    .requestMatchers("/api/v1/enum/**").permitAll()
-
                     // 선생님에게는 전체 권한
                     .requestMatchers("/api/v1/**").hasRole(ROLE_TEACHER.toSecurityRole())
+
+                    // test api
+                    .requestMatchers("/test/api/v1/auth/student").hasRole(ROLE_STUDENT.toSecurityRole())
+                    .requestMatchers("/test/api/v1/auth/banker").hasRole(ROLE_BANKER.toSecurityRole())
+                    .requestMatchers("/test/api/v1/auth/teacher").hasRole(ROLE_TEACHER.toSecurityRole())
+                    .requestMatchers("/test/**").permitAll()
+
+                    // util api
+                    .requestMatchers("/util/**").permitAll()
 
                     .anyRequest().authenticated()
             }
