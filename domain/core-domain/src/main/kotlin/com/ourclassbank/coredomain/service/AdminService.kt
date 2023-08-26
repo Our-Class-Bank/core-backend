@@ -5,6 +5,7 @@ import com.ourclassbank.coredomain.usecase.AdminUsecase
 import com.ourclassbank.coredomain.usecase.UserCommandUsecase
 import com.ourclassbank.coredomain.usecase.UserQueryUsecase
 import com.ourclassbank.modeldomain.user.RoleType
+import com.ourclassbank.modeldomain.user.UserClass
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -16,8 +17,14 @@ class AdminService(
     private val userCommandUsecase: UserCommandUsecase,
     private val userQueryUsecase: UserQueryUsecase
 ) : AdminUsecase {
-    override fun signup(username: String, password: String, name: String, roles: List<RoleType>) {
-        TODO()
+    override fun signup(
+        username: String,
+        password: String,
+        name: String,
+        pocketmoneyAccountNo: String,
+        roles: List<RoleType>,
+        userClass: UserClass
+    ) {
 //        userCommandUsecase.create(
 //            User(
 //                username = username,

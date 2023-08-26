@@ -2,6 +2,7 @@ package com.ourclassbank.coreapi.controller.admin
 
 import com.ourclassbank.coreapi.controller.auth.request.UserSignupRequest
 import com.ourclassbank.coredomain.usecase.AdminUsecase
+import com.ourclassbank.modeldomain.user.UserClass
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,6 +17,20 @@ class AdminController(
     @Operation(summary = "회원가입")
     @PostMapping("/admin/api/v1/user")
     fun signup(@RequestBody request: UserSignupRequest) {
-        return adminUsecase.signup(request.username, request.password, request.name, request.roles)
+        return request.run {
+            adminUsecase.signup(
+                username = username,
+                password = password,
+                name = name,
+                pocketmoneyAccountNo = pocketmoneyAccountNo,
+                roles = roles,
+                userClass = UserClass(
+                    schoolName = userClass.schoolName,
+                    grade = userClass.grade,
+                    classNumber = userClass.classNumber,
+                    attendanceNumber = userClass.attendanceNumber,
+                )
+            )
+        }
     }
 }
