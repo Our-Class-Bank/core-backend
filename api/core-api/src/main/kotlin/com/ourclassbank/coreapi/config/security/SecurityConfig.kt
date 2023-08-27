@@ -5,6 +5,8 @@ import com.ourclassbank.coredomain.support.jwt.JwtTokenProvider
 import com.ourclassbank.modeldomain.user.RoleType
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
@@ -102,6 +104,8 @@ class SecurityConfig(
     }
 
     class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {
+        private val log: Logger = LoggerFactory.getLogger(this::class.java)
+
         override fun commence(
             request: HttpServletRequest,
             response: HttpServletResponse,
@@ -110,10 +114,18 @@ class SecurityConfig(
             response.contentType = MediaType.APPLICATION_JSON_VALUE
             response.status = HttpServletResponse.SC_UNAUTHORIZED
             response.outputStream.println(("{ \"error\": \"" + authenticationException.message) + "\" }")
+
+            error(
+                "$authenticationException.stackTraceToString()\n"
+                        + "request: $request"
+                        + "response: $response"
+            )
         }
     }
 
     class CustomAccessDeniedHandler : AccessDeniedHandler {
+        private val log: Logger = LoggerFactory.getLogger(this::class.java)
+
         override fun handle(
             request: HttpServletRequest,
             response: HttpServletResponse,
@@ -122,6 +134,12 @@ class SecurityConfig(
             response.contentType = MediaType.APPLICATION_JSON_VALUE
             response.status = HttpServletResponse.SC_FORBIDDEN
             response.outputStream.println(("{ \"error\": \"" + accessDeniedException.message) + "\" }")
+
+            error(
+                "$accessDeniedException.stackTraceToString()\n"
+                        + "request: $request"
+                        + "response: $response"
+            )
         }
     }
 }
