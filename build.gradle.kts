@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.8.21"
     kotlin("plugin.spring") version "1.8.21"
     kotlin("plugin.jpa") version "1.8.21"
+    kotlin("kapt") version "1.8.21"
 
     id("org.jmailen.kotlinter") version "3.10.0"
     application
@@ -32,9 +33,17 @@ subprojects {
     apply(plugin = "org.springframework.boot")
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
+    apply(plugin = "org.jetbrains.kotlin.kapt")
 
     apply(plugin = "kotlin")
     apply(plugin = "kotlin-spring")
+
+    dependencyManagement {
+        val springCloudVersion: String by project
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+        }
+    }
 
     dependencies {
         val kotestVersion: String by project
@@ -44,6 +53,9 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+        annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+        kapt("org.springframework.boot:spring-boot-configuration-processor")
 
         // kotest
         testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")

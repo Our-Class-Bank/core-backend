@@ -18,6 +18,9 @@ logging:
       springframework:
         security: DEBUG
 
+slack:
+  error-webhook-key: ${SLACK_ERROR_WEBHOOK_KEY}
+
 ---
 spring.config.activate.on-profile: local
 
