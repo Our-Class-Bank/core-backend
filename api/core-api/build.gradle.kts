@@ -1,7 +1,3 @@
-plugins {
-
-}
-
 dependencies {
     val openapi3Version: String by project
 
@@ -16,6 +12,9 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$openapi3Version")
     implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:$openapi3Version")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // feign
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 }
 
 tasks.getByName("bootJar") {
