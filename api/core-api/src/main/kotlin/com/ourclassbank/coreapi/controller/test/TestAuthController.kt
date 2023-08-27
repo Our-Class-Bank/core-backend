@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class TestAuthController {
     @Operation(summary = "NULL", description = "권한이 필요하지 않습니다.")
-    @GetMapping("/test/api/v1/test/auth/null")
+    @GetMapping("/test/api/v1/auth/null")
     fun roleNull(): String {
         return "no auth success"
     }
@@ -21,13 +21,13 @@ class TestAuthController {
     }
 
     @Operation(summary = "ROLE_BANKER", description = "banker 권한을 검증 합니다.")
-    @GetMapping("/test/api/v1/test/auth/banker")
+    @GetMapping("/test/api/v1/auth/banker")
     fun roleBanker(): String {
         return "banker success"
     }
 
     @Operation(summary = "ROLE_TEACHER", description = "teacher 권한을 검증 합니다.")
-    @GetMapping("/test/api/v1/test/auth/teacher")
+    @GetMapping("/test/api/v1/auth/teacher")
     fun roleTeacher(): String {
         return "teacher success"
     }
