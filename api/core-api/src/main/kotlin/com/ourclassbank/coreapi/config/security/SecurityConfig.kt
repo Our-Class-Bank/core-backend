@@ -115,10 +115,10 @@ class SecurityConfig(
             response.status = HttpServletResponse.SC_UNAUTHORIZED
             response.outputStream.println(("{ \"error\": \"" + authenticationException.message) + "\" }")
 
-            error(
-                "$authenticationException.stackTraceToString()\n"
-                        + "request: $request"
-                        + "response: $response"
+            log.error(
+                "${authenticationException::class.simpleName}: ${authenticationException.message}}\n"
+                        + "request.method: ${request.method}\n"
+                        + "request.getHeader(\"Authorization\"): ${request.getHeader("Authorization")}\n"
             )
         }
     }
@@ -135,10 +135,10 @@ class SecurityConfig(
             response.status = HttpServletResponse.SC_FORBIDDEN
             response.outputStream.println(("{ \"error\": \"" + accessDeniedException.message) + "\" }")
 
-            error(
-                "$accessDeniedException.stackTraceToString()\n"
-                        + "request: $request"
-                        + "response: $response"
+            log.error(
+                "${accessDeniedException::class.simpleName}: ${accessDeniedException.message}}\n"
+                        + "request.method: ${request.method}\n"
+                        + "request.getHeader(\"Authorization\"): ${request.getHeader("Authorization")}\n"
             )
         }
     }
