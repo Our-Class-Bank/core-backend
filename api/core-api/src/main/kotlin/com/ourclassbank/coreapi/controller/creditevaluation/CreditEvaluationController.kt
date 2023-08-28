@@ -45,7 +45,7 @@ class CreditEvaluationController(
     }
 
     @Operation(summary = "이력 조회 execute by CREDIT_EVALUATOR", description = "- order by createdAt desc")
-    @GetMapping("/api/v1/account/pocketmoney/history/by-credit-evaluator")
+    @GetMapping("/api/v1/credit-evaluation/history/by-credit-evaluator")
     fun findAllHistoryByCreditEvaluator(
         @RequestParam fromAt: LocalDateTime,
         @RequestParam toAt: LocalDateTime
