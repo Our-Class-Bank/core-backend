@@ -28,7 +28,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "내 계좌 목록 api")
 %}
-GET {{host}}/api/v1/my/account
+GET {{host}}/api/v1/my
 Authorization: Bearer {{bankerToken}}
 Content-Type: application/json
 
@@ -42,7 +42,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "같은 반 회원 조회 api")
 %}
-GET {{host}}/api/v1/user/same-class
+GET {{host}}/api/v1/same-class/user
 Authorization: Bearer {{bankerToken}}
 
 > {%
@@ -141,12 +141,12 @@ Content-Type: application/json
 
 ###
 < {%
-    client.global.set("testName", "BANKER 가 수행한 입출금 기록 조회 api by banker")
+    client.global.set("testName", "입출금 이력 조회 execute by BANKER")
 
     request.variables.set("fromAt", "2020-01-01T00:00:00.000")
     request.variables.set("toAt", "2999-01-31T23:59:59.999")
 %}
-GET {{host}}/api/v1/account/pocketmoney/history?fromAt={{fromAt}}&toAt={{toAt}}
+GET {{host}}/api/v1/account/pocketmoney/history/by-banker?fromAt={{fromAt}}&toAt={{toAt}}
 Content-Type: application/json
 Authorization: Bearer {{bankerToken}}
 
