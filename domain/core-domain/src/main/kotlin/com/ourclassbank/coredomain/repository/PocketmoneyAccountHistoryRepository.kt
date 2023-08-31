@@ -1,6 +1,7 @@
 package com.ourclassbank.coredomain.repository
 
 import com.ourclassbank.coredb.dao.PocketmoneyAccountHistoryEntityJpaDao
+import com.ourclassbank.coredb.dao.UserEntityJpaDao
 import com.ourclassbank.coredb.entity.PocketmoneyAccountHistoryEntity
 import com.ourclassbank.coredomain.support.factory.toModel
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistory
@@ -11,6 +12,7 @@ import java.time.LocalDateTime
 @Repository
 class PocketmoneyAccountHistoryRepository(
     private val pocketmoneyAccountHistoryEntityJpaDao: PocketmoneyAccountHistoryEntityJpaDao,
+    private val userEntityJpaDao: UserEntityJpaDao
 ) {
     fun save(
         accountNo: String,
@@ -43,7 +45,10 @@ class PocketmoneyAccountHistoryRepository(
             accountNo,
             fromAt,
             toAt
-        ).map { it.toModel() }
+        ).map {
+            val createUserEntity = userEntityJpaDao.findByUsername(it.createdBy!!) ?: throw IllegalArgumentException("존재하지 않는 회원")
+            it.toModel(createUserEntity)
+        }
     }
 
     fun findAllByCreatedBy(
@@ -55,6 +60,9 @@ class PocketmoneyAccountHistoryRepository(
             createdBy,
             fromAt,
             toAt
-        ).map { it.toModel() }
+        ).map {
+            val createUserEntity = userEntityJpaDao.findByUsername(it.createdBy!!) ?: throw IllegalArgumentException("존재하지 않는 회원")
+            it.toModel(createUserEntity)
+        }
     }
 }

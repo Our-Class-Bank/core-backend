@@ -1,6 +1,7 @@
 package com.ourclassbank.coredomain.support.factory
 
 import com.ourclassbank.coredb.entity.PocketmoneyAccountHistoryEntity
+import com.ourclassbank.coredb.entity.UserEntity
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistory
 
 fun PocketmoneyAccountHistory.toEntity(balance: Long): PocketmoneyAccountHistoryEntity {
@@ -13,13 +14,17 @@ fun PocketmoneyAccountHistory.toEntity(balance: Long): PocketmoneyAccountHistory
     )
 }
 
-fun PocketmoneyAccountHistoryEntity.toModel(): PocketmoneyAccountHistory {
+fun PocketmoneyAccountHistoryEntity.toModel(executeUserEntity: UserEntity): PocketmoneyAccountHistory {
     return PocketmoneyAccountHistory(
         accountNo = this.accountNo,
         type = this.type,
         amount = this.amount,
         description = this.description,
         balance = this.balance,
-        transactionAt = this.createdAt!!
+        transactionAt = this.createdAt!!,
+        executeUser = PocketmoneyAccountHistory.ExecuteUser(
+            username = executeUserEntity.username,
+            name = executeUserEntity.name,
+        )
     )
 }
