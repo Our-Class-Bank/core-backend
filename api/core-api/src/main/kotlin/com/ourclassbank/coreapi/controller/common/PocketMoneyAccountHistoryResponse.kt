@@ -6,6 +6,7 @@ import java.time.LocalDateTime
 
 data class PocketMoneyAccountHistoryResponse(
     val accountNo: String,
+    val owner: UserResponse,
     val type: PocketmoneyAccountHistoryType,
     val amount: Long,
     val description: String,
@@ -15,6 +16,7 @@ data class PocketMoneyAccountHistoryResponse(
 ) {
     constructor(history: PocketmoneyAccountHistory) : this(
         accountNo = history.accountNo,
+        owner = UserResponse(history.owner.username, history.owner.name),
         type = history.type,
         amount = history.amount,
         description = history.description,
