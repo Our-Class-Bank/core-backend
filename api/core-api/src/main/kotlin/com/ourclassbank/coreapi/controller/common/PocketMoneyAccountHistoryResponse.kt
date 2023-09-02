@@ -16,13 +16,13 @@ data class PocketMoneyAccountHistoryResponse(
 ) {
     constructor(history: PocketmoneyAccountHistory) : this(
         accountNo = history.accountNo,
-        owner = UserResponse(history.owner.username, history.owner.name),
+        owner = history.owner.run { UserResponse(username, name) },
         type = history.type,
         amount = history.amount,
         description = history.description,
         balance = history.balance,
         transactionAt = history.transactionAt,
-        executor = UserResponse(history.executor.username, history.executor.name)
+        executor = history.executor.run { UserResponse(username, name) }
     )
 
     data class UserResponse(
