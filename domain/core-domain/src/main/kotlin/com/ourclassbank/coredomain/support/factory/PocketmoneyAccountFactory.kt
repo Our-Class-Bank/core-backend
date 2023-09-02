@@ -22,7 +22,7 @@ fun PocketmoneyAccountHistoryEntity.toModel(executeUserEntity: UserEntity): Pock
         description = this.description,
         balance = this.balance,
         transactionAt = this.createdAt!!,
-        executeUser = PocketmoneyAccountHistory.ExecuteUser(
+        executor = PocketmoneyAccountHistory.User(
             username = executeUserEntity.username,
             name = executeUserEntity.name,
         )

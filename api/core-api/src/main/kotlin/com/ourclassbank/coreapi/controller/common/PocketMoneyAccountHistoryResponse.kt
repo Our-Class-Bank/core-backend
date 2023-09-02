@@ -20,7 +20,7 @@ data class PocketMoneyAccountHistoryResponse(
         description = history.description,
         balance = history.balance,
         transactionAt = history.transactionAt,
-        executor = UserResponse(history.executeUser.username, history.executeUser.name)
+        executor = UserResponse(history.executor.username, history.executor.name)
     )
 
     data class UserResponse(

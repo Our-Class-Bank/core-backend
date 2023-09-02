@@ -11,9 +11,9 @@ data class PocketmoneyAccountHistory(
     val balance: Long,
 
     val transactionAt: LocalDateTime,
-    val executeUser: ExecuteUser,
+    val executor: User,
 ) {
-    data class ExecuteUser(
+    data class User(
         val username: String,
         val name: String
     )
