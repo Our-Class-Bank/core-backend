@@ -11,7 +11,7 @@ data class PocketMoneyAccountHistoryResponse(
     val description: String,
     val balance: Long,
     val transactionAt: LocalDateTime,
-    val executeUser: ExecuteUser
+    val executor: UserResponse
 ) {
     constructor(history: PocketmoneyAccountHistory) : this(
         accountNo = history.accountNo,
@@ -20,10 +20,10 @@ data class PocketMoneyAccountHistoryResponse(
         description = history.description,
         balance = history.balance,
         transactionAt = history.transactionAt,
-        executeUser = ExecuteUser(history.executeUser.username, history.executeUser.name)
+        executor = UserResponse(history.executeUser.username, history.executeUser.name)
     )
 
-    data class ExecuteUser(
+    data class UserResponse(
         val username: String,
         val name: String
     )
