@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 
 data class PocketmoneyAccountHistory(
     val accountNo: String,
+    val owner: User,
     val type: PocketmoneyAccountHistoryType,
 
     val amount: Long,
@@ -11,9 +12,9 @@ data class PocketmoneyAccountHistory(
     val balance: Long,
 
     val transactionAt: LocalDateTime,
-    val executeUser: ExecuteUser,
+    val executor: User,
 ) {
-    data class ExecuteUser(
+    data class User(
         val username: String,
         val name: String
     )

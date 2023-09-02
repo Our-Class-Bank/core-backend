@@ -6,24 +6,26 @@ import java.time.LocalDateTime
 
 data class PocketMoneyAccountHistoryResponse(
     val accountNo: String,
+    val owner: UserResponse,
     val type: PocketmoneyAccountHistoryType,
     val amount: Long,
     val description: String,
     val balance: Long,
     val transactionAt: LocalDateTime,
-    val executeUser: ExecuteUser
+    val executor: UserResponse
 ) {
     constructor(history: PocketmoneyAccountHistory) : this(
         accountNo = history.accountNo,
+        owner = history.owner.run { UserResponse(username, name) },
         type = history.type,
         amount = history.amount,
         description = history.description,
         balance = history.balance,
         transactionAt = history.transactionAt,
-        executeUser = ExecuteUser(history.executeUser.username, history.executeUser.name)
+        executor = history.executor.run { UserResponse(username, name) }
     )
 
-    data class ExecuteUser(
+    data class UserResponse(
         val username: String,
         val name: String
     )

@@ -14,15 +14,19 @@ fun PocketmoneyAccountHistory.toEntity(balance: Long): PocketmoneyAccountHistory
     )
 }
 
-fun PocketmoneyAccountHistoryEntity.toModel(executeUserEntity: UserEntity): PocketmoneyAccountHistory {
+fun PocketmoneyAccountHistoryEntity.toModel(ownerUserEntity: UserEntity, executeUserEntity: UserEntity): PocketmoneyAccountHistory {
     return PocketmoneyAccountHistory(
         accountNo = this.accountNo,
+        owner = PocketmoneyAccountHistory.User(
+            username = ownerUserEntity.username,
+            name = ownerUserEntity.name,
+        ),
         type = this.type,
         amount = this.amount,
         description = this.description,
         balance = this.balance,
         transactionAt = this.createdAt!!,
-        executeUser = PocketmoneyAccountHistory.ExecuteUser(
+        executor = PocketmoneyAccountHistory.User(
             username = executeUserEntity.username,
             name = executeUserEntity.name,
         )
