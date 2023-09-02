@@ -46,8 +46,9 @@ class PocketmoneyAccountHistoryRepository(
             fromAt,
             toAt
         ).map {
+            val ownerUserEntity = userEntityJpaDao.findByPocketMoneyAccountNo(it.accountNo) ?: throw IllegalArgumentException("존재하지 않는 회원")
             val createUserEntity = userEntityJpaDao.findByUsername(it.createdBy!!) ?: throw IllegalArgumentException("존재하지 않는 회원")
-            it.toModel(createUserEntity)
+            it.toModel(ownerUserEntity, createUserEntity)
         }
     }
 
@@ -61,8 +62,9 @@ class PocketmoneyAccountHistoryRepository(
             fromAt,
             toAt
         ).map {
+            val ownerUserEntity = userEntityJpaDao.findByPocketMoneyAccountNo(it.accountNo) ?: throw IllegalArgumentException("존재하지 않는 회원")
             val createUserEntity = userEntityJpaDao.findByUsername(it.createdBy!!) ?: throw IllegalArgumentException("존재하지 않는 회원")
-            it.toModel(createUserEntity)
+            it.toModel(ownerUserEntity, createUserEntity)
         }
     }
 }
