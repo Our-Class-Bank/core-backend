@@ -55,10 +55,10 @@ class SecurityConfig(
                 .requestMatchers("/api/v1/auth/**").permitAll()
 
                 // 내 정보
-                .requestMatchers("/api/v1/my/**").hasAnyRole(student)
+                .requestMatchers("/api/v1/my/**").hasAnyRole(student, teacher)
 
                 // 같은 반
-                .requestMatchers("/api/v1/same-class/**").hasAnyRole(student)
+                .requestMatchers("/api/v1/same-class/**").hasAnyRole(student, teacher)
 
                 // 신용평가
                 .requestMatchers("/api/v1/credit-evaluation/**").hasRole(creditEvaluator)
