@@ -61,10 +61,10 @@ class SecurityConfig(
                 .requestMatchers("/api/v1/same-class/**").hasAnyRole(student, teacher)
 
                 // 신용평가
-                .requestMatchers("/api/v1/credit-evaluation/**").hasRole(creditEvaluator)
+                .requestMatchers("/api/v1/credit-evaluation/**").hasAnyRole(creditEvaluator, teacher)
 
                 // 용돈 계좌
-                .requestMatchers("/api/v1/account/pocketmoney/**").hasRole(banker)
+                .requestMatchers("/api/v1/account/pocketmoney/**").hasAnyRole(banker, teacher)
 
                 // test api
                 .requestMatchers("/test/api/v1/auth/student").hasRole(student)
