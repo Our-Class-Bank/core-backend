@@ -33,8 +33,7 @@ class SameClassController(
 
         return findAllSameClass.map {
             SameClassCreditEvaluationResponse(
-                attendanceNumber = it.userClass.attendanceNumber,
-                studentName = it.name,
+                username = it.username,
                 score = creditEvaluationQueryUsecase.readCurrentScore(it.username)
             )
         }
