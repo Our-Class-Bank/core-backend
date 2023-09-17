@@ -7,6 +7,15 @@ spring:
       hibernate:
         default_batch_fetch_size: 100
         dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      multiline: true
+      logging: slf4j
 
 ---
 spring.config.activate.on-profile: local
@@ -16,37 +25,26 @@ spring:
     hibernate:
       ddl-auto: create
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/our-class-bank
     username: root
     password: root
 
-decorator:
-  datasource:
-    p6spy:
-      enable-logging: true
-      multiline: true
-      logging: slf4j
-
 ---
 spring.config.activate.on-profile: dev
 
----
-spring.config.activate.on-profile: prod
-
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: none
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
 
-decorator:
+---
+spring.config.activate.on-profile: prod
+
+spring:
   datasource:
-    p6spy:
-      enable-logging: true
-      multiline: true
-      logging: slf4j
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
