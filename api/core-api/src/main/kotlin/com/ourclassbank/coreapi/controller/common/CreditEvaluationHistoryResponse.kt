@@ -9,20 +9,17 @@ data class CreditEvaluationHistoryResponse(
     val changePoint: Int,
     val description: String,
     val score: Int,
-    val createdAt: LocalDateTime
+
+    val transactionAt: LocalDateTime,
+    val executeUsername: String
 ) {
-    companion object {
-        fun from(creditEvaluationHistory: CreditEvaluationHistory): CreditEvaluationHistoryResponse {
-            return creditEvaluationHistory.run {
-                CreditEvaluationHistoryResponse(
-                    id = id,
-                    username = username,
-                    changePoint = changePoint,
-                    description = description,
-                    score = score,
-                    createdAt = createdAt
-                )
-            }
-        }
-    }
+    constructor(history: CreditEvaluationHistory) : this(
+        id = history.id,
+        username = history.username,
+        changePoint = history.changePoint,
+        description = history.description,
+        score = history.score,
+        transactionAt = history.transactionAt,
+        executeUsername = history.executeUsername
+    )
 }

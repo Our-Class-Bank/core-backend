@@ -1,6 +1,7 @@
 package com.ourclassbank.coredomain.service
 
-import com.ourclassbank.coredomain.repository.PocketmoneyAccountHistoryRepository
+import com.ourclassbank.coredomain.repository.PocketmoneyAccountCommandRepository
+import com.ourclassbank.coredomain.repository.PocketmoneyAccountQueryRepository
 import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistory
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
@@ -10,7 +11,8 @@ import java.time.LocalDateTime
 
 @Service
 class PocketmoneyAccountService(
-    private val repository: PocketmoneyAccountHistoryRepository
+    private val commandRepository: PocketmoneyAccountCommandRepository,
+    private val queryRepository: PocketmoneyAccountQueryRepository
 ) : PocketmoneyAccountUsecase {
     @Transactional
     override fun deposit(
@@ -19,7 +21,7 @@ class PocketmoneyAccountService(
         amount: Long,
         description: String,
     ) {
-        repository.save(
+        commandRepository.save(
             accountNo = accountNo,
             type = type,
             amount = amount,
@@ -34,7 +36,7 @@ class PocketmoneyAccountService(
         amount: Long,
         description: String,
     ) {
-        repository.save(
+        commandRepository.save(
             accountNo = accountNo,
             type = type,
             amount = amount,
@@ -48,7 +50,7 @@ class PocketmoneyAccountService(
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistory> {
-        return repository.findAllByAccountNo(accountNo, fromAt, toAt)
+        return queryRepository.findAllByAccountNo(accountNo, fromAt, toAt)
     }
 
     @Transactional(readOnly = true)
@@ -57,6 +59,6 @@ class PocketmoneyAccountService(
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistory> {
-        return repository.findAllByCreatedBy(createdBy, fromAt, toAt)
+        return queryRepository.findAllByCreatedBy(createdBy, fromAt, toAt)
     }
 }

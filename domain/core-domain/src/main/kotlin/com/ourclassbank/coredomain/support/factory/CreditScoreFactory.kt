@@ -10,6 +10,7 @@ fun CreditEvaluationHistoryEntity.toModel(): CreditEvaluationHistory {
         changePoint = changePoint,
         description = description,
         score = score,
-        createdAt = createdAt!!,
+        transactionAt = createdAt!!,
+        executeUsername = createdBy!!
     )
 }

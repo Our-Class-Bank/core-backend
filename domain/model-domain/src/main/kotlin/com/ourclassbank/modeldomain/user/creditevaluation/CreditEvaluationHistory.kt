@@ -8,5 +8,7 @@ data class CreditEvaluationHistory(
     val changePoint: Int,
     val description: String,
     val score: Int,
-    val createdAt: LocalDateTime,
+
+    val transactionAt: LocalDateTime,
+    val executeUsername: String
 )

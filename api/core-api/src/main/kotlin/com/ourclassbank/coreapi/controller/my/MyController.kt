@@ -42,7 +42,7 @@ class MyController(
     ): List<CreditEvaluationHistoryResponse> {
         val userContext = getUserContext()
         return creditEvaluationQueryUsecase.findAllHistoryByUser(userContext.uUsername, fromAt, toAt)
-            .map { CreditEvaluationHistoryResponse.from(it) }
+            .map { CreditEvaluationHistoryResponse(it) }
     }
 
     @Operation(
