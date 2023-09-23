@@ -4,7 +4,8 @@ import com.ourclassbank.coreapi.controller.account.pocketmoney.request.Pocketmon
 import com.ourclassbank.coreapi.controller.account.pocketmoney.request.PocketmoneyAccountWithdrawRequest
 import com.ourclassbank.coreapi.controller.common.PocketMoneyAccountHistoryResponse
 import com.ourclassbank.coredomain.support.security.UserContext
-import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
+import com.ourclassbank.coredomain.usecase.PocketmoneyCommandUsecase
+import com.ourclassbank.coredomain.usecase.PocketmoneyQueryUsecase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.core.context.SecurityContextHolder
@@ -18,12 +19,13 @@ import java.time.LocalDateTime
 @Tag(name = "용돈계좌", description = "auth: BANKER")
 @RestController
 class PocketmoneyAccountController(
-    private val pocketmoneyAccountUsecase: PocketmoneyAccountUsecase
+    private val pocketmoneyQueryUsecase: PocketmoneyQueryUsecase,
+    private val pocketmoneyCommandUsecase: PocketmoneyCommandUsecase
 ) {
     @Operation(summary = "입금")
     @PostMapping("/api/v1/account/pocketmoney/deposit")
     fun deposit(@RequestBody request: PocketmoneyAccountDepositRequest) {
-        pocketmoneyAccountUsecase.deposit(
+        pocketmoneyCommandUsecase.deposit(
             request.accountNo,
             request.type,
             request.amount,
@@ -34,7 +36,7 @@ class PocketmoneyAccountController(
     @Operation(summary = "출금")
     @PostMapping("/api/v1/account/pocketmoney/withdraw")
     fun withdraw(@RequestBody request: PocketmoneyAccountWithdrawRequest) {
-        pocketmoneyAccountUsecase.withdraw(
+        pocketmoneyCommandUsecase.withdraw(
             request.accountNo,
             request.type,
             request.amount,
@@ -49,7 +51,7 @@ class PocketmoneyAccountController(
         @RequestParam toAt: LocalDateTime
     ): List<PocketMoneyAccountHistoryResponse> {
         val userContext = SecurityContextHolder.getContext().authentication.principal as UserContext
-        return pocketmoneyAccountUsecase.findAllHistoryByCreatedBy(
+        return pocketmoneyQueryUsecase.findAllHistoryByCreatedBy(
             createdBy = userContext.uUsername,
             fromAt = fromAt,
             toAt = toAt

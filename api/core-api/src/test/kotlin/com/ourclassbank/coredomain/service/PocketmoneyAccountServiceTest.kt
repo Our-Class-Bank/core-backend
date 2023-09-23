@@ -1,6 +1,6 @@
 package com.ourclassbank.coredomain.service
 
-import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
+import com.ourclassbank.coredomain.usecase.PocketmoneyQueryUsecase
 import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.DescribeSpec
 import org.springframework.boot.test.context.SpringBootTest
@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @Ignored
 @SpringBootTest
 class PocketmoneyAccountServiceTest(
-    private val sut: PocketmoneyAccountUsecase,
+    private val sut: PocketmoneyQueryUsecase,
 ) : DescribeSpec({
     describe("용돈계좌 기능 - 입금, 출금, 기록조회 by username=abc123") {
         context("기록조회") {
