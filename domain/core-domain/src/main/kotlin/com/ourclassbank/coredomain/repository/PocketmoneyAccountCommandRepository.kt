@@ -11,6 +11,10 @@ class PocketmoneyAccountCommandRepository(
     private val pocketmoneyAccountHistoryEntityJpaDao: PocketmoneyAccountHistoryEntityJpaDao,
     private val userEntityJpaDao: UserEntityJpaDao
 ) {
+    fun findByAccountNo(accountNo: String): PocketmoneyAccountHistoryEntity? {
+        return pocketmoneyAccountHistoryEntityJpaDao.findFirstByAccountNoOrderByIdDescWithLock(accountNo)
+    }
+
     fun save(
         accountNo: String,
         type: PocketmoneyAccountHistoryType,

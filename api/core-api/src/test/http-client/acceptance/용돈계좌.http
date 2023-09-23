@@ -122,7 +122,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "출금 api - accountNo=" + client.global.get("pocketmoneyAccountNo") + ", type=EXPENSE_ETC, amount=2700, description=미화용품 구매")
 %}
-POST {{host}}/api/v1/account/pocketmoney/deposit
+POST {{host}}/api/v1/account/pocketmoney/withdraw
 Authorization: Bearer {{bankerToken}}
 Content-Type: application/json
 
