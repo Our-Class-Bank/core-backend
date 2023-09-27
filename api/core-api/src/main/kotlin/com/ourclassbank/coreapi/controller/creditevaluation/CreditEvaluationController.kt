@@ -40,7 +40,7 @@ class CreditEvaluationController(
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) toAt: LocalDateTime
     ): List<CreditEvaluationHistoryResponse> {
         return creditEvaluationQueryUsecase.findAllHistoryByUser(username, fromAt, toAt).run {
-            this.map { CreditEvaluationHistoryResponse.from(it) }
+            this.map { CreditEvaluationHistoryResponse(it) }
         }
     }
 
@@ -55,7 +55,7 @@ class CreditEvaluationController(
             createdBy = userContext.uUsername,
             fromAt = fromAt,
             toAt = toAt
-        ).map { CreditEvaluationHistoryResponse.from(it) }
+        ).map { CreditEvaluationHistoryResponse(it) }
     }
 
     private fun getUserContext(): UserContext {

@@ -6,7 +6,7 @@ import com.ourclassbank.coreapi.controller.common.UserResponse
 import com.ourclassbank.coreapi.controller.my.response.MyInfoResponse
 import com.ourclassbank.coredomain.support.security.UserContext
 import com.ourclassbank.coredomain.usecase.CreditEvaluationQueryUsecase
-import com.ourclassbank.coredomain.usecase.PocketmoneyAccountUsecase
+import com.ourclassbank.coredomain.usecase.PocketmoneyQueryUsecase
 import com.ourclassbank.coredomain.usecase.UserQueryUsecase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -23,7 +23,7 @@ import java.time.LocalDateTime
 class MyController(
     private val userQueryUsecase: UserQueryUsecase,
     private val creditEvaluationQueryUsecase: CreditEvaluationQueryUsecase,
-    private val pocketmoneyAccountUsecase: PocketmoneyAccountUsecase
+    private val pocketmoneyQueryUsecase: PocketmoneyQueryUsecase
 ) {
     @Operation(summary = "내 정보 조회", description = "현재 존재하는 계좌는 용돈계좌뿐 입니다.")
     @GetMapping("/api/v1/my")
@@ -42,7 +42,7 @@ class MyController(
     ): List<CreditEvaluationHistoryResponse> {
         val userContext = getUserContext()
         return creditEvaluationQueryUsecase.findAllHistoryByUser(userContext.uUsername, fromAt, toAt)
-            .map { CreditEvaluationHistoryResponse.from(it) }
+            .map { CreditEvaluationHistoryResponse(it) }
     }
 
     @Operation(
@@ -60,7 +60,7 @@ class MyController(
             require(pocketmoneyAccountNo == accountNo) { "다른 사람의 계좌번호 입니다." }
         }
 
-        return pocketmoneyAccountUsecase.findAllHistoryByAccountNo(
+        return pocketmoneyQueryUsecase.findAllHistoryByAccountNo(
             accountNo = accountNo,
             fromAt = fromAt,
             toAt = toAt

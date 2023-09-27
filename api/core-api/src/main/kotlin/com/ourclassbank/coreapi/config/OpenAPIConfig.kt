@@ -8,6 +8,8 @@ import java.time.LocalDateTime
 
 @Configuration
 class OpenAPIConfig {
+    private val env = System.getProperty("spring.profiles.active")
+
     @Bean
     fun openAPI(): OpenAPI {
         return OpenAPI()
@@ -18,7 +20,7 @@ class OpenAPIConfig {
                         "**uptime: ${LocalDateTime.now()}**\n" +
                                 "- ISO 8601 DateTime sample=2020-05-05T10:10:10"
                     )
-                    .version("v0.5.4")
+                    .version(env)
             )
     }
 }

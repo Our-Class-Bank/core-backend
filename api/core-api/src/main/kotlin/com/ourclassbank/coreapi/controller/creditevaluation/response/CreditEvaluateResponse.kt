@@ -8,7 +8,7 @@ data class CreditEvaluateResponse(
 ) {
     companion object {
         fun from(creditEvaluationHistory: CreditEvaluationHistory): CreditEvaluateResponse {
-            return CreditEvaluationHistoryResponse.from(creditEvaluationHistory).run {
+            return CreditEvaluationHistoryResponse(creditEvaluationHistory).run {
                 CreditEvaluateResponse(this)
             }
         }
