@@ -42,9 +42,8 @@ class CreditEvaluationRepository(
     }
 
 
-    fun findLastHistoryByUser(username: String): CreditEvaluationHistory {
+    fun findLastHistoryByUser(username: String): CreditEvaluationHistory? {
         return historyJpaDao.findFirstByUsernameOrderByIdDesc(username)?.toModel()
-            ?: throw IllegalArgumentException("신용평가 이력이 존재하지 않는 회원")
     }
 
     fun findAllHistoryByUser(username: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {

@@ -17,6 +17,7 @@ class CreditEvaluationQueryService(
      */
     override fun findLastHistoryByUser(username: String): CreditEvaluationHistory {
         return repository.findLastHistoryByUser(username)
+            ?: throw IllegalArgumentException("신용평가 이력이 존재하지 않는 회원")
     }
 
     override fun findAllHistoryByUser(username: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
