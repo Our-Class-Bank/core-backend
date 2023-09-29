@@ -126,3 +126,22 @@ Authorization: Bearer {{user002Token}}
         client.assert(response.status === 200);
     });
 %}
+
+###
+< {%
+    client.global.set("testName", "개인 회원 초기화 api - userUsername == user002, +5 점")
+%}
+POST {{host}}/api/v1/credit-evaluation/user002/reset
+Authorization: Bearer {{creditEvaluatorToken}}
+Content-Type: application/json
+
+{
+  "basePoint": 99,
+  "description": "99점 초기화 테스트"
+}
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200);
+    });
+%}
