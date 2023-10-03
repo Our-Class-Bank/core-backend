@@ -129,16 +129,49 @@ Authorization: Bearer {{user002Token}}
 
 ###
 < {%
-    client.global.set("testName", "개인 회원 초기화 api - userUsername == user002, +5 점")
+    client.global.set("testName", "개인 회원 초기화 api - userUsername == user002")
 %}
 POST {{host}}/api/v1/credit-evaluation/user002/reset
 Authorization: Bearer {{creditEvaluatorToken}}
 Content-Type: application/json
 
 {
-  "basePoint": 99,
-  "description": "99점 초기화 테스트"
+  "basePoint": 70,
+  "description": "70점 초기화 테스트"
 }
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200);
+    });
+%}
+
+###
+< {%
+    client.global.set("testName", "teacher 회원 로그인 api")
+%}
+POST {{host}}/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "username": "teacher001",
+  "password": "1234"
+}
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+
+    client.global.set("teacherToken", response.body["accessToken"])
+%}
+
+###
+< {%
+    client.global.set("testName", "입출금 이력 조회 api - userUsername == teacher001")
+%}
+GET {{host}}/api/v1/credit-evaluation/history/by-teacher?fromAt=2022-07-30T23:45:10&toAt=2024-07-30T23:59:10
+Authorization: Bearer {{teacherToken}}
 
 > {%
     client.test(client.global.get("testName") + " - 200", function () {
