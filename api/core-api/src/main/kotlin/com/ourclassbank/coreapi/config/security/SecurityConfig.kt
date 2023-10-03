@@ -61,6 +61,7 @@ class SecurityConfig(
                 .requestMatchers("/api/v1/same-class/**").hasAnyRole(student, teacher)
 
                 // 신용평가
+                .requestMatchers("/api/v1/credit-evaluation/history/by-teacher").hasAnyRole(teacher)
                 .requestMatchers("/api/v1/credit-evaluation/**").hasAnyRole(creditEvaluator, teacher)
 
                 // 용돈 계좌
