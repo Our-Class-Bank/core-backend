@@ -43,4 +43,16 @@ class PocketmoneyAccountQueryRepository(
             it.toModel(ownerUserEntity, createUserEntity)
         }
     }
+
+    fun findAll(
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<PocketmoneyAccountHistory> {
+        return pocketmoneyAccountHistoryEntityJpaDao.findAllByCreatedAtBetweenOrderByCreatedAtDesc(fromAt, toAt).map {
+            it.toModel(
+                ownerUserEntity = userEntityJpaDao.findByPocketMoneyAccountNo(it.accountNo) ?: throw IllegalArgumentException("존재하지 않는 회원"),
+                executeUserEntity = userEntityJpaDao.findByUsername(it.createdBy!!) ?: throw IllegalArgumentException("존재하지 않는 회원")
+            )
+        }
+    }
 }

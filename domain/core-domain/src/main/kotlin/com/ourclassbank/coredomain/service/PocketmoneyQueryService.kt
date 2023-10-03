@@ -27,4 +27,8 @@ class PocketmoneyQueryService(
     ): List<PocketmoneyAccountHistory> {
         return queryRepository.findAllByCreatedBy(createdBy, fromAt, toAt)
     }
+
+    override fun findAllHistory(fromAt: LocalDateTime, toAt: LocalDateTime): List<PocketmoneyAccountHistory> {
+        return queryRepository.findAll(fromAt, toAt)
+    }
 }
