@@ -2,6 +2,8 @@ package com.ourclassbank.coreapi.controller.creditevaluation
 
 import com.ourclassbank.coreapi.controller.common.CreditEvaluationHistoryResponse
 import com.ourclassbank.coreapi.controller.creditevaluation.request.CreditEvaluateRequest
+import com.ourclassbank.coreapi.controller.creditevaluation.request.CreditEvaluateResetRequest
+import com.ourclassbank.coreapi.controller.creditevaluation.response.CreditEvaluateResetResponse
 import com.ourclassbank.coreapi.controller.creditevaluation.response.CreditEvaluateResponse
 import com.ourclassbank.coredomain.support.security.UserContext
 import com.ourclassbank.coredomain.usecase.CreditEvaluationCommandUsecase
@@ -29,6 +31,14 @@ class CreditEvaluationController(
     fun evaluate(@PathVariable username: String, @RequestBody request: CreditEvaluateRequest): CreditEvaluateResponse {
         return creditEvaluationCommandUsecase.evaluate(request.toVo(username)).run {
             CreditEvaluateResponse.from(this)
+        }
+    }
+
+    @Operation(summary = "개인 회원 초기화")
+    @PostMapping("/api/v1/credit-evaluation/{username}/reset")
+    fun reset(@PathVariable username: String, @RequestBody request: CreditEvaluateResetRequest): CreditEvaluateResetResponse {
+        return creditEvaluationCommandUsecase.reset(request.toVo(username)).run {
+            CreditEvaluateResetResponse.from(this)
         }
     }
 
