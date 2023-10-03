@@ -18,4 +18,9 @@ interface CreditEvaluationHistoryEntityJpaDao : JpaRepository<CreditEvaluationHi
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<CreditEvaluationHistoryEntity>
+
+    fun findAllByCreatedAtBetweenOrderByCreatedAtDesc(
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistoryEntity>
 }

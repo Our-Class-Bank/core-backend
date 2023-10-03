@@ -66,6 +66,13 @@ class CreditEvaluationRepository(
         ).map { it.toModel() }
     }
 
+    fun findAll(
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistory> {
+        return historyJpaDao.findAllByCreatedAtBetweenOrderByCreatedAtDesc(fromAt, toAt).map { it.toModel() }
+    }
+
     fun readCurrentScore(username: String): Int {
         return historyJpaDao.findFirstByUsernameOrderByIdDesc(username)?.score ?: 0
     }
