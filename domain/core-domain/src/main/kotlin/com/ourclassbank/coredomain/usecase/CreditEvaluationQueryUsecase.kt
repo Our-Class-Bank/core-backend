@@ -17,5 +17,10 @@ interface CreditEvaluationQueryUsecase {
         toAt: LocalDateTime
     ): List<CreditEvaluationHistory>
 
+    fun findAllHistory(
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistory>
+
     fun readCurrentScore(username: String): Int
 }

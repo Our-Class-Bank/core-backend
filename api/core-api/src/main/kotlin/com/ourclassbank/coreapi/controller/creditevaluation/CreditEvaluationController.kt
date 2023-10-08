@@ -68,6 +68,15 @@ class CreditEvaluationController(
         ).map { CreditEvaluationHistoryResponse(it) }
     }
 
+    @Operation(summary = "이력 조회 execute by TEACHER", description = "- order by createdAt desc")
+    @GetMapping("/api/v1/credit-evaluation/history/by-teacher")
+    fun findAllHistoryByTeacher(
+        @RequestParam fromAt: LocalDateTime,
+        @RequestParam toAt: LocalDateTime
+    ): List<CreditEvaluationHistoryResponse> {
+        return creditEvaluationQueryUsecase.findAllHistory(fromAt, toAt).map { CreditEvaluationHistoryResponse(it) }
+    }
+
     private fun getUserContext(): UserContext {
         return SecurityContextHolder.getContext().authentication.principal as UserContext
     }

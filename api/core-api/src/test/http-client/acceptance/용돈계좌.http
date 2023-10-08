@@ -203,3 +203,46 @@ Authorization: Bearer {{studentToken}}
         client.assert(response.status === 200, response.status);
     });
 %}
+
+###
+< {%
+    client.global.set("testName", "teacher 회원 로그인 api")
+
+    client.global.set("teacherUsername", "teacher001")
+    client.global.set("teacherPassword", "1234")
+
+    request.variables.set("teacherUsername", client.global.get("teacherUsername"))
+    request.variables.set("teacherPassword", client.global.get("teacherPassword"))
+%}
+POST {{host}}/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "username": "{{teacherUsername}}",
+  "password": "{{teacherPassword}}"
+}
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+
+    client.global.set("teacherToken", response.body["accessToken"])
+%}
+
+###
+< {%
+    client.global.set("testName", "입출금 이력 조회 execute by TEACHER")
+
+    request.variables.set("fromAt", "2020-01-01T00:00:00.000")
+    request.variables.set("toAt", "2999-01-31T23:59:59.999")
+%}
+GET {{host}}/api/v1/account/pocketmoney/history/by-teacher?fromAt={{fromAt}}&toAt={{toAt}}
+Content-Type: application/json
+Authorization: Bearer {{teacherToken}}
+
+> {%
+    client.test(client.global.get("testName") + " - 200", function () {
+        client.assert(response.status === 200, response.status);
+    });
+%}

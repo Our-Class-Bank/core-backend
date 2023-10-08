@@ -57,4 +57,13 @@ class PocketmoneyAccountController(
             toAt = toAt
         ).map { PocketMoneyAccountHistoryResponse(it) }
     }
+
+    @Operation(summary = "입출금 이력 조회 execute by TEACHER", description = "- order by createdAt desc")
+    @GetMapping("/api/v1/account/pocketmoney/history/by-teacher")
+    fun findAllHistoryByTeacher(
+        @RequestParam fromAt: LocalDateTime,
+        @RequestParam toAt: LocalDateTime
+    ): List<PocketMoneyAccountHistoryResponse> {
+        return pocketmoneyQueryUsecase.findAllHistory(fromAt, toAt).map { PocketMoneyAccountHistoryResponse(it) }
+    }
 }

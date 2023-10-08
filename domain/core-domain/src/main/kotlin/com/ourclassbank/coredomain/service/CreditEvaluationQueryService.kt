@@ -32,6 +32,10 @@ class CreditEvaluationQueryService(
         return repository.findAllByCreatedBy(createdBy, fromAt, toAt)
     }
 
+    override fun findAllHistory(fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
+        return repository.findAll(fromAt, toAt)
+    }
+
     override fun readCurrentScore(username: String): Int {
         return repository.readCurrentScore(username)
     }
