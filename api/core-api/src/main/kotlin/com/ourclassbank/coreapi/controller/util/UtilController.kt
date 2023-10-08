@@ -1,6 +1,7 @@
 package com.ourclassbank.coreapi.controller.util
 
 import com.ourclassbank.coreapi.controller.util.response.EnumResponse
+import com.ourclassbank.coredomain.usecase.DashboardQueryUsecase
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "util api")
 @RestController
-class UtilController {
+class UtilController(
+    private val dashboardQueryUsecase: DashboardQueryUsecase
+) {
     @Operation(summary = "용돈계좌 입출금 기록 구분")
     @GetMapping("/util/api/v1/enum/pocketmoney-account-history-type")
     fun pocketmoneyAccountHistoryType(): List<EnumResponse> {
@@ -22,5 +25,11 @@ class UtilController {
     @PostMapping("/util/api/v1/exception/500")
     fun exception500(@RequestBody message: String) {
         throw Exception(message)
+    }
+
+    @Operation(summary = "전체 회원 수 조회")
+    @PostMapping("/util/api/v1/user/count")
+    fun readAllUserCount(): Int {
+        return dashboardQueryUsecase.readAllUserCount()
     }
 }

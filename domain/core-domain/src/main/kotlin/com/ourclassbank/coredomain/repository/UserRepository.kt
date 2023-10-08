@@ -1,6 +1,7 @@
 package com.ourclassbank.coredomain.repository
 
 import com.ourclassbank.coredb.dao.UserEntityJpaDao
+import com.ourclassbank.coredb.dao.UserEntityQuerydslDao
 import com.ourclassbank.coredomain.support.exception.DomainException
 import com.ourclassbank.coredomain.support.exception.DomainExceptionType
 import com.ourclassbank.coredomain.support.factory.toEntity
@@ -15,6 +16,7 @@ class UserRepository(
     private val passwordEncoder: PasswordEncoder,
 
     private val jpaDao: UserEntityJpaDao,
+    private val querydslDao: UserEntityQuerydslDao,
 ) {
     fun save(user: User) {
         jpaDao.save(user.toEntity(passwordEncoder))
@@ -44,5 +46,9 @@ class UserRepository(
             jpaDao.findByUsername(username)?.updatePassword(this)
                 ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
         }
+    }
+
+    fun findAllUserCount(): Int {
+        return querydslDao.findAllUserCount()
     }
 }
