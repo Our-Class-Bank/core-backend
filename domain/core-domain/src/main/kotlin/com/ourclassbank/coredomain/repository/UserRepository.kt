@@ -26,10 +26,9 @@ class UserRepository(
         return jpaDao.findByUsername(username)?.toModel() ?: throw DomainException(DomainExceptionType.NOT_FOUND_USER)
     }
 
-    // todo jpql -> querydsl 로 변경
     fun findAllByUserClass(userClass: UserClass): List<User> {
         return userClass.run {
-            jpaDao.findAllByUserClass(
+            querydslDao.findAllByUserClass(
                 schoolName = this.schoolName,
                 grade = this.grade,
                 classNumber = this.classNumber

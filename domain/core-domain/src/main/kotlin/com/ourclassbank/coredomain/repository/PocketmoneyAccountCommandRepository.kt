@@ -1,7 +1,7 @@
 package com.ourclassbank.coredomain.repository
 
 import com.ourclassbank.coredb.dao.PocketmoneyAccountHistoryEntityJpaDao
-import com.ourclassbank.coredb.dao.UserEntityJpaDao
+import com.ourclassbank.coredb.dao.PocketmoneyAccountHistoryEntityQuerydslDao
 import com.ourclassbank.coredb.entity.PocketmoneyAccountHistoryEntity
 import com.ourclassbank.modeldomain.user.pocketmoneyaccount.PocketmoneyAccountHistoryType
 import org.springframework.stereotype.Repository
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository
 @Repository
 class PocketmoneyAccountCommandRepository(
     private val pocketmoneyAccountHistoryEntityJpaDao: PocketmoneyAccountHistoryEntityJpaDao,
-    private val userEntityJpaDao: UserEntityJpaDao
+    private val pocketmoneyAccountHistoryEntityQuerydslDao: PocketmoneyAccountHistoryEntityQuerydslDao
 ) {
     fun findByAccountNo(accountNo: String): PocketmoneyAccountHistoryEntity? {
-        return pocketmoneyAccountHistoryEntityJpaDao.findFirstByAccountNoOrderByIdDescWithLock(accountNo)
+        return pocketmoneyAccountHistoryEntityQuerydslDao.findFirstByAccountNoOrderByIdDescWithLock(accountNo)
     }
 
     fun save(
