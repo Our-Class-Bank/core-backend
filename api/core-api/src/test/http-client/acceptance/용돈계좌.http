@@ -101,7 +101,7 @@ Content-Type: application/json
 < {%
     client.global.set("testName", "출금 api - accountNo=" + client.global.get("pocketmoneyAccountNo") + ", type=EXPENSE_FINE, amount=4000, description=지각")
 %}
-POST {{host}}/api/v1/account/pocketmoney/deposit
+POST {{host}}/api/v1/account/pocketmoney/withdraw
 Authorization: Bearer {{bankerToken}}
 Content-Type: application/json
 

@@ -25,7 +25,7 @@ Content-Type: application/json
 
 ### ROLE_STUDENT 권한이 필요한 api 호출
 # @no-cookie-jar
-GET {{host}}/api/v1/test/auth/student
+GET {{host}}/test/api/v1/auth/student
 Authorization: Bearer {{userRoleToken}}
 
 > {%
@@ -36,7 +36,7 @@ Authorization: Bearer {{userRoleToken}}
 
 
 ### ROLE_BANKER 권한이 필요한 api 호출
-GET {{host}}/api/v1/test/auth/banker
+GET {{host}}/test/api/v1/auth/banker
 Authorization: Bearer {{userRoleToken}}
 
 > {%
@@ -48,7 +48,7 @@ Authorization: Bearer {{userRoleToken}}
 
 ### ROLE_TEACHER 권한이 필요한 api 호출
 # @no-cookie-jar
-GET {{host}}/api/v1/test/auth/teacher
+GET {{host}}/test/api/v1/auth/teacher
 Authorization: Bearer {{userRoleToken}}
 
 > {%
