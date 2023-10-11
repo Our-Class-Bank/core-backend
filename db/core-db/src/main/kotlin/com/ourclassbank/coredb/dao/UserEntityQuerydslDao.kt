@@ -1,7 +1,9 @@
 package com.ourclassbank.coredb.dao
 
 import com.ourclassbank.coredb.entity.QUserEntity.userEntity
+import com.ourclassbank.coredb.entity.QUserRoleEntity.userRoleEntity
 import com.ourclassbank.coredb.entity.UserEntity
+import com.ourclassbank.modeldomain.user.RoleType
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 
@@ -9,11 +11,11 @@ import org.springframework.stereotype.Repository
 class UserEntityQuerydslDao(
     private val jpaQueryFactory: JPAQueryFactory
 ) {
-    fun findAllUserCount(): Int {
-        return jpaQueryFactory.select(userEntity.count())
-            .from(userEntity)
-            .where(userEntity.userClass.schoolName.ne("우리초등학교"))
-            .fetch().count()
+    fun findAllUserRole(): List<RoleType> {
+        return jpaQueryFactory.select(userRoleEntity.role)
+            .from(userRoleEntity)
+            .distinct()
+            .fetch()
     }
 
     fun findAllByUserClass(

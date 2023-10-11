@@ -6,6 +6,7 @@ import com.ourclassbank.coredomain.support.exception.DomainException
 import com.ourclassbank.coredomain.support.exception.DomainExceptionType
 import com.ourclassbank.coredomain.support.factory.toEntity
 import com.ourclassbank.coredomain.support.factory.toModel
+import com.ourclassbank.modeldomain.user.RoleType
 import com.ourclassbank.modeldomain.user.User
 import com.ourclassbank.modeldomain.user.UserClass
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -47,7 +48,11 @@ class UserRepository(
         }
     }
 
-    fun findAllUserCount(): Int {
-        return querydslDao.findAllUserCount()
+    fun count(): Long {
+        return jpaDao.count()
+    }
+
+    fun findAllUserRole(): List<RoleType> {
+        return querydslDao.findAllUserRole()
     }
 }

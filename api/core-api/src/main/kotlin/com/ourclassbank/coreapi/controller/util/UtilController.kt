@@ -26,10 +26,4 @@ class UtilController(
     fun exception500(@RequestBody message: String) {
         throw Exception(message)
     }
-
-    @Operation(summary = "전체 회원 수 조회")
-    @PostMapping("/util/api/v1/user/count")
-    fun readAllUserCount(): Int {
-        return dashboardQueryUsecase.readAllUserCount()
-    }
 }
