@@ -76,4 +76,8 @@ class CreditEvaluationRepository(
     fun readCurrentScore(username: String): Int {
         return historyJpaDao.findFirstByUsernameOrderByIdDesc(username)?.score ?: 0
     }
+
+    fun count(): Long {
+        return historyJpaDao.count()
+    }
 }

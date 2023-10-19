@@ -55,4 +55,8 @@ class PocketmoneyAccountQueryRepository(
             )
         }
     }
+
+    fun count(): Long {
+        return pocketmoneyAccountHistoryEntityJpaDao.count()
+    }
 }
