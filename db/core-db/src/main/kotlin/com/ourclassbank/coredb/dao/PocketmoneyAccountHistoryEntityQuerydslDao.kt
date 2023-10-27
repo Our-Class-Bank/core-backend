@@ -22,7 +22,7 @@ class PocketmoneyAccountHistoryEntityQuerydslDao(
     }
 
     fun findAllHistoryBySameClass(
-        createdBy: String,
+        username: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistoryEntity> {
@@ -41,7 +41,7 @@ class PocketmoneyAccountHistoryEntityQuerydslDao(
                                 .and(uTeacher.userClass.grade.eq(uStudent.userClass.grade))
                                 .and(uTeacher.userClass.classNumber.eq(uStudent.userClass.classNumber))
                         )
-                        .where(uTeacher.username.eq(createdBy))
+                        .where(uTeacher.username.eq(username))
                 ).and(pocketmoneyAccountHistoryEntity.createdAt.between(fromAt, toAt))
             ).fetch()
     }

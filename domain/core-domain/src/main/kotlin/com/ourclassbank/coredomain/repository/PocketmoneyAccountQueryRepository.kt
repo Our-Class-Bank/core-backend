@@ -51,11 +51,11 @@ class PocketmoneyAccountQueryRepository(
     }
 
     fun findAllHistoryBySameClass(
-        createdBy: String,
+        username: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistory> {
-        return pocketmoneyAccountHistoryEntityQuerydslDao.findAllHistoryBySameClass(createdBy, fromAt, toAt).map {
+        return pocketmoneyAccountHistoryEntityQuerydslDao.findAllHistoryBySameClass(username, fromAt, toAt).map {
             it.toModel(
                 ownerUserEntity = userEntityJpaDao.findByPocketMoneyAccountNo(it.accountNo)
                     ?: throw IllegalArgumentException("존재하지 않는 회원"),

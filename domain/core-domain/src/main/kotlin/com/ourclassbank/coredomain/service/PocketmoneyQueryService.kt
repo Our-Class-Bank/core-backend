@@ -29,10 +29,10 @@ class PocketmoneyQueryService(
     }
 
     override fun findAllHistoryBySameClass(
-        createdBy: String,
+        username: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistory> {
-        return queryRepository.findAllHistoryBySameClass(createdBy, fromAt, toAt)
+        return queryRepository.findAllHistoryBySameClass(username, fromAt, toAt)
     }
 }
