@@ -36,7 +36,10 @@ class CreditEvaluationController(
 
     @Operation(summary = "개인 회원 초기화")
     @PostMapping("/api/v1/credit-evaluation/{username}/reset")
-    fun reset(@PathVariable username: String, @RequestBody request: CreditEvaluateResetRequest): CreditEvaluateResetResponse {
+    fun reset(
+        @PathVariable username: String,
+        @RequestBody request: CreditEvaluateResetRequest
+    ): CreditEvaluateResetResponse {
         return creditEvaluationCommandUsecase.reset(request.toVo(username)).run {
             CreditEvaluateResetResponse.from(this)
         }
@@ -60,9 +63,8 @@ class CreditEvaluationController(
         @RequestParam fromAt: LocalDateTime,
         @RequestParam toAt: LocalDateTime
     ): List<CreditEvaluationHistoryResponse> {
-        val userContext = getUserContext()
         return creditEvaluationQueryUsecase.findAllHistoryByCreatedBy(
-            createdBy = userContext.uUsername,
+            createdBy = getUserContext().uUsername,
             fromAt = fromAt,
             toAt = toAt
         ).map { CreditEvaluationHistoryResponse(it) }
@@ -74,7 +76,11 @@ class CreditEvaluationController(
         @RequestParam fromAt: LocalDateTime,
         @RequestParam toAt: LocalDateTime
     ): List<CreditEvaluationHistoryResponse> {
-        return creditEvaluationQueryUsecase.findAllHistory(fromAt, toAt).map { CreditEvaluationHistoryResponse(it) }
+        return creditEvaluationQueryUsecase.findAllHistoryBySameClass(
+            username = getUserContext().uUsername,
+            fromAt = fromAt,
+            toAt = toAt
+        ).map { CreditEvaluationHistoryResponse(it) }
     }
 
     private fun getUserContext(): UserContext {
