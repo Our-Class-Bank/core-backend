@@ -16,7 +16,8 @@ interface PocketmoneyQueryUsecase {
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistory>
 
-    fun findAllHistory(
+    fun findAllHistoryBySameClass(
+        createdBy: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<PocketmoneyAccountHistory>
