@@ -50,9 +50,8 @@ class PocketmoneyAccountController(
         @RequestParam fromAt: LocalDateTime,
         @RequestParam toAt: LocalDateTime
     ): List<PocketMoneyAccountHistoryResponse> {
-        val userContext = SecurityContextHolder.getContext().authentication.principal as UserContext
         return pocketmoneyQueryUsecase.findAllHistoryByCreatedBy(
-            createdBy = userContext.uUsername,
+            createdBy = getUserContext().uUsername,
             fromAt = fromAt,
             toAt = toAt
         ).map { PocketMoneyAccountHistoryResponse(it) }
@@ -64,6 +63,14 @@ class PocketmoneyAccountController(
         @RequestParam fromAt: LocalDateTime,
         @RequestParam toAt: LocalDateTime
     ): List<PocketMoneyAccountHistoryResponse> {
-        return pocketmoneyQueryUsecase.findAllHistory(fromAt, toAt).map { PocketMoneyAccountHistoryResponse(it) }
+        return pocketmoneyQueryUsecase.findAllHistoryBySameClass(
+            username = getUserContext().uUsername,
+            fromAt = fromAt,
+            toAt = toAt
+        ).map { PocketMoneyAccountHistoryResponse(it) }
+    }
+
+    private fun getUserContext(): UserContext {
+        return SecurityContextHolder.getContext().authentication.principal as UserContext
     }
 }

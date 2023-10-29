@@ -20,7 +20,11 @@ class CreditEvaluationQueryService(
             ?: throw IllegalArgumentException("신용평가 이력이 존재하지 않는 회원")
     }
 
-    override fun findAllHistoryByUser(username: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
+    override fun findAllHistoryByUser(
+        username: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistory> {
         return repository.findAllHistoryByUser(username, fromAt, toAt)
     }
 
@@ -32,8 +36,12 @@ class CreditEvaluationQueryService(
         return repository.findAllByCreatedBy(createdBy, fromAt, toAt)
     }
 
-    override fun findAllHistory(fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
-        return repository.findAll(fromAt, toAt)
+    override fun findAllHistoryBySameClass(
+        username: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistory> {
+        return repository.findAllHistoryBySameClass(username, fromAt, toAt)
     }
 
     override fun readCurrentScore(username: String): Int {

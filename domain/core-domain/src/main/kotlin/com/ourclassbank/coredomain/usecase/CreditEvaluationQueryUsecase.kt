@@ -9,7 +9,11 @@ interface CreditEvaluationQueryUsecase {
      */
     fun findLastHistoryByUser(username: String): CreditEvaluationHistory
 
-    fun findAllHistoryByUser(username: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory>
+    fun findAllHistoryByUser(
+        username: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistory>
 
     fun findAllHistoryByCreatedBy(
         createdBy: String,
@@ -17,7 +21,8 @@ interface CreditEvaluationQueryUsecase {
         toAt: LocalDateTime
     ): List<CreditEvaluationHistory>
 
-    fun findAllHistory(
+    fun findAllHistoryBySameClass(
+        username: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<CreditEvaluationHistory>

@@ -1,6 +1,7 @@
 package com.ourclassbank.coredomain.repository
 
 import com.ourclassbank.coredb.dao.CreditEvaluationHistoryEntityJpaDao
+import com.ourclassbank.coredb.dao.CreditEvaluationHistoryEntityQuerydslDao
 import com.ourclassbank.coredb.entity.CreditEvaluationHistoryEntity
 import com.ourclassbank.coredomain.repository.strategy.CreditEvaluateRepositoryValidationStrategy
 import com.ourclassbank.coredomain.support.factory.toModel
@@ -14,6 +15,7 @@ class CreditEvaluationRepository(
     private val evaluateRepositoryValidationStrategy: CreditEvaluateRepositoryValidationStrategy,
 
     private val historyJpaDao: CreditEvaluationHistoryEntityJpaDao,
+    private val historyQuerydslDao: CreditEvaluationHistoryEntityQuerydslDao,
 ) {
     fun evaluate(evaluateVo: CreditEvaluateVo): CreditEvaluationHistory {
         return evaluateVo.run {
@@ -46,7 +48,11 @@ class CreditEvaluationRepository(
         return historyJpaDao.findFirstByUsernameOrderByIdDesc(username)?.toModel()
     }
 
-    fun findAllHistoryByUser(username: String, fromAt: LocalDateTime, toAt: LocalDateTime): List<CreditEvaluationHistory> {
+    fun findAllHistoryByUser(
+        username: String,
+        fromAt: LocalDateTime,
+        toAt: LocalDateTime
+    ): List<CreditEvaluationHistory> {
         return historyJpaDao.findAllByUsernameAndCreatedAtBetweenOrderByCreatedAtDesc(
             username,
             fromAt,
@@ -66,11 +72,12 @@ class CreditEvaluationRepository(
         ).map { it.toModel() }
     }
 
-    fun findAll(
+    fun findAllHistoryBySameClass(
+        username: String,
         fromAt: LocalDateTime,
         toAt: LocalDateTime
     ): List<CreditEvaluationHistory> {
-        return historyJpaDao.findAllByCreatedAtBetweenOrderByCreatedAtDesc(fromAt, toAt).map { it.toModel() }
+        return historyQuerydslDao.findAllHistoryBySameClass(username, fromAt, toAt).map { it.toModel() }
     }
 
     fun readCurrentScore(username: String): Int {

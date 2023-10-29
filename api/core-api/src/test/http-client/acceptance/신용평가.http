@@ -168,7 +168,7 @@ Content-Type: application/json
 
 ###
 < {%
-    client.global.set("testName", "입출금 이력 조회 api - userUsername == teacher001")
+    client.global.set("testName", "신용평가 이력 조회 api - userUsername == teacher001")
 %}
 GET {{host}}/api/v1/credit-evaluation/history/by-teacher?fromAt=2022-07-30T23:45:10&toAt=2024-07-30T23:59:10
 Authorization: Bearer {{teacherToken}}

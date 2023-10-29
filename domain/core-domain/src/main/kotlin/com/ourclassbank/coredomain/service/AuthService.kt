@@ -28,6 +28,12 @@ class AuthService(
         }
     }
 
+    override fun demoSignin(username: String): String {
+        return userQueryUsecase.findByUsername(username).let {
+            jwtTokenProvider.createToken(it)
+        }
+    }
+
     override fun passwordReset(username: String, name: String) {
         userCommandUsecase.passwordReset(username, name)
     }
