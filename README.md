@@ -1,5 +1,7 @@
 # core-backend
 
+> 본 프로젝트는 23.12.20 부로 인프라가 off 되었습니다.
+
 ### environment
 
 - spring boot 3.1.0 + kotlin
